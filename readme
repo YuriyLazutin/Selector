@@ -1,0 +1,22 @@
+A long time ago in the world of database developers there was a wonderful program such as PL/SQL Developer by Allround Automations.
+It was fast, comfortable and just wonderful.
+And the database developers loved it.
+But as time went on, it acquired new, often unnecessary, opportunities.
+The designers tried to improve the user interface, but they ended up with something creepy.
+The program was getting fat, aging and becoming more awful and unwieldy.
+The world was changed too.
+The Windows operating system was reached the dead end, but Unix clones evolved.
+The Pascal/Delphi programming language (on which PL/SQL Developer was created) has lost its former popularity.
+
+Isn't it time to resurrect our favorite development tool?
+
+The Selector program is the reincarnation of the favorite program of database developers.
+
+The plans now include:
+  1) to create the most similar user interface, but taking into account modern needs
+  2) to throw out all unnecessary
+  3) to expand the number of supported database servers
+  4) to replace Pascal/Delphi with C++/Qt, thereby providing support for almost all modern operating systems
+
+And let PL/SQL Developer be reborn like a phoenix and shine even brighter.
+And his name will be Selector.
