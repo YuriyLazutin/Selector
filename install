@@ -1,0 +1,28 @@
+#!/bin/bash
+# This script will build and install Selector
+
+# Author: Yuriy Lazutin
+# Site: https://github.com/YuriyLazutin
+# Creation: 2021-oct-25
+# Donates:
+#          https://www.paypal.com/paypalme/yuriylazutin
+#          https://www.patreon.com/yuriylazutin
+
+export SELECTOR_HOME="/opt/Selector"
+export LBIN="/usr/local/bin"
+
+# Create
+#	.qmake.stash
+#	Makefile
+qmake selector.pro -spec linux-g++
+
+# Create
+#	app/Makefile
+#	connect-tool/Makefile
+#	about-tool/Makefile
+make -f Makefile qmake_all
+
+# Create moc and object files
+make -j8
+
+sudo mkdir -p "${SELECTOR_HOME}"
