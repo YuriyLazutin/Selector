@@ -1,3 +1,11 @@
+# Directories
+Debug
+Release
+Profile
+
+# Project file
+selector.pro.user
+
 # Prerequisites
 *.d
 

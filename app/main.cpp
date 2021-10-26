@@ -1,5 +1,5 @@
 #include <QApplication>
-#include "dialog.h"
+#include "selector.h"
 #include <getopt.h> // getopt_long, no_argument, required_argument, optarg, optind
 
 // Print help message and exit.
@@ -10,7 +10,7 @@ int main(int argc, char** argv)
 {
     program_name = argv[0];
     QApplication a(argc, argv);
-    Dialog w;
+    Selector w;
 
     int next_option;
 

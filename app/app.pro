@@ -17,10 +17,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    dialog.cpp
+    selector.cpp
 
 HEADERS += \
-    dialog.h
+    selector.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
