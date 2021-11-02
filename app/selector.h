@@ -20,10 +20,6 @@ class Selector : public QMainWindow
 
   private:
 
-  public:
-    Selector(QWidget *parent = nullptr);
-    ~Selector();
-
     QMenuBar menubar;
       QMenu menu_file;
         QMenu menu_file_new;
@@ -131,6 +127,25 @@ class Selector : public QMainWindow
         QAction action_edit_prev_tab;
       QMenu menu_session;
         QAction action_session_logon;
+        QAction action_session_logoff;
+        QAction action_session_execute;
+        QAction action_session_break;
+        QAction action_session_kill;
+        QAction action_session_commit;
+        QAction action_session_rollback;
+        QAction action_session_trace;
+      QMenu menu_debug;
+        QAction action_debug_breakpoint;
+        QAction action_debug_mod_brkpnts;
+        QAction action_debug_start;
+        QAction action_debug_run;
+        QAction action_debug_step_into;
+        QAction action_debug_step_over;
+        QAction action_debug_step_out;
+        QAction action_debug_continue;
+        QAction action_debug_var;
+      QMenu menu_tools;
+        QAction action_tools_pref;
 
     QWidget centralwidget;
 
@@ -138,6 +153,8 @@ class Selector : public QMainWindow
 
     QStatusBar statusbar;
 
-
+  public:
+    Selector(QWidget *parent = nullptr);
+    ~Selector();
 };
 #endif // SELECTOR_H

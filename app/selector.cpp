@@ -519,7 +519,7 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
         menu_edit.addAction(&action_edit_next_tab);
         // Edit->Previous Tab Page
         action_edit_prev_tab.setObjectName(QString::fromUtf8("action_edit_prev_tab"));
-        action_edit_prev_tab.setText(QApplication::translate("Selector", "&Previuos Tab Page", nullptr));
+        action_edit_prev_tab.setText(QApplication::translate("Selector", "&Previous Tab Page", nullptr));
         #ifndef QT_NO_SHORTCUT
         action_edit_prev_tab.setShortcut(QApplication::translate("Selector", "Shift+Ctrl+H", nullptr));
         #endif // QT_NO_SHORTCUT
@@ -533,10 +533,122 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
         action_session_logon.setObjectName(QString::fromUtf8("action_session_logon"));
         action_session_logon.setText(QApplication::translate("Selector", "&Log on...", nullptr));
         menu_session.addAction(&action_session_logon);
-
+        // Session->Log off
+        action_session_logoff.setObjectName(QString::fromUtf8("action_session_logoff"));
+        action_session_logoff.setText(QApplication::translate("Selector", "Log &off", nullptr));
+        menu_session.addAction(&action_session_logoff);
+        // Session->-------
+        menu_session.addSeparator();
+        // Session->Execute
+        action_session_execute.setObjectName(QString::fromUtf8("action_session_execute"));
+        action_session_execute.setText(QApplication::translate("Selector", "&Execute", nullptr));
+        #ifndef QT_NO_SHORTCUT
+        action_session_execute.setShortcut(QApplication::translate("Selector", "F8", nullptr));
+        #endif // QT_NO_SHORTCUT
+        menu_session.addAction(&action_session_execute);
+        // Session->Break
+        action_session_break.setObjectName(QString::fromUtf8("action_session_break"));
+        action_session_break.setText(QApplication::translate("Selector", "&Break", nullptr));
+        #ifndef QT_NO_SHORTCUT
+        action_session_break.setShortcut(QApplication::translate("Selector", "Shift+Esc", nullptr));
+        #endif // QT_NO_SHORTCUT
+        menu_session.addAction(&action_session_break);
+        // Session->Kill
+        action_session_kill.setObjectName(QString::fromUtf8("action_session_kill"));
+        action_session_kill.setText(QApplication::translate("Selector", "&Kill", nullptr));
+        menu_session.addAction(&action_session_kill);
+        // Session->Commit
+        action_session_commit.setObjectName(QString::fromUtf8("action_session_commit"));
+        action_session_commit.setText(QApplication::translate("Selector", "&Commit", nullptr));
+        #ifndef QT_NO_SHORTCUT
+        action_session_commit.setShortcut(QApplication::translate("Selector", "F10", nullptr));
+        #endif // QT_NO_SHORTCUT
+        menu_session.addAction(&action_session_commit);
+        // Session->Rollback
+        action_session_rollback.setObjectName(QString::fromUtf8("action_session_rollback"));
+        action_session_rollback.setText(QApplication::translate("Selector", "&Rollback", nullptr));
+        #ifndef QT_NO_SHORTCUT
+        action_session_rollback.setShortcut(QApplication::translate("Selector", "Shift+F10", nullptr));
+        #endif // QT_NO_SHORTCUT
+        menu_session.addAction(&action_session_rollback);
+        // Session->SQL Trace
+        action_session_trace.setObjectName(QString::fromUtf8("action_session_trace"));
+        action_session_trace.setText(QApplication::translate("Selector", "SQL &Trace", nullptr));
+        menu_session.addAction(&action_session_trace);
       menubar.addAction(menu_session.menuAction());
 
+      // Debug
+      menu_debug.setObjectName(QString::fromUtf8("menu_debug"));
+      menu_debug.setTitle(QApplication::translate("Selector", "&Debug", nullptr));
+        // Debug->Toggle Breakpoint
+        action_debug_breakpoint.setObjectName(QString::fromUtf8("action_debug_breakpoint"));
+        action_debug_breakpoint.setText(QApplication::translate("Selector", "Toggle &Breakpoint", nullptr));
+        #ifndef QT_NO_SHORTCUT
+        action_debug_breakpoint.setShortcut(QApplication::translate("Selector", "Ctrl+B", nullptr));
+        #endif // QT_NO_SHORTCUT
+        menu_debug.addAction(&action_debug_breakpoint);
+        // Debug->Modify Breakpoints...
+        action_debug_mod_brkpnts.setObjectName(QString::fromUtf8("action_debug_mod_brkpnts"));
+        action_debug_mod_brkpnts.setText(QApplication::translate("Selector", "&Modify Breakpoints...", nullptr));
+        menu_debug.addAction(&action_debug_mod_brkpnts);
+        // Debug->Start
+        action_debug_start.setObjectName(QString::fromUtf8("action_debug_start"));
+        action_debug_start.setText(QApplication::translate("Selector", "&Start", nullptr));
+        #ifndef QT_NO_SHORTCUT
+        action_debug_start.setShortcut(QApplication::translate("Selector", "F9", nullptr));
+        #endif // QT_NO_SHORTCUT
+        menu_debug.addAction(&action_debug_start);
+        // Debug->-------
+        menu_debug.addSeparator();
+        // Debug->Run
+        action_debug_run.setObjectName(QString::fromUtf8("action_debug_run"));
+        action_debug_run.setText(QApplication::translate("Selector", "&Run", nullptr));
+        #ifndef QT_NO_SHORTCUT
+        action_debug_run.setShortcut(QApplication::translate("Selector", "Ctrl+R", nullptr));
+        #endif // QT_NO_SHORTCUT
+        menu_debug.addAction(&action_debug_run);
+        // Debug->Step Into
+        action_debug_step_into.setObjectName(QString::fromUtf8("action_debug_step_into"));
+        action_debug_step_into.setText(QApplication::translate("Selector", "Step &Into", nullptr));
+        #ifndef QT_NO_SHORTCUT
+        action_debug_step_into.setShortcut(QApplication::translate("Selector", "Ctrl+N", nullptr));
+        #endif // QT_NO_SHORTCUT
+        menu_debug.addAction(&action_debug_step_into);
+        // Debug->Step Over
+        action_debug_step_over.setObjectName(QString::fromUtf8("action_debug_step_over"));
+        action_debug_step_over.setText(QApplication::translate("Selector", "Step &Over", nullptr));
+        #ifndef QT_NO_SHORTCUT
+        action_debug_step_over.setShortcut(QApplication::translate("Selector", "Ctrl+O", nullptr));
+        #endif // QT_NO_SHORTCUT
+        menu_debug.addAction(&action_debug_step_over);
+        // Debug->Step Out
+        action_debug_step_out.setObjectName(QString::fromUtf8("action_debug_step_out"));
+        action_debug_step_out.setText(QApplication::translate("Selector", "Step Ou&t", nullptr));
+        #ifndef QT_NO_SHORTCUT
+        action_debug_step_out.setShortcut(QApplication::translate("Selector", "Ctrl+T", nullptr));
+        #endif // QT_NO_SHORTCUT
+        menu_debug.addAction(&action_debug_step_out);
+        // Debug->Run to Exception
+        action_debug_continue.setObjectName(QString::fromUtf8("action_debug_continue"));
+        action_debug_continue.setText(QApplication::translate("Selector", "Run to &Exception", nullptr));
+        menu_debug.addAction(&action_debug_continue);
+        // Debug->-------
+        menu_debug.addSeparator();
+        // Debug->Set Variable...
+        action_debug_var.setObjectName(QString::fromUtf8("action_debug_var"));
+        action_debug_var.setText(QApplication::translate("Selector", "Set &Variable...", nullptr));
+        menu_debug.addAction(&action_debug_var);
+      menubar.addAction(menu_debug.menuAction());
 
+      // Tools
+      menu_tools.setObjectName(QString::fromUtf8("menu_tools"));
+      menu_tools.setTitle(QApplication::translate("Selector", "&Tools", nullptr));
+        // Tools->Preferences...
+        action_tools_pref.setObjectName(QString::fromUtf8("action_tools_pref"));
+        action_tools_pref.setText(QApplication::translate("Selector", "&Preferences...", nullptr));
+        menu_tools.addAction(&action_tools_pref);
+
+      menubar.addAction(menu_tools.menuAction());
 
     setMenuBar(&menubar);
 
