@@ -647,8 +647,201 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
         action_tools_pref.setObjectName(QString::fromUtf8("action_tools_pref"));
         action_tools_pref.setText(QApplication::translate("Selector", "&Preferences...", nullptr));
         menu_tools.addAction(&action_tools_pref);
+        // Tools->-------
+        menu_tools.addSeparator();
+        // Tools->Configure Plug-Ins...
+        action_tools_cfgplgns.setObjectName(QString::fromUtf8("action_tools_cfgplgns"));
+        action_tools_cfgplgns.setText(QApplication::translate("Selector", "Configure Plug-Ins...", nullptr));
+        action_tools_cfgplgns.setEnabled(false);
+        menu_tools.addAction(&action_tools_cfgplgns);
+        // Tools->Configure Tools...
+        action_tools_cfgtools.setObjectName(QString::fromUtf8("action_tools_cfgtools"));
+        action_tools_cfgtools.setText(QApplication::translate("Selector", "Configure T&ools...", nullptr));
+        menu_tools.addAction(&action_tools_cfgtools);
+        // Tools->Configure Documents...
+        action_tools_cfgdocs.setObjectName(QString::fromUtf8("action_tools_cfgdocs"));
+        action_tools_cfgdocs.setText(QApplication::translate("Selector", "Configure &Documents...", nullptr));
+        menu_tools.addAction(&action_tools_cfgdocs);
+        // Tools->Configure Reports...
+        action_tools_cfgreps.setObjectName(QString::fromUtf8("action_tools_cfgreps"));
+        action_tools_cfgreps.setText(QApplication::translate("Selector", "Configure &Reports...", nullptr));
+        menu_tools.addAction(&action_tools_cfgreps);
+        // Tools->Macro
+        menu_tools_macro.setObjectName(QString::fromUtf8("menu_tools_macro"));
+        menu_tools_macro.setTitle(QApplication::translate("Selector", "&Macro", nullptr));
+        menu_tools.addAction(menu_tools_macro.menuAction());
+          // Tools->Macro->Record
+          action_tools_macro_rec.setObjectName(QString::fromUtf8("action_tools_macro_rec"));
+          action_tools_macro_rec.setText(QApplication::translate("Selector", "&Record", nullptr));
+          action_tools_macro_rec.setEnabled(false);
+          #ifndef QT_NO_SHORTCUT
+          action_tools_macro_rec.setShortcut(QApplication::translate("Selector", "F11", nullptr));
+          #endif // QT_NO_SHORTCUT
+          menu_tools_macro.addAction(&action_tools_macro_rec);
+          // Tools->Macro->Playback
+          action_tools_macro_play.setObjectName(QString::fromUtf8("action_tools_macro_play"));
+          action_tools_macro_play.setText(QApplication::translate("Selector", "&Playback", nullptr));
+          action_tools_macro_play.setEnabled(false);
+          #ifndef QT_NO_SHORTCUT
+          action_tools_macro_play.setShortcut(QApplication::translate("Selector", "F12", nullptr));
+          #endif // QT_NO_SHORTCUT
+          menu_tools_macro.addAction(&action_tools_macro_play);
+          // Tools->Macro->Library...
+          action_tools_macro_lib.setObjectName(QString::fromUtf8("action_tools_macro_lib"));
+          action_tools_macro_lib.setText(QApplication::translate("Selector", "&Library...", nullptr));
+          menu_tools_macro.addAction(&action_tools_macro_lib);
+        // Tools->-------
+        menu_tools.addSeparator();
+        // Tools->Browser
+        action_tools_bro.setObjectName(QString::fromUtf8("action_tools_bro"));
+        action_tools_bro.setText(QApplication::translate("Selector", "&Browser", nullptr));
+        action_tools_bro.setCheckable(true);
+        action_tools_bro.setChecked(true);
+        menu_tools.addAction(&action_tools_bro);
+        // Tools->Browser Folders...
+        action_tools_brodir.setObjectName(QString::fromUtf8("action_tools_brodir"));
+        action_tools_brodir.setText(QApplication::translate("Selector", "Browser &Folders...", nullptr));
+        menu_tools.addAction(&action_tools_brodir);
+        // Tools->Browser Filters...
+        action_tools_brofil.setObjectName(QString::fromUtf8("action_tools_brofil"));
+        action_tools_brofil.setText(QApplication::translate("Selector", "Browser F&ilters...", nullptr));
+        menu_tools.addAction(&action_tools_brofil);
+        // Tools->Template List
+        action_tools_tmpl.setObjectName(QString::fromUtf8("action_tools_tmpl"));
+        action_tools_tmpl.setText(QApplication::translate("Selector", "T&emplate List", nullptr));
+        action_tools_tmpl.setCheckable(true);
+        action_tools_tmpl.setChecked(false);
+        menu_tools.addAction(&action_tools_tmpl);
+        // Tools->Window List
+        action_tools_wndlst.setObjectName(QString::fromUtf8("action_tools_wndlst"));
+        action_tools_wndlst.setText(QApplication::translate("Selector", "&Window List", nullptr));
+        action_tools_wndlst.setCheckable(true);
+        action_tools_wndlst.setChecked(true);
+        menu_tools.addAction(&action_tools_wndlst);
+        // Tools->Toolbar
+        action_tools_tlbr.setObjectName(QString::fromUtf8("action_tools_tlbr"));
+        action_tools_tlbr.setText(QApplication::translate("Selector", "Toolbar", nullptr));
+        action_tools_tlbr.setCheckable(true);
+        action_tools_tlbr.setChecked(true);
+        menu_tools.addAction(&action_tools_tlbr);
+        // Tools->-------
+        menu_tools.addSeparator();
+        // Tools->Explain Plan
+        action_tools_expln.setObjectName(QString::fromUtf8("action_tools_expln"));
+        action_tools_expln.setText(QApplication::translate("Selector", "E&xplain Plan", nullptr));
+        #ifndef QT_NO_SHORTCUT
+        action_tools_expln.setShortcut(QApplication::translate("Selector", "F5", nullptr));
+        #endif // QT_NO_SHORTCUT
+        action_tools_expln.setEnabled(false);
+        menu_tools.addAction(&action_tools_expln);
+        // Tools->Code Assistant
+        action_tools_astnt.setObjectName(QString::fromUtf8("action_tools_astnt"));
+        action_tools_astnt.setText(QApplication::translate("Selector", "Code &Assistant", nullptr));
+        #ifndef QT_NO_SHORTCUT
+        action_tools_astnt.setShortcut(QApplication::translate("Selector", "F6", nullptr));
+        #endif // QT_NO_SHORTCUT
+        action_tools_astnt.setEnabled(false);
+        menu_tools.addAction(&action_tools_astnt);
+        // Tools->Code Contents
+        action_tools_cntnts.setObjectName(QString::fromUtf8("action_tools_cntnts"));
+        action_tools_cntnts.setText(QApplication::translate("Selector", "&Code Contents", nullptr));
+        action_tools_cntnts.setEnabled(false);
+        menu_tools.addAction(&action_tools_cntnts);
+        // Tools->Show Compiler Hints
+        action_tools_chnts.setObjectName(QString::fromUtf8("action_tools_chnts"));
+        action_tools_chnts.setText(QApplication::translate("Selector", "Show Compiler &Hints", nullptr));
+        action_tools_chnts.setEnabled(false);
+        menu_tools.addAction(&action_tools_chnts);
+        // Tools->Query Builder...
+        action_tools_qbldr.setObjectName(QString::fromUtf8("action_tools_qbldr"));
+        action_tools_qbldr.setText(QApplication::translate("Selector", "&Query Builder...", nullptr));
+        action_tools_qbldr.setEnabled(false);
+        menu_tools.addAction(&action_tools_qbldr);
+        // Tools->-------
+        menu_tools.addSeparator();
+        // Tools->Find Database Objects...
+        action_tools_fdbo.setObjectName(QString::fromUtf8("action_tools_fdbo"));
+        action_tools_fdbo.setText(QApplication::translate("Selector", "Find &Database Objects...", nullptr));
+        action_tools_fdbo.setEnabled(false);
+        menu_tools.addAction(&action_tools_fdbo);
+        // Tools->Compile Invalide Objects...
+        action_tools_cpinv.setObjectName(QString::fromUtf8("action_tools_cpinv"));
+        action_tools_cpinv.setText(QApplication::translate("Selector", "Compile I&nvalid Objects...", nullptr));
+        action_tools_cpinv.setEnabled(false);
+        menu_tools.addAction(&action_tools_cpinv);
+        // Tools->Export User Objects...
+        action_tools_expobj.setObjectName(QString::fromUtf8("action_tools_expobj"));
+        action_tools_expobj.setText(QApplication::translate("Selector", "Export &User Objects...", nullptr));
+        action_tools_expobj.setEnabled(false);
+        menu_tools.addAction(&action_tools_expobj);
+        // Tools->Compare User Objects...
+        action_tools_cmpobj.setObjectName(QString::fromUtf8("action_tools_cmpobj"));
+        action_tools_cmpobj.setText(QApplication::translate("Selector", "Compare User O&bjects...", nullptr));
+        action_tools_cmpobj.setEnabled(false);
+        menu_tools.addAction(&action_tools_cmpobj);
+        // Tools->Event Monitor...
+        action_tools_emon.setObjectName(QString::fromUtf8("action_tools_emon"));
+        action_tools_emon.setText(QApplication::translate("Selector", "E&vent Monitor...", nullptr));
+        action_tools_emon.setEnabled(false);
+        menu_tools.addAction(&action_tools_emon);
+        // Tools->Sessions...
+        action_tools_sessns.setObjectName(QString::fromUtf8("action_tools_sessns"));
+        action_tools_sessns.setText(QApplication::translate("Selector", "&Sessions...", nullptr));
+        action_tools_sessns.setEnabled(false);
+        menu_tools.addAction(&action_tools_sessns);
+        // Tools->Test Manager...
+        action_tools_tstmngr.setObjectName(QString::fromUtf8("action_tools_tstmngr"));
+        action_tools_tstmngr.setText(QApplication::translate("Selector", "Test Manager...", nullptr));
+        menu_tools.addAction(&action_tools_tstmngr);
+        // Tools->-------
+        menu_tools.addSeparator();
+        // Tools->Export Tables...
+        action_tools_exptbls.setObjectName(QString::fromUtf8("action_tools_exptbls"));
+        action_tools_exptbls.setText(QApplication::translate("Selector", "E&xport Tables...", nullptr));
+        action_tools_exptbls.setEnabled(false);
+        menu_tools.addAction(&action_tools_exptbls);
+        // Tools->Import Tables...
+        action_tools_imptbls.setObjectName(QString::fromUtf8("action_tools_imptbls"));
+        action_tools_imptbls.setText(QApplication::translate("Selector", "Import Tables...", nullptr));
+        action_tools_imptbls.setEnabled(false);
+        menu_tools.addAction(&action_tools_imptbls);
+        // Tools->Compare Table Data...
+        action_tools_cmptbld.setObjectName(QString::fromUtf8("action_tools_cmptbld"));
+        action_tools_cmptbld.setText(QApplication::translate("Selector", "Compare &Table Data...", nullptr));
+        menu_tools.addAction(&action_tools_cmptbld);
+        // Tools->Text Importer...
+        action_tools_imptxt.setObjectName(QString::fromUtf8("action_tools_imptxt"));
+        action_tools_imptxt.setText(QApplication::translate("Selector", "Text Importer...", nullptr));
+        menu_tools.addAction(&action_tools_imptxt);
+        // Tools->ODBC Importer...
+        action_tools_impODBC.setObjectName(QString::fromUtf8("action_tools_impODBC"));
+        action_tools_impODBC.setText(QApplication::translate("Selector", "ODBC Importer...", nullptr));
+        menu_tools.addAction(&action_tools_impODBC);
+        // Tools->Data Generator...
+        action_tools_gendat.setObjectName(QString::fromUtf8("action_tools_gendat"));
+        action_tools_gendat.setText(QApplication::translate("Selector", "Data &Generator...", nullptr));
+        menu_tools.addAction(&action_tools_gendat);
 
       menubar.addAction(menu_tools.menuAction());
+
+      // Macro
+      menu_macro.setObjectName(QString::fromUtf8("menu_macro"));
+      menu_macro.setTitle(QApplication::translate("Selector", "&Macro", nullptr));
+        // ...
+      menubar.addAction(menu_macro.menuAction());
+
+      // Documents
+      menu_docs.setObjectName(QString::fromUtf8("menu_docs"));
+      menu_docs.setTitle(QApplication::translate("Selector", "D&ocuments", nullptr));
+        // ...
+      menubar.addAction(menu_docs.menuAction());
+
+      // Reports
+      menu_reps.setObjectName(QString::fromUtf8("menu_reps"));
+      menu_reps.setTitle(QApplication::translate("Selector", "&Reports", nullptr));
+        // Reports->DBA
+
+      menubar.addAction(menu_reps.menuAction());
 
     setMenuBar(&menubar);
 
