@@ -840,8 +840,176 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
       menu_reps.setObjectName(QString::fromUtf8("menu_reps"));
       menu_reps.setTitle(QApplication::translate("Selector", "&Reports", nullptr));
         // Reports->DBA
+        menu_reps_dba.setObjectName(QString::fromUtf8("menu_reps_dba"));
+        menu_reps_dba.setTitle(QApplication::translate("Selector", "DBA", nullptr));
+        menu_reps.addAction(menu_reps_dba.menuAction());
+          // Reports->DBA->Initialization Parameters
+          action_reps_dba_initpar.setObjectName(QString::fromUtf8("action_reps_dba_initpar"));
+          action_reps_dba_initpar.setText(QApplication::translate("Selector", "Initialization Parameters", nullptr));
+          menu_reps_dba.addAction(&action_reps_dba_initpar);
+          // Reports->DBA->NLS Database Parameters
+          action_reps_dba_nlspar.setObjectName(QString::fromUtf8("action_reps_dba_nlspar"));
+          action_reps_dba_nlspar.setText(QApplication::translate("Selector", "NLS Database Parameters", nullptr));
+          menu_reps_dba.addAction(&action_reps_dba_nlspar);
+          // Reports->DBA->Role Privileges
+          action_reps_dba_rolprv.setObjectName(QString::fromUtf8("action_reps_dba_rolprv"));
+          action_reps_dba_rolprv.setText(QApplication::translate("Selector", "Role Privileges", nullptr));
+          menu_reps_dba.addAction(&action_reps_dba_rolprv);
+          // Reports->DBA->Roles
+          action_reps_dba_rol.setObjectName(QString::fromUtf8("action_reps_dba_rol"));
+          action_reps_dba_rol.setText(QApplication::translate("Selector", "Roles", nullptr));
+          menu_reps_dba.addAction(&action_reps_dba_rol);
+          // Reports->DBA->Rollback Segments
+          action_reps_dba_rlbseg.setObjectName(QString::fromUtf8("action_reps_dba_rlbseg"));
+          action_reps_dba_rlbseg.setText(QApplication::translate("Selector", "Rollback Segments", nullptr));
+          menu_reps_dba.addAction(&action_reps_dba_rlbseg);
+          // Reports->DBA->Server Components
+          action_reps_dba_srvcom.setObjectName(QString::fromUtf8("action_reps_dba_srvcom"));
+          action_reps_dba_srvcom.setText(QApplication::translate("Selector", "Server Components", nullptr));
+          menu_reps_dba.addAction(&action_reps_dba_srvcom);
+          // Reports->DBA->System Priveleges
+          action_reps_dba_sysprv.setObjectName(QString::fromUtf8("action_reps_dba_sysprv"));
+          action_reps_dba_sysprv.setText(QApplication::translate("Selector", "System Priveleges", nullptr));
+          menu_reps_dba.addAction(&action_reps_dba_sysprv);
+          // Reports->DBA->Tablespaces
+          action_reps_dba_tblspcs.setObjectName(QString::fromUtf8("action_reps_dba_tblspcs"));
+          action_reps_dba_tblspcs.setText(QApplication::translate("Selector", "Tablespaces", nullptr));
+          menu_reps_dba.addAction(&action_reps_dba_tblspcs);
+          // Reports->DBA->Total Free Space
+          action_reps_dba_tfs.setObjectName(QString::fromUtf8("action_reps_dba_tfs"));
+          action_reps_dba_tfs.setText(QApplication::translate("Selector", "Total Free Space", nullptr));
+          menu_reps_dba.addAction(&action_reps_dba_tfs);
+          // Reports->DBA->Users
+          action_reps_dba_usrs.setObjectName(QString::fromUtf8("action_reps_dba_usrs"));
+          action_reps_dba_usrs.setText(QApplication::translate("Selector", "Users", nullptr));
+          menu_reps_dba.addAction(&action_reps_dba_usrs);
+
+        // Reports->Objects
+        menu_reps_objects.setObjectName(QString::fromUtf8("menu_reps_objects"));
+        menu_reps_objects.setTitle(QApplication::translate("Selector", "Objects", nullptr));
+        menu_reps.addAction(menu_reps_objects.menuAction());
+          // Reports->Objects->All Objects
+          action_reps_objects_all.setObjectName(QString::fromUtf8("action_reps_objects_all"));
+          action_reps_objects_all.setText(QApplication::translate("Selector", "All Objects", nullptr));
+          menu_reps_objects.addAction(&action_reps_objects_all);
+          // Reports->Objects->Indexes
+          action_reps_objects_idx.setObjectName(QString::fromUtf8("action_reps_objects_idx"));
+          action_reps_objects_idx.setText(QApplication::translate("Selector", "Indexes", nullptr));
+          menu_reps_objects.addAction(&action_reps_objects_idx);
+          // Reports->Objects->Sequences
+          action_reps_objects_seq.setObjectName(QString::fromUtf8("action_reps_objects_seq"));
+          action_reps_objects_seq.setText(QApplication::translate("Selector", "Sequences", nullptr));
+          menu_reps_objects.addAction(&action_reps_objects_seq);
+          // Reports->Objects->Synonyms
+          action_reps_objects_syn.setObjectName(QString::fromUtf8("action_reps_objects_syn"));
+          action_reps_objects_syn.setText(QApplication::translate("Selector", "Synonyms", nullptr));
+          menu_reps_objects.addAction(&action_reps_objects_syn);
+          // Reports->Objects->Tables
+          action_reps_objects_tbs.setObjectName(QString::fromUtf8("action_reps_objects_tbs"));
+          action_reps_objects_tbs.setText(QApplication::translate("Selector", "Tables", nullptr));
+          menu_reps_objects.addAction(&action_reps_objects_tbs);
+          // Reports->Objects->Triggers
+          action_reps_objects_trg.setObjectName(QString::fromUtf8("action_reps_objects_trg"));
+          action_reps_objects_trg.setText(QApplication::translate("Selector", "Triggers", nullptr));
+          menu_reps_objects.addAction(&action_reps_objects_trg);
+          // Reports->Objects->Types
+          action_reps_objects_tps.setObjectName(QString::fromUtf8("action_reps_objects_tps"));
+          action_reps_objects_tps.setText(QApplication::translate("Selector", "Types", nullptr));
+          menu_reps_objects.addAction(&action_reps_objects_tps);
+          // Reports->Objects->Views
+          action_reps_objects_views.setObjectName(QString::fromUtf8("action_reps_objects_views"));
+          action_reps_objects_views.setText(QApplication::translate("Selector", "Views", nullptr));
+          menu_reps_objects.addAction(&action_reps_objects_views);
+
+        // Reports->PL/SQL
+        menu_reps_plsql.setObjectName(QString::fromUtf8("menu_reps_plsql"));
+        menu_reps_plsql.setTitle(QApplication::translate("Selector", "PL/SQL", nullptr));
+        menu_reps.addAction(menu_reps_plsql.menuAction());
+          // Reports->Objects->Compilation Errors
+          action_reps_plsql_cperrs.setObjectName(QString::fromUtf8("action_reps_plsql_cperrs"));
+          action_reps_plsql_cperrs.setText(QApplication::translate("Selector", "Compilation Errors", nullptr));
+          menu_reps_plsql.addAction(&action_reps_plsql_cperrs);
+
+        // Reports->User
+        menu_reps_user.setObjectName(QString::fromUtf8("menu_reps_user"));
+        menu_reps_user.setTitle(QApplication::translate("Selector", "User", nullptr));
+        menu_reps.addAction(menu_reps_user.menuAction());
+          // Reports->Objects->Granted Roles
+          action_reps_user_grrol.setObjectName(QString::fromUtf8("action_reps_user_grrol"));
+          action_reps_user_grrol.setText(QApplication::translate("Selector", "Granted Roles", nullptr));
+          menu_reps_user.addAction(&action_reps_user_grrol);
+          // Reports->Objects->Granted System Privileges
+          action_reps_user_grsysprv.setObjectName(QString::fromUtf8("action_reps_user_grsysprv"));
+          action_reps_user_grsysprv.setText(QApplication::translate("Selector", "Granted System Privileges", nullptr));
+          menu_reps_user.addAction(&action_reps_user_grsysprv);
+          // Reports->Objects->NLS Session Parameters
+          action_reps_user_nlssespar.setObjectName(QString::fromUtf8("action_reps_user_nlssespar"));
+          action_reps_user_nlssespar.setText(QApplication::translate("Selector", "NLS Session Parameters", nullptr));
+          menu_reps_user.addAction(&action_reps_user_nlssespar);
+          // Reports->Objects->Object Privileges Made
+          action_reps_user_objprvmde.setObjectName(QString::fromUtf8("action_reps_user_objprvmde"));
+          action_reps_user_objprvmde.setText(QApplication::translate("Selector", "Object Privileges Made", nullptr));
+          menu_reps_user.addAction(&action_reps_user_objprvmde);
+          // Reports->Objects->Object Privileges Received
+          action_reps_user_objprvrcvd.setObjectName(QString::fromUtf8("action_reps_user_objprvrcvd"));
+          action_reps_user_objprvrcvd.setText(QApplication::translate("Selector", "Object Privileges Received", nullptr));
+          menu_reps_user.addAction(&action_reps_user_objprvrcvd);
 
       menubar.addAction(menu_reps.menuAction());
+
+      // Window
+      menu_window.setObjectName(QString::fromUtf8("menu_window"));
+      menu_window.setTitle(QApplication::translate("Selector", "&Window", nullptr));
+        // Window->Tile
+        action_window_tile.setObjectName(QString::fromUtf8("action_window_tile"));
+        action_window_tile.setText(QApplication::translate("Selector", "&Tile", nullptr));
+        action_window_tile.setEnabled(false);
+        menu_window.addAction(&action_window_tile);
+        // Window->Cascade
+        action_window_cscd.setObjectName(QString::fromUtf8("action_window_cscd"));
+        action_window_cscd.setText(QApplication::translate("Selector", "&Cascade", nullptr));
+        action_window_cscd.setEnabled(false);
+        menu_window.addAction(&action_window_cscd);
+        // Window->Arrange All
+        action_window_arrall.setObjectName(QString::fromUtf8("action_window_arrall"));
+        action_window_arrall.setText(QApplication::translate("Selector", "&Arrange All", nullptr));
+        action_window_arrall.setEnabled(false);
+        menu_window.addAction(&action_window_arrall);
+        // Window->-------
+        menu_window.addSeparator();
+        // Window->Save Layout
+        action_window_savelo.setObjectName(QString::fromUtf8("action_window_savelo"));
+        action_window_savelo.setText(QApplication::translate("Selector", "&Save Layout", nullptr));
+        menu_window.addAction(&action_window_savelo);
+
+      menubar.addAction(menu_window.menuAction());
+
+      // Help
+      menu_help.setObjectName(QString::fromUtf8("menu_help"));
+      menu_help.setTitle(QApplication::translate("Selector", "&Help", nullptr));
+        // Help->Help
+        action_help_help.setObjectName(QString::fromUtf8("action_help_help"));
+        action_help_help.setText(QApplication::translate("Selector", "&Help", nullptr));
+        #ifndef QT_NO_SHORTCUT
+        action_help_help.setShortcut(QApplication::translate("Selector", "F1", nullptr));
+        #endif // QT_NO_SHORTCUT
+        menu_help.addAction(&action_help_help);
+        // Help->Donates & Thanksgiving...
+        action_help_dnt.setObjectName(QString::fromUtf8("action_help_dnt"));
+        action_help_dnt.setText(QApplication::translate("Selector", "&Donates && Thanksgiving...", nullptr));
+        menu_help.addAction(&action_help_dnt);
+        // Help->Support Info...
+        action_help_supp.setObjectName(QString::fromUtf8("action_help_supp"));
+        action_help_supp.setText(QApplication::translate("Selector", "&Support Info...", nullptr));
+        menu_help.addAction(&action_help_supp);
+        // Help->-------
+        menu_help.addSeparator();
+        // Help->About Selector...
+        action_help_about.setObjectName(QString::fromUtf8("action_help_about"));
+        action_help_about.setText(QApplication::translate("Selector", "&About", nullptr));
+        menu_help.addAction(&action_help_about);
+
+      menubar.addAction(menu_help.menuAction());
 
     setMenuBar(&menubar);
 
