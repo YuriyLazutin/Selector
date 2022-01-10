@@ -19,7 +19,7 @@ class Selector : public QMainWindow
   Q_OBJECT
 
   private:
-
+    void CreateMenu();
     QMenuBar menubar;
       QMenu menu_file;
         QMenu menu_file_new;
