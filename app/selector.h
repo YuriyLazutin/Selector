@@ -12,6 +12,7 @@
 //#include <QtWidgets/QMainWindow>
 //#include <QtWidgets/QToolButton>
 //#include <QtWidgets/QWidget>
+#include <QMessageBox>
 
 
 class Selector : public QMainWindow
@@ -222,12 +223,20 @@ class Selector : public QMainWindow
 
     QWidget centralwidget;
 
-    QToolBar toolBar;
+    QToolBar toolBarFile;
+    QToolBar toolBarRecords;
+    QToolBar toolBarFindPanel;
 
     QStatusBar statusbar;
 
   public:
     Selector(QWidget *parent = nullptr);
     ~Selector();
+
+  public slots:
+      void slotNoImpl()
+      {
+          QMessageBox::information(0, "Message", "Feature Not implemented!");
+      }
 };
 #endif // SELECTOR_H

@@ -18,13 +18,44 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
 
     CreateMenu();
 
+    // Create "File" Toolbar
+    toolBarFile.setObjectName(QString::fromUtf8("toolBarFile"));
+    toolBarFile.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
+    toolBarFile.addAction(&action_session_logon);
+    toolBarFile.addSeparator();
+    toolBarFile.addAction(menu_file_new.menuAction());
+    toolBarFile.addAction(menu_file_open.menuAction());
+    toolBarFile.addAction(&action_file_save);
+    toolBarFile.addSeparator();
+    toolBarFile.addAction(&action_edit_undo);
+    toolBarFile.addAction(&action_edit_redo);
+    toolBarFile.addSeparator();
+    toolBarFile.addAction(&action_session_execute);
+    toolBarFile.addAction(&action_session_break);
+    toolBarFile.addAction(&action_session_commit);
+    toolBarFile.addAction(&action_session_rollback);
+    toolBarFile.addSeparator();
+    addToolBar(Qt::TopToolBarArea, &toolBarFile);
 
-    toolBar.setObjectName(QString::fromUtf8("toolBar"));
-    toolBar.setStyleSheet(QString::fromUtf8("background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:1.5, fx:0.5, fy:0.5, stop:0 rgba(190, 200, 210, 255), stop:1 rgba(160, 200, 190, 223));"));
-    toolBar.addAction(&action_file_authorization);
-    toolBar.addSeparator();
-    toolBar.addAction(&action_edit_undo);
-    addToolBar(Qt::TopToolBarArea, &toolBar);
+    // Create "Records" Toolbar
+    toolBarRecords.setObjectName(QString::fromUtf8("toolBarRecords"));
+    toolBarRecords.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
+    toolBarRecords.addAction(&action_session_execute); // ToDo: replace with correct buttons
+    toolBarRecords.addAction(&action_session_break); // ToDo: replace with correct buttons
+    toolBarRecords.addAction(&action_session_commit); // ToDo: replace with correct buttons
+    toolBarRecords.addAction(&action_session_rollback); // ToDo: replace with correct buttons
+    toolBarRecords.addSeparator();
+    addToolBar(Qt::TopToolBarArea, &toolBarRecords);
+
+    // Create "Find panel" Toolbar
+    toolBarFindPanel.setObjectName(QString::fromUtf8("toolBarFindPanel"));
+    toolBarFindPanel.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
+    toolBarFindPanel.addAction(&action_session_execute); // ToDo: replace with correct buttons
+    toolBarFindPanel.addAction(&action_session_break); // ToDo: replace with correct buttons
+    toolBarFindPanel.addAction(&action_session_commit); // ToDo: replace with correct buttons
+    toolBarFindPanel.addAction(&action_session_rollback); // ToDo: replace with correct buttons
+    toolBarFindPanel.addSeparator();
+    addToolBar(Qt::BottomToolBarArea, &toolBarFindPanel);
 
 
     //    centralwidget = new QWidget(Selector);
@@ -49,19 +80,35 @@ Selector::~Selector()
 
 void Selector::CreateMenu()
 {
+  QAction* p_menu_action;
+
   menubar.setObjectName(QString::fromUtf8("menubar"));
   menubar.setGeometry(QRect(0, 0, 800, 22));
+  menubar.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
     // File
     menu_file.setObjectName(QString::fromUtf8("menu_file"));
     menu_file.setTitle(QApplication::translate("Selector", "&File", nullptr));
       // File->New
       menu_file_new.setObjectName(QString::fromUtf8("menu_file_new"));
       menu_file_new.setTitle(QApplication::translate("Selector", "&New", nullptr));
-      menu_file.addAction(menu_file_new.menuAction());
+      p_menu_action = menu_file_new.menuAction();
+      p_menu_action->setToolTip("New");
+      p_menu_action->setStatusTip("Create a new program unit or database object");
+      p_menu_action->setWhatsThis("Create a new program unit or database object");
+      p_menu_action->setIcon(QPixmap(":/icons/new-sql.png"));
+      connect(p_menu_action, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      menu_file.addAction(p_menu_action);
+
         // File->New->Program Window
         menu_file_new_prog_wnd.setObjectName(QString::fromUtf8("menu_file_new_prog_wnd"));
         menu_file_new_prog_wnd.setTitle(QApplication::translate("Selector", "&Program Window", nullptr));
-        menu_file_new.addAction(menu_file_new_prog_wnd.menuAction());
+        p_menu_action = menu_file_new_prog_wnd.menuAction();
+        p_menu_action->setToolTip("Create new PL/SQL program window");
+        p_menu_action->setStatusTip("Create new PL/SQL program window");
+        p_menu_action->setWhatsThis("Create new PL/SQL program window");
+        p_menu_action->setIcon(QPixmap(":/icons/new-plsql.png"));
+        connect(p_menu_action, SIGNAL(triggered()), SLOT(slotNoImpl()));
+        menu_file_new.addAction(p_menu_action);
           // File->New->Program Window->Blank
           action_file_new_prog_wnd_blank.setObjectName(QString::fromUtf8("action_file_new_prog_wnd_blank"));
           action_file_new_prog_wnd_blank.setText(QApplication::translate("Selector", "Blank", nullptr));
@@ -115,10 +162,20 @@ void Selector::CreateMenu()
         // File->New->SQL Window
         action_file_new_sql.setObjectName(QString::fromUtf8("action_file_new_sql"));
         action_file_new_sql.setText(QApplication::translate("Selector", "&SQL Window", nullptr));
+        action_file_new_sql.setToolTip("Create new SQL script");
+        action_file_new_sql.setStatusTip("Create a new SQL script, program unit or database object");
+        action_file_new_sql.setWhatsThis("Create a new SQL script, program unit or database object");
+        action_file_new_sql.setIcon(QPixmap(":/icons/new-sql.png"));
+        connect(&action_file_new_sql, SIGNAL(triggered()), SLOT(slotNoImpl()));
         menu_file_new.addAction(&action_file_new_sql);
         // File->New->Report Window
         action_file_new_rpt.setObjectName(QString::fromUtf8("action_file_new_rpt"));
         action_file_new_rpt.setText(QApplication::translate("Selector", "&Report Window", nullptr));
+        action_file_new_rpt.setToolTip("Create new report");
+        action_file_new_rpt.setStatusTip("Create a new report");
+        action_file_new_rpt.setWhatsThis("Create a new report");
+        action_file_new_rpt.setIcon(QPixmap(":/icons/report.png"));
+        connect(&action_file_new_rpt, SIGNAL(triggered()), SLOT(slotNoImpl()));
         menu_file_new.addAction(&action_file_new_rpt);
         // File->New->Command Window
         action_file_new_cmd.setObjectName(QString::fromUtf8("action_file_new_cmd"));
@@ -196,7 +253,13 @@ void Selector::CreateMenu()
         menu_file_new.addAction(&action_file_new_dblink);
       // File->Open
       menu_file_open.setObjectName(QString::fromUtf8("menu_file_open"));
-      menu_file.addAction(menu_file_open.menuAction());
+      p_menu_action = menu_file_open.menuAction();
+      p_menu_action->setToolTip("Open existing file");
+      p_menu_action->setStatusTip("Open existing program file");
+      p_menu_action->setWhatsThis("Open existing program file");
+      p_menu_action->setIcon(QPixmap(":/icons/open-sql.png"));
+      connect(p_menu_action, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      menu_file.addAction(p_menu_action);
       menu_file_open.setTitle(QApplication::translate("Selector", "&Open", nullptr));
         // File->Open->Program File
         action_file_open_prog_file.setObjectName(QString::fromUtf8("action_file_open_prog_file"));
@@ -213,6 +276,12 @@ void Selector::CreateMenu()
         // File->Open->Report File
         action_file_open_rpt_file.setObjectName(QString::fromUtf8("action_file_open_rpt_file"));
         action_file_open_rpt_file.setText(QApplication::translate("Selector", "&Report File", nullptr));
+        action_file_open_rpt_file.setToolTip("Open report file");
+        action_file_open_rpt_file.setStatusTip("Open existing report file");
+        action_file_open_rpt_file.setWhatsThis("Open existing report file");
+        action_file_open_rpt_file.setIcon(QPixmap(":/icons/report.png"));
+        connect(&action_file_open_rpt_file, SIGNAL(triggered()), SLOT(slotNoImpl()));
+
         menu_file_open.addAction(&action_file_open_rpt_file);
         // File->Open->Command File
         action_file_open_cmd_file.setObjectName(QString::fromUtf8("action_file_open_cmd_file"));
@@ -234,6 +303,12 @@ void Selector::CreateMenu()
       #ifndef QT_NO_SHORTCUT
       action_file_save.setShortcut(QApplication::translate("Selector", "Ctrl+S", nullptr));
       #endif // QT_NO_SHORTCUT
+      action_file_save.setToolTip("Save file");
+      action_file_save.setStatusTip("Save program unit as external text file");
+      action_file_save.setWhatsThis("Save program unit as external text file");
+      action_file_save.setIcon(QPixmap(":/icons/save-sql.png"));
+      action_file_save.setEnabled(false);
+      connect(&action_file_save, SIGNAL(triggered()), SLOT(slotNoImpl()));
       menu_file.addAction(&action_file_save);
       // File->Save As...
       action_file_save_as.setObjectName(QString::fromUtf8("action_file_save_as"));
@@ -293,6 +368,7 @@ void Selector::CreateMenu()
       #ifndef QT_NO_SHORTCUT
       action_file_exit.setShortcut(QApplication::translate("Selector", "Alt+F4", nullptr));
       #endif // QT_NO_SHORTCUT
+      connect(&action_file_exit, SIGNAL(triggered()), qApp, SLOT(quit()));
       menu_file.addAction(&action_file_exit);
     menubar.addAction(menu_file.menuAction());
 
@@ -305,6 +381,12 @@ void Selector::CreateMenu()
       #ifndef QT_NO_SHORTCUT
       action_edit_undo.setShortcut(QApplication::translate("Selector", "Ctrl+Z", nullptr));
       #endif // QT_NO_SHORTCUT
+      action_edit_undo.setToolTip("Undo last edit operation");
+      action_edit_undo.setStatusTip("Allow you to undo last edit operations");
+      action_edit_undo.setWhatsThis("Allow you to undo last edit operations");
+      action_edit_undo.setIcon(QPixmap(":/icons/edit-undo.png"));
+      action_edit_undo.setEnabled(false);
+      connect(&action_edit_undo, SIGNAL(triggered()), SLOT(slotNoImpl()));
       menu_edit.addAction(&action_edit_undo);
       // Edit->Redo
       action_edit_redo.setObjectName(QString::fromUtf8("action_edit_redo"));
@@ -312,6 +394,12 @@ void Selector::CreateMenu()
       #ifndef QT_NO_SHORTCUT
       action_edit_redo.setShortcut(QApplication::translate("Selector", "Shift+Ctrl+Z", nullptr));
       #endif // QT_NO_SHORTCUT
+      action_edit_redo.setToolTip("Redo last undo");
+      action_edit_redo.setStatusTip("Allow you to restore last edit operations (if it was undone)");
+      action_edit_redo.setWhatsThis("Allow you to restore last edit operations (if it was undone)");
+      action_edit_redo.setIcon(QPixmap(":/icons/edit-redo.png"));
+      action_edit_redo.setEnabled(false);
+      connect(&action_edit_redo, SIGNAL(triggered()), SLOT(slotNoImpl()));
       menu_edit.addAction(&action_edit_redo);
       // Edit->-------
       menu_edit.addSeparator();
@@ -565,10 +653,16 @@ void Selector::CreateMenu()
       // Session->Log on
       action_session_logon.setObjectName(QString::fromUtf8("action_session_logon"));
       action_session_logon.setText(QApplication::translate("Selector", "&Log on...", nullptr));
+      action_session_logon.setToolTip("Log on");
+      action_session_logon.setStatusTip("Create a new connection to the remote server");
+      action_session_logon.setWhatsThis("Create a new connection to the remote server");
+      action_session_logon.setIcon(QPixmap(":/icons/login.png"));
+      connect(&action_session_logon, SIGNAL(triggered()), SLOT(slotNoImpl()));
       menu_session.addAction(&action_session_logon);
       // Session->Log off
       action_session_logoff.setObjectName(QString::fromUtf8("action_session_logoff"));
       action_session_logoff.setText(QApplication::translate("Selector", "Log &off", nullptr));
+      action_session_logoff.setEnabled(false);
       menu_session.addAction(&action_session_logoff);
       // Session->-------
       menu_session.addSeparator();
@@ -578,6 +672,12 @@ void Selector::CreateMenu()
       #ifndef QT_NO_SHORTCUT
       action_session_execute.setShortcut(QApplication::translate("Selector", "F8", nullptr));
       #endif // QT_NO_SHORTCUT
+      action_session_execute.setToolTip("Execute");
+      action_session_execute.setStatusTip("Execute program or script");
+      action_session_execute.setWhatsThis("Execute program or script");
+      action_session_execute.setIcon(QPixmap(":/icons/execute.png"));
+      connect(&action_session_execute, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      action_session_execute.setEnabled(false);
       menu_session.addAction(&action_session_execute);
       // Session->Break
       action_session_break.setObjectName(QString::fromUtf8("action_session_break"));
@@ -585,10 +685,17 @@ void Selector::CreateMenu()
       #ifndef QT_NO_SHORTCUT
       action_session_break.setShortcut(QApplication::translate("Selector", "Shift+Esc", nullptr));
       #endif // QT_NO_SHORTCUT
+      action_session_break.setToolTip("Break");
+      action_session_break.setStatusTip("Break program or script execution");
+      action_session_break.setWhatsThis("Break program or script execution");
+      action_session_break.setIcon(QPixmap(":/icons/abort.png"));
+      connect(&action_session_break, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      action_session_break.setEnabled(false);
       menu_session.addAction(&action_session_break);
       // Session->Kill
       action_session_kill.setObjectName(QString::fromUtf8("action_session_kill"));
       action_session_kill.setText(QApplication::translate("Selector", "&Kill", nullptr));
+      action_session_kill.setEnabled(false);
       menu_session.addAction(&action_session_kill);
       // Session->Commit
       action_session_commit.setObjectName(QString::fromUtf8("action_session_commit"));
@@ -596,6 +703,12 @@ void Selector::CreateMenu()
       #ifndef QT_NO_SHORTCUT
       action_session_commit.setShortcut(QApplication::translate("Selector", "F10", nullptr));
       #endif // QT_NO_SHORTCUT
+      action_session_commit.setToolTip("Commit");
+      action_session_commit.setStatusTip("Commit current transaction");
+      action_session_commit.setWhatsThis("Commit current transaction");
+      action_session_commit.setIcon(QPixmap(":/icons/commit.png"));
+      connect(&action_session_commit, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      action_session_commit.setEnabled(false);
       menu_session.addAction(&action_session_commit);
       // Session->Rollback
       action_session_rollback.setObjectName(QString::fromUtf8("action_session_rollback"));
@@ -603,10 +716,17 @@ void Selector::CreateMenu()
       #ifndef QT_NO_SHORTCUT
       action_session_rollback.setShortcut(QApplication::translate("Selector", "Shift+F10", nullptr));
       #endif // QT_NO_SHORTCUT
+      action_session_rollback.setToolTip("Rollback");
+      action_session_rollback.setStatusTip("Rollback current transaction");
+      action_session_rollback.setWhatsThis("Rollback current transaction");
+      action_session_rollback.setIcon(QPixmap(":/icons/rollback.png"));
+      connect(&action_session_rollback, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      action_session_rollback.setEnabled(false);
       menu_session.addAction(&action_session_rollback);
       // Session->SQL Trace
       action_session_trace.setObjectName(QString::fromUtf8("action_session_trace"));
       action_session_trace.setText(QApplication::translate("Selector", "SQL &Trace", nullptr));
+      action_session_trace.setEnabled(false);
       menu_session.addAction(&action_session_trace);
     menubar.addAction(menu_session.menuAction());
 
