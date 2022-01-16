@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/abort.png</file>
+        <file>icons/commit.png</file>
+        <file>icons/edit-redo.png</file>
+        <file>icons/edit-undo.png</file>
+        <file>icons/execute.png</file>
+        <file>icons/login.png</file>
+        <file>icons/new-plsql.png</file>
+        <file>icons/new-sql.png</file>
+        <file>icons/open-sql.png</file>
+        <file>icons/report.png</file>
+        <file>icons/rollback.png</file>
+        <file>icons/save-sql.png</file>
+    </qresource>
+</RCC>
