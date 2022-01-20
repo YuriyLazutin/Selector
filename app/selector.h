@@ -227,7 +227,7 @@ class Selector : public QMainWindow
     QToolBar toolBarRecords;
     QToolBar toolBarFindPanel;
 
-    QStatusBar statusbar;
+   // QStatusBar statusbar;
 
   public:
     Selector(QWidget *parent = nullptr);

@@ -63,9 +63,11 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
     //p_central_widget->setObjectName(QString::fromUtf8("centralwidget"));
     //setCentralWidget(p_central_widget);
 
+    QStatusBar* p_status_bar = statusBar();
     //    statusbar = new QStatusBar(MainWindow);
-    statusbar.setObjectName(QString::fromUtf8("statusbar"));
-    setStatusBar(&statusbar);
+    p_status_bar->setObjectName(QString::fromUtf8("statusbar"));
+    p_status_bar->setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
+    //setStatusBar(&statusbar);
 
     QMetaObject::connectSlotsByName(this);
 }
