@@ -58,14 +58,10 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
     toolBarFindPanel.addSeparator();
     addToolBar(Qt::BottomToolBarArea, &toolBarFindPanel);
 
-
+    //QWidget* p_central_widget = centralWidget();
     //    centralwidget = new QWidget(Selector);
-    centralwidget.setObjectName(QString::fromUtf8("centralwidget"));
-    //toolButton = new QToolBar(&centralwidget);
-    //toolBar->setGeometry(QRect(0, 0, 800, 64));
-    //toolButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    //toolButton->setText(QApplication::translate("Selector", "This is main tool bar", nullptr));
-    setCentralWidget(&centralwidget);
+    //p_central_widget->setObjectName(QString::fromUtf8("centralwidget"));
+    //setCentralWidget(p_central_widget);
 
     //    statusbar = new QStatusBar(MainWindow);
     statusbar.setObjectName(QString::fromUtf8("statusbar"));

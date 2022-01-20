@@ -221,7 +221,7 @@ class Selector : public QMainWindow
         QAction action_help_supp;
         QAction action_help_about;
 
-    QWidget centralwidget;
+    //QWidget centralwidget;
 
     QToolBar toolBarFile;
     QToolBar toolBarRecords;
