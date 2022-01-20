@@ -226,6 +226,7 @@ class Selector : public QMainWindow
 
     //QWidget centralwidget;
 
+    void CreateToolBars();
     QToolBar toolBarFile;
     QToolBar toolBarRecords;
     //QToolBar toolBarFindPanel;

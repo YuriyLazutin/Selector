@@ -18,53 +18,8 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
     resize(800, 600);
 
     CreateMenu();
-
-    // Create "File" Toolbar
-    toolBarFile.setObjectName(QString::fromUtf8("toolBarFile"));
-    toolBarFile.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
-    toolBarFile.addAction(&action_session_logon);
-    toolBarFile.addSeparator();
-    toolBarFile.addAction(menu_file_new.menuAction());
-    toolBarFile.addAction(menu_file_open.menuAction());
-    toolBarFile.addAction(&action_file_save);
-    toolBarFile.addSeparator();
-    toolBarFile.addAction(&action_edit_undo);
-    toolBarFile.addAction(&action_edit_redo);
-    toolBarFile.addSeparator();
-    toolBarFile.addAction(&action_session_execute);
-    toolBarFile.addAction(&action_session_break);
-    toolBarFile.addAction(&action_session_commit);
-    toolBarFile.addAction(&action_session_rollback);
-    toolBarFile.addSeparator();
-    addToolBar(Qt::TopToolBarArea, &toolBarFile);
-
-    // Create "Records" Toolbar
-    toolBarRecords.setObjectName(QString::fromUtf8("toolBarRecords"));
-    toolBarRecords.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
-    toolBarRecords.addAction(&action_session_execute); // ToDo: replace with correct buttons
-    toolBarRecords.addAction(&action_session_break); // ToDo: replace with correct buttons
-    toolBarRecords.addAction(&action_session_commit); // ToDo: replace with correct buttons
-    toolBarRecords.addAction(&action_session_rollback); // ToDo: replace with correct buttons
-    toolBarRecords.addSeparator();
-    addToolBar(Qt::TopToolBarArea, &toolBarRecords);
-
-    // Create "Find panel" Toolbar
-    //toolBarFindPanel.setObjectName(QString::fromUtf8("toolBarFindPanel"));
-    //findTemplate.resize(100, 30);
-    //findTemplate.setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-    //toolBarFindPanel.addWidget(&findTemplate); // ToDo: replace with correct buttons
-    //toolBarFindPanel.addSeparator();
-    //toolBarFindPanel.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
-    //toolBarFindPanel.addAction(&action_session_execute); // ToDo: replace with correct buttons
-    //toolBarFindPanel.addAction(&action_session_break); // ToDo: replace with correct buttons
-    //toolBarFindPanel.addAction(&action_session_commit); // ToDo: replace with correct buttons
-    //toolBarFindPanel.addAction(&action_session_rollback); // ToDo: replace with correct buttons
-    //toolBarFindPanel.addSeparator();
-    //addToolBar(Qt::BottomToolBarArea, &toolBarFindPanel);
-
-
+    CreateToolBars();
     CreateDocks();
-
 
     //QWidget* p_central_widget = centralWidget();
     //    centralwidget = new QWidget(Selector);
@@ -107,6 +62,52 @@ void Selector::CreateDocks()
   leftDockWindowList.setWindowTitle("Left Dock (Window List)");
   leftDockWindowList.setWidget(&findTemplate);
   addDockWidget(Qt::LeftDockWidgetArea, &leftDockWindowList);
+}
+
+void Selector::CreateToolBars()
+{
+  // Create "File" Toolbar
+  toolBarFile.setObjectName(QString::fromUtf8("toolBarFile"));
+  toolBarFile.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
+  toolBarFile.addAction(&action_session_logon);
+  toolBarFile.addSeparator();
+  toolBarFile.addAction(menu_file_new.menuAction());
+  toolBarFile.addAction(menu_file_open.menuAction());
+  toolBarFile.addAction(&action_file_save);
+  toolBarFile.addSeparator();
+  toolBarFile.addAction(&action_edit_undo);
+  toolBarFile.addAction(&action_edit_redo);
+  toolBarFile.addSeparator();
+  toolBarFile.addAction(&action_session_execute);
+  toolBarFile.addAction(&action_session_break);
+  toolBarFile.addAction(&action_session_commit);
+  toolBarFile.addAction(&action_session_rollback);
+  toolBarFile.addSeparator();
+  addToolBar(Qt::TopToolBarArea, &toolBarFile);
+
+  // Create "Records" Toolbar
+  toolBarRecords.setObjectName(QString::fromUtf8("toolBarRecords"));
+  toolBarRecords.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
+  toolBarRecords.addAction(&action_session_execute); // ToDo: replace with correct buttons
+  toolBarRecords.addAction(&action_session_break); // ToDo: replace with correct buttons
+  toolBarRecords.addAction(&action_session_commit); // ToDo: replace with correct buttons
+  toolBarRecords.addAction(&action_session_rollback); // ToDo: replace with correct buttons
+  toolBarRecords.addSeparator();
+  addToolBar(Qt::TopToolBarArea, &toolBarRecords);
+
+  // Create "Find panel" Toolbar
+  //toolBarFindPanel.setObjectName(QString::fromUtf8("toolBarFindPanel"));
+  //findTemplate.resize(100, 30);
+  //findTemplate.setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+  //toolBarFindPanel.addWidget(&findTemplate); // ToDo: replace with correct buttons
+  //toolBarFindPanel.addSeparator();
+  //toolBarFindPanel.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
+  //toolBarFindPanel.addAction(&action_session_execute); // ToDo: replace with correct buttons
+  //toolBarFindPanel.addAction(&action_session_break); // ToDo: replace with correct buttons
+  //toolBarFindPanel.addAction(&action_session_commit); // ToDo: replace with correct buttons
+  //toolBarFindPanel.addAction(&action_session_rollback); // ToDo: replace with correct buttons
+  //toolBarFindPanel.addSeparator();
+  //addToolBar(Qt::BottomToolBarArea, &toolBarFindPanel);
 }
 
 void Selector::CreateMenu()
