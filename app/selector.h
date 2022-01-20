@@ -13,6 +13,9 @@
 //#include <QtWidgets/QToolButton>
 //#include <QtWidgets/QWidget>
 #include <QMessageBox>
+#include <QTextEdit>
+#include <QDockWidget>
+#include <QLabel>
 
 
 class Selector : public QMainWindow
@@ -114,7 +117,7 @@ class Selector : public QMainWindow
         QAction action_edit_find;
         QAction action_edit_repeat_find;
         QAction action_edit_replace;
-        QAction action_edit_search_bar;
+        QAction action_edit_search_bar;   // ToDo: Remove this if docks will implemented
         QAction action_edit_find_matches;
         QAction action_edit_show_spec;
         QAction action_edit_code_folding;
@@ -155,11 +158,11 @@ class Selector : public QMainWindow
           QAction action_tools_macro_rec;
           QAction action_tools_macro_play;
           QAction action_tools_macro_lib;
-        QAction action_tools_bro;
+        QAction action_tools_bro;   // ToDo: Remove this if docks will implemented
         QAction action_tools_brodir;
         QAction action_tools_brofil;
         QAction action_tools_tmpl;
-        QAction action_tools_wndlst;
+        QAction action_tools_wndlst;   // ToDo: Remove this if docks will implemented
         QAction action_tools_tlbr;
         QAction action_tools_expln;
         QAction action_tools_astnt;
@@ -225,7 +228,15 @@ class Selector : public QMainWindow
 
     QToolBar toolBarFile;
     QToolBar toolBarRecords;
-    QToolBar toolBarFindPanel;
+    //QToolBar toolBarFindPanel;
+
+    // Docks
+    void CreateDocks();
+    QDockWidget leftDockBrowser;
+    QDockWidget leftDockWindowList;
+    QDockWidget bottomDock;
+    QLabel  bottomDockLabel;
+    QTextEdit findTemplate;
 
    // QStatusBar statusbar;
 

@@ -49,14 +49,22 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
     addToolBar(Qt::TopToolBarArea, &toolBarRecords);
 
     // Create "Find panel" Toolbar
-    toolBarFindPanel.setObjectName(QString::fromUtf8("toolBarFindPanel"));
-    toolBarFindPanel.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
-    toolBarFindPanel.addAction(&action_session_execute); // ToDo: replace with correct buttons
-    toolBarFindPanel.addAction(&action_session_break); // ToDo: replace with correct buttons
-    toolBarFindPanel.addAction(&action_session_commit); // ToDo: replace with correct buttons
-    toolBarFindPanel.addAction(&action_session_rollback); // ToDo: replace with correct buttons
-    toolBarFindPanel.addSeparator();
-    addToolBar(Qt::BottomToolBarArea, &toolBarFindPanel);
+    //toolBarFindPanel.setObjectName(QString::fromUtf8("toolBarFindPanel"));
+    //findTemplate.resize(100, 30);
+    //findTemplate.setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+    //toolBarFindPanel.addWidget(&findTemplate); // ToDo: replace with correct buttons
+    //toolBarFindPanel.addSeparator();
+    //toolBarFindPanel.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
+    //toolBarFindPanel.addAction(&action_session_execute); // ToDo: replace with correct buttons
+    //toolBarFindPanel.addAction(&action_session_break); // ToDo: replace with correct buttons
+    //toolBarFindPanel.addAction(&action_session_commit); // ToDo: replace with correct buttons
+    //toolBarFindPanel.addAction(&action_session_rollback); // ToDo: replace with correct buttons
+    //toolBarFindPanel.addSeparator();
+    //addToolBar(Qt::BottomToolBarArea, &toolBarFindPanel);
+
+
+    CreateDocks();
+
 
     //QWidget* p_central_widget = centralWidget();
     //    centralwidget = new QWidget(Selector);
@@ -75,6 +83,30 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
 
 Selector::~Selector()
 {
+}
+
+void Selector::CreateDocks()
+{
+  bottomDock.setObjectName(QString::fromUtf8("bottomDock"));
+  bottomDock.setWindowTitle("Bottom Dock (Find Panel)");
+  bottomDock.setAllowedAreas(Qt::BottomDockWidgetArea | Qt::TopDockWidgetArea);
+  bottomDockLabel.setText("Test Label");
+  //(bottomDock.titleBarWidget())->hide();
+  //(bottomDock.titleBarWidget())->setVisible(true);
+  //action_edit_search_bar = bottomDock.toggleViewAction();
+  bottomDock.setWidget(&bottomDockLabel);
+  //bottomDock.setWidget(&findTemplate);
+  addDockWidget(Qt::BottomDockWidgetArea, &bottomDock);
+
+  leftDockBrowser.setObjectName(QString::fromUtf8("leftDockBrowser"));
+  leftDockBrowser.setWindowTitle("Left Dock (Browser)");
+  leftDockBrowser.setWidget(&findTemplate);
+  addDockWidget(Qt::LeftDockWidgetArea, &leftDockBrowser);
+
+  leftDockWindowList.setObjectName(QString::fromUtf8("leftDockWindowList"));
+  leftDockWindowList.setWindowTitle("Left Dock (Window List)");
+  leftDockWindowList.setWidget(&findTemplate);
+  addDockWidget(Qt::LeftDockWidgetArea, &leftDockWindowList);
 }
 
 void Selector::CreateMenu()
@@ -574,9 +606,10 @@ void Selector::CreateMenu()
       #endif // QT_NO_SHORTCUT
       menu_edit.addAction(&action_edit_replace);
       // Edit->Search Bar
-      action_edit_search_bar.setObjectName(QString::fromUtf8("action_edit_search_bar"));
-      action_edit_search_bar.setText(QApplication::translate("Selector", "&Search Bar", nullptr));
-      menu_edit.addAction(&action_edit_search_bar);
+      action_edit_search_bar.setObjectName(QString::fromUtf8("action_edit_search_bar"));  // ToDo: Remove this if docks will implemented
+      action_edit_search_bar.setText(QApplication::translate("Selector", "&Search Bar", nullptr));  // ToDo: Remove this if docks will implemented
+      menu_edit.addAction(&action_edit_search_bar);  // ToDo: Remove this if docks will implemented
+      menu_edit.addAction(bottomDock.toggleViewAction());
       // Edit->Find Matches
       action_edit_find_matches.setObjectName(QString::fromUtf8("action_edit_find_matches"));
       action_edit_find_matches.setText(QApplication::translate("Selector", "Find &Matches", nullptr));
@@ -846,11 +879,12 @@ void Selector::CreateMenu()
       // Tools->-------
       menu_tools.addSeparator();
       // Tools->Browser
-      action_tools_bro.setObjectName(QString::fromUtf8("action_tools_bro"));
-      action_tools_bro.setText(QApplication::translate("Selector", "&Browser", nullptr));
-      action_tools_bro.setCheckable(true);
-      action_tools_bro.setChecked(true);
-      menu_tools.addAction(&action_tools_bro);
+      action_tools_bro.setObjectName(QString::fromUtf8("action_tools_bro")); // ToDo: Remove this if docks will implemented
+      action_tools_bro.setText(QApplication::translate("Selector", "&Browser", nullptr)); // ToDo: Remove this if docks will implemented
+      action_tools_bro.setCheckable(true); // ToDo: Remove this if docks will implemented
+      action_tools_bro.setChecked(true); // ToDo: Remove this if docks will implemented
+      menu_tools.addAction(&action_tools_bro); // ToDo: Remove this if docks will implemented
+      menu_tools.addAction(leftDockBrowser.toggleViewAction());
       // Tools->Browser Folders...
       action_tools_brodir.setObjectName(QString::fromUtf8("action_tools_brodir"));
       action_tools_brodir.setText(QApplication::translate("Selector", "Browser &Folders...", nullptr));
@@ -866,11 +900,12 @@ void Selector::CreateMenu()
       action_tools_tmpl.setChecked(false);
       menu_tools.addAction(&action_tools_tmpl);
       // Tools->Window List
-      action_tools_wndlst.setObjectName(QString::fromUtf8("action_tools_wndlst"));
-      action_tools_wndlst.setText(QApplication::translate("Selector", "&Window List", nullptr));
-      action_tools_wndlst.setCheckable(true);
-      action_tools_wndlst.setChecked(true);
-      menu_tools.addAction(&action_tools_wndlst);
+      action_tools_wndlst.setObjectName(QString::fromUtf8("action_tools_wndlst")); // ToDo: Remove this if docks will implemented
+      action_tools_wndlst.setText(QApplication::translate("Selector", "&Window List", nullptr)); // ToDo: Remove this if docks will implemented
+      action_tools_wndlst.setCheckable(true); // ToDo: Remove this if docks will implemented
+      action_tools_wndlst.setChecked(true); // ToDo: Remove this if docks will implemented
+      menu_tools.addAction(&action_tools_wndlst); // ToDo: Remove this if docks will implemented
+      menu_tools.addAction(leftDockWindowList.toggleViewAction());
       // Tools->Toolbar
       action_tools_tlbr.setObjectName(QString::fromUtf8("action_tools_tlbr"));
       action_tools_tlbr.setText(QApplication::translate("Selector", "Toolbar", nullptr));
