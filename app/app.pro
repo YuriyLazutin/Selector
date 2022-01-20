@@ -17,10 +17,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    selector.cpp
+    selector.cpp \
+    sqlform.cpp
 
 HEADERS += \
-    selector.h
+    selector.h \
+    sqlform.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

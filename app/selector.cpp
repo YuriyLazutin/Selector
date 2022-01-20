@@ -1,4 +1,5 @@
 #include "selector.h"
+#include "sqlform.h"
 #include <QApplication>
 #include <QMenuBar>
 
@@ -21,10 +22,14 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
     CreateToolBars();
     CreateDocks();
 
-    //QWidget* p_central_widget = centralWidget();
-    //    centralwidget = new QWidget(Selector);
-    //p_central_widget->setObjectName(QString::fromUtf8("centralwidget"));
-    //setCentralWidget(p_central_widget);
+    // Create central widget
+    MDIArea.setObjectName(QString::fromUtf8("centralwidgetMDI"));
+    MDIArea.setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    MDIArea.setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);;
+    setCentralWidget(&MDIArea);
+    p_SigMapper = new QSignalMapper(this);
+    connect(p_SigMapper, SIGNAL(mapped(QWidget*)), this, SLOT(slotSetActiveSubWindow(QWidget*)));
+
 
     QStatusBar* p_status_bar = statusBar();
     //    statusbar = new QStatusBar(MainWindow);
@@ -199,7 +204,7 @@ void Selector::CreateMenu()
         action_file_new_sql.setStatusTip("Create a new SQL script, program unit or database object");
         action_file_new_sql.setWhatsThis("Create a new SQL script, program unit or database object");
         action_file_new_sql.setIcon(QPixmap(":/icons/new-sql.png"));
-        connect(&action_file_new_sql, SIGNAL(triggered()), SLOT(slotNoImpl()));
+        connect(&action_file_new_sql, SIGNAL(triggered()), SLOT(slotNewSQLForm()));
         menu_file_new.addAction(&action_file_new_sql);
         // File->New->Report Window
         action_file_new_rpt.setObjectName(QString::fromUtf8("action_file_new_rpt"));
@@ -306,6 +311,7 @@ void Selector::CreateMenu()
         action_file_open_sql_sqript.setObjectName(QString::fromUtf8("action_file_open_sql_sqript"));
         action_file_open_sql_sqript.setText(QApplication::translate("Selector", "&SQL Script", nullptr));
         menu_file_open.addAction(&action_file_open_sql_sqript);
+        connect(&action_file_open_sql_sqript, SIGNAL(triggered()), SLOT(slotOpenSQLForm()));
         // File->Open->Report File
         action_file_open_rpt_file.setObjectName(QString::fromUtf8("action_file_open_rpt_file"));
         action_file_open_rpt_file.setText(QApplication::translate("Selector", "&Report File", nullptr));
@@ -341,16 +347,18 @@ void Selector::CreateMenu()
       action_file_save.setWhatsThis("Save program unit as external text file");
       action_file_save.setIcon(QPixmap(":/icons/save-sql.png"));
       action_file_save.setEnabled(false);
-      connect(&action_file_save, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      connect(&action_file_save, SIGNAL(triggered()), SLOT(slotFileSave()));
       menu_file.addAction(&action_file_save);
       // File->Save As...
       action_file_save_as.setObjectName(QString::fromUtf8("action_file_save_as"));
       action_file_save_as.setText(QApplication::translate("Selector", "Save &As...", nullptr));
       menu_file.addAction(&action_file_save_as);
+      connect(&action_file_save_as, SIGNAL(triggered()), SLOT(slotFileSaveAs()));
       // File->Save All
       action_file_save_all.setObjectName(QString::fromUtf8("action_file_save_all"));
       action_file_save_all.setText(QApplication::translate("Selector", "Save All", nullptr));
       menu_file.addAction(&action_file_save_all);
+      connect(&action_file_save_all, SIGNAL(triggered()), SLOT(slotFileSaveAll()));
       // File->-------
       menu_file.addSeparator();
       // File->E-mail...
@@ -401,7 +409,7 @@ void Selector::CreateMenu()
       #ifndef QT_NO_SHORTCUT
       action_file_exit.setShortcut(QApplication::translate("Selector", "Alt+F4", nullptr));
       #endif // QT_NO_SHORTCUT
-      connect(&action_file_exit, SIGNAL(triggered()), qApp, SLOT(quit()));
+      connect(&action_file_exit, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
       menu_file.addAction(&action_file_exit);
     p_menu_bar->addAction(menu_file.menuAction());
 
@@ -1201,4 +1209,62 @@ void Selector::CreateMenu()
     p_menu_bar->addAction(menu_help.menuAction());
 
   //setMenuBar(&menubar);
+}
+
+void Selector::slotNewSQLForm()
+{
+  SQLForm* p_form = new SQLForm;
+  MDIArea.addSubWindow(p_form);
+  p_form->setAttribute(Qt::WA_DeleteOnClose);
+  p_form->setWindowTitle("New SQL Document");
+  p_form->setWindowIcon(QIcon(":/icons/new-sql.png")); // ??? This is not working!!!
+
+  //connect(p_form, SIGNAL(changeMainTitle(const QString&)), SLOT(slotChangeMainTitle(const QString&))); // ???
+  p_form->show();
+}
+
+void Selector::slotOpenSQLForm()
+{
+  SQLForm* p_form = new SQLForm;
+  MDIArea.addSubWindow(p_form);
+  p_form->setAttribute(Qt::WA_DeleteOnClose);
+  p_form->setWindowTitle("Open SQL Document");
+  p_form->setWindowIcon(QIcon(":/icons/new-sql.png")); // ??? This is not working!!!
+  p_form->slotFileLoad();
+  connect(p_form, SIGNAL(changeWindowTitle(const QString&)), SLOT(slotChangeWindowTitle(const QString&)));
+  p_form->show();
+
+}
+
+void Selector::slotFileSave()
+{
+  //QMdiSubWindow* p_sub_form =  MDIArea.activeSubWindow();
+  //SQLForm* p_form = qobject_cast<SQLForm*> (MDIArea.activeSubWindow()); // ???
+  //if (p_form)
+  //  p_form->slotFileSave();
+}
+
+void Selector::slotFileSaveAs()
+{
+  //QMdiSubWindow* p_sub_form =  MDIArea.activeSubWindow();
+  //SQLForm* p_form = qobject_cast<SQLForm*> ( MDIArea.activeSubWindow() ); // ???
+  //if (p_form)
+  //  p_form->slotFileSaveAs();
+}
+
+void Selector::slotFileSaveAll()
+{
+
+}
+
+void Selector::slotChangeWindowTitle(const QString& new_title)
+{
+  qobject_cast<SQLForm*>(sender())->setWindowTitle(new_title);
+}
+
+void Selector::slotSetActiveSubWindow(QWidget* p_form)
+{
+  if (p_form)
+    MDIArea.setActiveSubWindow(qobject_cast<QMdiSubWindow*>(p_form));
+
 }

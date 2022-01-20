@@ -16,6 +16,8 @@
 #include <QTextEdit>
 #include <QDockWidget>
 #include <QLabel>
+#include <QMdiArea>
+#include <QSignalMapper>
 
 
 class Selector : public QMainWindow
@@ -225,6 +227,8 @@ class Selector : public QMainWindow
         QAction action_help_about;
 
     //QWidget centralwidget;
+    QMdiArea MDIArea;
+    QSignalMapper* p_SigMapper;
 
     void CreateToolBars();
     QToolBar toolBarFile;
@@ -245,10 +249,18 @@ class Selector : public QMainWindow
     Selector(QWidget *parent = nullptr);
     ~Selector();
 
-  public slots:
+  private slots:
       void slotNoImpl()
       {
           QMessageBox::information(0, "Message", "Feature Not implemented!");
       }
+
+      void slotNewSQLForm();
+      void slotOpenSQLForm();
+      void slotFileSave();
+      void slotFileSaveAs();
+      void slotFileSaveAll();
+      void slotChangeWindowTitle(const QString&);
+      void slotSetActiveSubWindow(QWidget*);
 };
 #endif // SELECTOR_H
