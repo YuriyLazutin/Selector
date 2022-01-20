@@ -2,7 +2,7 @@
 #define SELECTOR_H
 
 #include <QMainWindow>
-#include <QMenuBar>
+//#include <QMenuBar>
 #include <QMenu>
 #include <QToolBar>
 #include <QStatusBar>
@@ -21,7 +21,7 @@ class Selector : public QMainWindow
 
   private:
     void CreateMenu();
-    QMenuBar menubar;
+    //QMenuBar menubar;
       QMenu menu_file;
         QMenu menu_file_new;
           QMenu menu_file_new_prog_wnd;

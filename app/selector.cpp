@@ -1,5 +1,6 @@
 #include "selector.h"
 #include <QApplication>
+#include <QMenuBar>
 
 Selector::Selector(QWidget *parent) : QMainWindow(parent)
 {
@@ -80,11 +81,12 @@ Selector::~Selector()
 
 void Selector::CreateMenu()
 {
+  QMenuBar* p_menu_bar=menuBar();
   QAction* p_menu_action;
 
-  menubar.setObjectName(QString::fromUtf8("menubar"));
-  menubar.setGeometry(QRect(0, 0, 800, 22));
-  menubar.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
+  p_menu_bar->setObjectName(QString::fromUtf8("menubar"));
+  //p_menu_bar->setGeometry(QRect(0, 0, 800, 22));
+  p_menu_bar->setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
     // File
     menu_file.setObjectName(QString::fromUtf8("menu_file"));
     menu_file.setTitle(QApplication::translate("Selector", "&File", nullptr));
@@ -370,7 +372,7 @@ void Selector::CreateMenu()
       #endif // QT_NO_SHORTCUT
       connect(&action_file_exit, SIGNAL(triggered()), qApp, SLOT(quit()));
       menu_file.addAction(&action_file_exit);
-    menubar.addAction(menu_file.menuAction());
+    p_menu_bar->addAction(menu_file.menuAction());
 
     // Edit
     menu_edit.setObjectName(QString::fromUtf8("menu_edit"));
@@ -645,7 +647,7 @@ void Selector::CreateMenu()
       action_edit_prev_tab.setShortcut(QApplication::translate("Selector", "Shift+Ctrl+H", nullptr));
       #endif // QT_NO_SHORTCUT
       menu_edit.addAction(&action_edit_prev_tab);
-    menubar.addAction(menu_edit.menuAction());
+    p_menu_bar->addAction(menu_edit.menuAction());
 
     // Session
     menu_session.setObjectName(QString::fromUtf8("menu_session"));
@@ -728,7 +730,7 @@ void Selector::CreateMenu()
       action_session_trace.setText(QApplication::translate("Selector", "SQL &Trace", nullptr));
       action_session_trace.setEnabled(false);
       menu_session.addAction(&action_session_trace);
-    menubar.addAction(menu_session.menuAction());
+    p_menu_bar->addAction(menu_session.menuAction());
 
     // Debug
     menu_debug.setObjectName(QString::fromUtf8("menu_debug"));
@@ -791,7 +793,7 @@ void Selector::CreateMenu()
       action_debug_var.setObjectName(QString::fromUtf8("action_debug_var"));
       action_debug_var.setText(QApplication::translate("Selector", "Set &Variable...", nullptr));
       menu_debug.addAction(&action_debug_var);
-    menubar.addAction(menu_debug.menuAction());
+    p_menu_bar->addAction(menu_debug.menuAction());
 
     // Tools
     menu_tools.setObjectName(QString::fromUtf8("menu_tools"));
@@ -975,19 +977,19 @@ void Selector::CreateMenu()
       action_tools_gendat.setText(QApplication::translate("Selector", "Data &Generator...", nullptr));
       menu_tools.addAction(&action_tools_gendat);
 
-    menubar.addAction(menu_tools.menuAction());
+    p_menu_bar->addAction(menu_tools.menuAction());
 
     // Macro
     menu_macro.setObjectName(QString::fromUtf8("menu_macro"));
     menu_macro.setTitle(QApplication::translate("Selector", "&Macro", nullptr));
       // ...
-    menubar.addAction(menu_macro.menuAction());
+    p_menu_bar->addAction(menu_macro.menuAction());
 
     // Documents
     menu_docs.setObjectName(QString::fromUtf8("menu_docs"));
     menu_docs.setTitle(QApplication::translate("Selector", "D&ocuments", nullptr));
       // ...
-    menubar.addAction(menu_docs.menuAction());
+    p_menu_bar->addAction(menu_docs.menuAction());
 
     // Reports
     menu_reps.setObjectName(QString::fromUtf8("menu_reps"));
@@ -1108,7 +1110,7 @@ void Selector::CreateMenu()
         action_reps_user_objprvrcvd.setText(QApplication::translate("Selector", "Object Privileges Received", nullptr));
         menu_reps_user.addAction(&action_reps_user_objprvrcvd);
 
-    menubar.addAction(menu_reps.menuAction());
+    p_menu_bar->addAction(menu_reps.menuAction());
 
     // Window
     menu_window.setObjectName(QString::fromUtf8("menu_window"));
@@ -1135,7 +1137,7 @@ void Selector::CreateMenu()
       action_window_savelo.setText(QApplication::translate("Selector", "&Save Layout", nullptr));
       menu_window.addAction(&action_window_savelo);
 
-    menubar.addAction(menu_window.menuAction());
+    p_menu_bar->addAction(menu_window.menuAction());
 
     // Help
     menu_help.setObjectName(QString::fromUtf8("menu_help"));
@@ -1162,7 +1164,7 @@ void Selector::CreateMenu()
       action_help_about.setText(QApplication::translate("Selector", "&About", nullptr));
       menu_help.addAction(&action_help_about);
 
-    menubar.addAction(menu_help.menuAction());
+    p_menu_bar->addAction(menu_help.menuAction());
 
-  setMenuBar(&menubar);
+  //setMenuBar(&menubar);
 }
