@@ -26,3 +26,17 @@ make -f Makefile qmake_all
 make -j8
 
 sudo mkdir -p "${SELECTOR_HOME}"
+
+
+# To install application icons we need to put it in  /usr/share/icons/hicolor/RxR/apps, where R — icon size (16, 32, 48, 64, 128, 256)
+# or /usr/share/icons/hicolor/scalable/apps — for *.svg icons
+
+sudo cp ./app/icons/selector16x16.png /usr/share/icons/hicolor/16x16/apps/selector.png
+sudo cp ./app/icons/selector32x32.png /usr/share/icons/hicolor/32x32/apps/selector.png
+sudo cp ./app/icons/selector48x48.png /usr/share/icons/hicolor/48x48/apps/selector.png
+sudo cp ./app/icons/selector64x64.png /usr/share/icons/hicolor/64x64/apps/selector.png
+sudo cp ./app/icons/selector128x128.png /usr/share/icons/hicolor/128x128/apps/selector.png
+sudo cp ./app/icons/selector.png /usr/share/icons/hicolor/256x256/apps/selector.png
+
+# Update icon cash
+sudo gtk-update-icon-cache /usr/share/icons/hicolor

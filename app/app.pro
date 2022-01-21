@@ -41,3 +41,6 @@ QMAKE_TARGET_COMPANY = "Country Tech"
 QMAKE_TARGET_PRODUCT = "Selector"
 QMAKE_TARGET_DESCRIPTION = "Application for database development"
 QMAKE_TARGET_COPYRIGHT = "Yuriy Lazutin"
+win32: RC_ICONS = $$PWD/icons/selector.ico
+macx:ICON = $${PWD}/icons/selector.icns
+
