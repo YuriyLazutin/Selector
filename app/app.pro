@@ -34,3 +34,10 @@ DISTFILES += \
 
 RESOURCES += \
     icons.qrc
+
+# Application information (properties)
+VERSION = 2021.01.21
+QMAKE_TARGET_COMPANY = "Country Tech"
+QMAKE_TARGET_PRODUCT = "Selector"
+QMAKE_TARGET_DESCRIPTION = "Application for database development"
+QMAKE_TARGET_COPYRIGHT = "Yuriy Lazutin"
