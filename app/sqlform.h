@@ -5,7 +5,7 @@
 
 class SQLForm : public QTextEdit
 {
-    Q_OBJECT
+  Q_OBJECT
 
   private:
     QString FileName;

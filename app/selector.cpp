@@ -8,6 +8,7 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
 
     setObjectName(QString::fromUtf8("Selector"));
     setWindowTitle(QApplication::translate("Selector", "Selector", nullptr));
+    setWindowIcon(QIcon(":/icons/selector.png"));
     setMinimumSize(QSize(300, 120));
     QSizePolicy szPolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     szPolicy.setHorizontalStretch(0);
@@ -1264,7 +1265,7 @@ void Selector::slotChangeWindowTitle(const QString& new_title)
 
 void Selector::slotSetActiveSubWindow(QWidget* p_form)
 {
-  if (p_form)
-    MDIArea.setActiveSubWindow(qobject_cast<QMdiSubWindow*>(p_form));
+//  if (p_form)
+//    MDIArea.setActiveSubWindow(qobject_cast<QMdiSubWindow*>(p_form));
 
 }

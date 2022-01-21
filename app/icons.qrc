@@ -12,5 +12,6 @@
         <file>icons/report.png</file>
         <file>icons/rollback.png</file>
         <file>icons/save-sql.png</file>
+        <file>icons/selector.png</file>
     </qresource>
 </RCC>
