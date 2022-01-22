@@ -37,6 +37,7 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
     // MDIArea.setTabsClosable (true);
     // // MDIArea.setTabShape(QTabWidget::Rounded); // Default
     // MDIArea.setTabShape(QTabWidget::Triangular);
+    // // MDIArea.setDocumentMode(true); // ???
     // //MDIArea.setOption(QMdiArea::DontMaximizeSubWindowOnActivation);
 
     setCentralWidget(&MDIArea);
