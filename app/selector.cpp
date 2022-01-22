@@ -26,7 +26,7 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
     // Create central widget
     MDIArea.setObjectName(QString::fromUtf8("centralwidgetMDI"));
     MDIArea.setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    MDIArea.setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);;
+    MDIArea.setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setCentralWidget(&MDIArea);
     p_SigMapper = new QSignalMapper(this);
     connect(p_SigMapper, SIGNAL(mapped(QWidget*)), this, SLOT(slotSetActiveSubWindow(QWidget*)));
