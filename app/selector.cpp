@@ -85,48 +85,36 @@ void Selector::CreateDocks()
 
 void Selector::CreateToolBars()
 {
-  // Create "File" Toolbar
-  toolBarFile.setObjectName(QString::fromUtf8("toolBarFile"));
-  toolBarFile.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
-  toolBarFile.addAction(&action_session_logon);
-  toolBarFile.addSeparator();
-  toolBarFile.addAction(menu_file_new.menuAction());
-  toolBarFile.addAction(menu_file_open.menuAction());
-  toolBarFile.addAction(&action_file_save);
-  toolBarFile.addSeparator();
-  toolBarFile.addAction(&action_edit_undo);
-  toolBarFile.addAction(&action_edit_redo);
-  toolBarFile.addSeparator();
-  toolBarFile.addAction(&action_session_execute);
-  toolBarFile.addAction(&action_session_break);
-  toolBarFile.addAction(&action_session_commit);
-  toolBarFile.addAction(&action_session_rollback);
-  toolBarFile.addSeparator();
-  addToolBar(Qt::TopToolBarArea, &toolBarFile);
+  // Create "Main operations" Toolbar
+  toolBarMain.setObjectName(QString::fromUtf8("toolBarMain"));
+  toolBarMain.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
+  toolBarMain.setWindowTitle("Main operations");
+  toolBarMain.addAction(&action_session_logon);
+  toolBarMain.addSeparator();
+  toolBarMain.addAction(menu_file_new.menuAction());
+  toolBarMain.addAction(menu_file_open.menuAction());
+  toolBarMain.addAction(&action_file_save);
+  toolBarMain.addSeparator();
+  toolBarMain.addAction(&action_edit_undo);
+  toolBarMain.addAction(&action_edit_redo);
+  toolBarMain.addSeparator();
+  toolBarMain.addAction(&action_session_execute);
+  toolBarMain.addAction(&action_session_break);
+  toolBarMain.addAction(&action_session_commit);
+  toolBarMain.addAction(&action_session_rollback);
+  toolBarMain.addSeparator();
+  addToolBar(Qt::TopToolBarArea, &toolBarMain);
 
-  // Create "Records" Toolbar
-  toolBarRecords.setObjectName(QString::fromUtf8("toolBarRecords"));
-  toolBarRecords.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
-  toolBarRecords.addAction(&action_session_execute); // ToDo: replace with correct buttons
-  toolBarRecords.addAction(&action_session_break); // ToDo: replace with correct buttons
-  toolBarRecords.addAction(&action_session_commit); // ToDo: replace with correct buttons
-  toolBarRecords.addAction(&action_session_rollback); // ToDo: replace with correct buttons
-  toolBarRecords.addSeparator();
-  addToolBar(Qt::TopToolBarArea, &toolBarRecords);
-
-  // Create "Find panel" Toolbar
-  //toolBarFindPanel.setObjectName(QString::fromUtf8("toolBarFindPanel"));
-  //findTemplate.resize(100, 30);
-  //findTemplate.setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-  //toolBarFindPanel.addWidget(&findTemplate); // ToDo: replace with correct buttons
-  //toolBarFindPanel.addSeparator();
-  //toolBarFindPanel.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
-  //toolBarFindPanel.addAction(&action_session_execute); // ToDo: replace with correct buttons
-  //toolBarFindPanel.addAction(&action_session_break); // ToDo: replace with correct buttons
-  //toolBarFindPanel.addAction(&action_session_commit); // ToDo: replace with correct buttons
-  //toolBarFindPanel.addAction(&action_session_rollback); // ToDo: replace with correct buttons
-  //toolBarFindPanel.addSeparator();
-  //addToolBar(Qt::BottomToolBarArea, &toolBarFindPanel);
+  // Create "DML operations" Toolbar
+  toolBarDML.setObjectName(QString::fromUtf8("toolBarDML"));
+  toolBarDML.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
+  toolBarDML.setWindowTitle("DML operations");
+  toolBarDML.addAction(&action_session_execute); // ToDo: replace with correct buttons
+  toolBarDML.addAction(&action_session_break); // ToDo: replace with correct buttons
+  toolBarDML.addAction(&action_session_commit); // ToDo: replace with correct buttons
+  toolBarDML.addAction(&action_session_rollback); // ToDo: replace with correct buttons
+  toolBarDML.addSeparator();
+  addToolBar(Qt::TopToolBarArea, &toolBarDML);
 }
 
 void Selector::CreateMenu()

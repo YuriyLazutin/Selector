@@ -231,9 +231,8 @@ class Selector : public QMainWindow
     QSignalMapper* p_SigMapper;
 
     void CreateToolBars();
-    QToolBar toolBarFile;
-    QToolBar toolBarRecords;
-    //QToolBar toolBarFindPanel;
+    QToolBar toolBarMain;
+    QToolBar toolBarDML;
 
     // Docks
     void CreateDocks();
