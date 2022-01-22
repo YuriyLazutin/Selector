@@ -2,6 +2,7 @@
 #include "sqlform.h"
 #include <QApplication>
 #include <QMenuBar>
+#include <QToolBox>
 #include <QBrush>
 
 Selector::Selector(QWidget *parent) : QMainWindow(parent)
@@ -77,10 +78,18 @@ void Selector::CreateDocks()
   leftDockBrowser.setWidget(&findTemplate);
   addDockWidget(Qt::LeftDockWidgetArea, &leftDockBrowser);
 
-  leftDockWindowList.setObjectName(QString::fromUtf8("leftDockWindowList"));
-  leftDockWindowList.setWindowTitle("Left Dock (Window List)");
-  leftDockWindowList.setWidget(&findTemplate);
-  addDockWidget(Qt::LeftDockWidgetArea, &leftDockWindowList);
+  DockWindowList.setObjectName(QString::fromUtf8("DockWindowList"));
+  DockWindowList.setWindowTitle("Window List");
+  QToolBox*     p_window_list;
+  p_window_list = new QToolBox(&DockWindowList);
+  p_window_list->addItem(new QLabel(p_window_list), QPixmap(":/icons/new-plsql.png"), "Slot for file 1");
+  p_window_list->addItem(new QLabel(p_window_list), QPixmap(":/icons/new-plsql.png"), "Slot for file 2");
+  p_window_list->addItem(new QLabel(p_window_list), QPixmap(":/icons/new-plsql.png"), "Slot for file 3");
+  p_window_list->addItem(new QLabel(p_window_list), QPixmap(":/icons/new-plsql.png"), "Slot for file 4");
+  p_window_list->addItem(new QLabel(p_window_list), QPixmap(":/icons/new-plsql.png"), "Slot for file 5");
+
+  DockWindowList.setWidget(p_window_list);
+  addDockWidget(Qt::LeftDockWidgetArea, &DockWindowList);
 }
 
 void Selector::CreateToolBars()
@@ -921,12 +930,7 @@ void Selector::CreateMenu()
       action_tools_tmpl.setChecked(false);
       menu_tools.addAction(&action_tools_tmpl);
       // Tools->Window List
-      action_tools_wndlst.setObjectName(QString::fromUtf8("action_tools_wndlst")); // ToDo: Remove this if docks will implemented
-      action_tools_wndlst.setText(QApplication::translate("Selector", "&Window List", nullptr)); // ToDo: Remove this if docks will implemented
-      action_tools_wndlst.setCheckable(true); // ToDo: Remove this if docks will implemented
-      action_tools_wndlst.setChecked(true); // ToDo: Remove this if docks will implemented
-      menu_tools.addAction(&action_tools_wndlst); // ToDo: Remove this if docks will implemented
-      menu_tools.addAction(leftDockWindowList.toggleViewAction());
+      menu_tools.addAction(DockWindowList.toggleViewAction());
       // Tools->Toolbar
       action_tools_tlbr.setObjectName(QString::fromUtf8("action_tools_tlbr"));
       action_tools_tlbr.setText(QApplication::translate("Selector", "Toolbar", nullptr));

@@ -164,7 +164,6 @@ class Selector : public QMainWindow
         QAction action_tools_brodir;
         QAction action_tools_brofil;
         QAction action_tools_tmpl;
-        QAction action_tools_wndlst;   // ToDo: Remove this if docks will implemented
         QAction action_tools_tlbr;
         QAction action_tools_expln;
         QAction action_tools_astnt;
@@ -237,7 +236,7 @@ class Selector : public QMainWindow
     // Docks
     void CreateDocks();
     QDockWidget leftDockBrowser;
-    QDockWidget leftDockWindowList;
+    QDockWidget DockWindowList;
     QDockWidget bottomDock;
     QLabel  bottomDockLabel;
     QTextEdit findTemplate;
