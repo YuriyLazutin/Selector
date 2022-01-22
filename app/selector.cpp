@@ -391,22 +391,26 @@ void Selector::CreateMenu()
       // File->Print Setup...
       action_file_print_setup.setObjectName(QString::fromUtf8("action_file_print_setup"));
       action_file_print_setup.setText(QApplication::translate("Selector", "Print Setup...", nullptr));
+      connect(&action_file_print_setup, SIGNAL(triggered()), SLOT(slotNoImpl()));
       menu_file.addAction(&action_file_print_setup);
       // File->Page Setup...
       action_file_page_setup.setObjectName(QString::fromUtf8("action_file_page_setup"));
       action_file_page_setup.setText(QApplication::translate("Selector", "Page Setup...", nullptr));
+      connect(&action_file_page_setup, SIGNAL(triggered()), SLOT(slotNoImpl()));
       menu_file.addAction(&action_file_page_setup);
       // File->-------
       menu_file.addSeparator();
       // File->New Instance
       action_file_new_instance.setObjectName(QString::fromUtf8("action_file_new_instance"));
       action_file_new_instance.setText(QApplication::translate("Selector", "Ne&w Instance", nullptr));
+      connect(&action_file_new_instance, SIGNAL(triggered()), SLOT(slotNoImpl()));
       menu_file.addAction(&action_file_new_instance);
       // File->-------
       menu_file.addSeparator();
       // File->Authorization...
       action_file_authorization.setObjectName(QString::fromUtf8("action_file_authorization"));
       action_file_authorization.setText(QApplication::translate("Selector", "Authori&zation...", nullptr));
+      connect(&action_file_authorization, SIGNAL(triggered()), SLOT(slotNoImpl()));
       menu_file.addAction(&action_file_authorization);
       // File->-------
       menu_file.addSeparator();
