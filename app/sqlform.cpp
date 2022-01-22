@@ -5,9 +5,28 @@
 
 SQLForm::SQLForm(QWidget* p_Parent /*= 0*/) : QTextEdit(p_Parent)
 {
-  //setIcon(QIcon(":/icons/new-sql.png"));
-  //setWindowIcon(QIcon(":/icons/new-sql.png"));
-  //setWindowIcon(QPixmap(":/icons/new-sql.png"));
+  FileState = FILE_STATE_UNCHANGED;
+  connect(this, SIGNAL(textChanged()), SLOT(slotFileChanged()));
+}
+
+void SQLForm::SetFileState(const unsigned int NewState)
+{
+  unsigned int OldState = FileState;
+  FileState = NewState;
+
+  if (OldState != NewState)
+    isFileChanged() ? emit fileWasChanged() : emit fileWasUnChanged();
+}
+
+bool SQLForm::isFileChanged()
+{
+  return FileState == FILE_STATE_UNCHANGED ? false : true;
+}
+
+void SQLForm::slotFileChanged()
+{
+  if (!isFileChanged())
+    SetFileState(FILE_STATE_CHANGED);
 }
 
 void SQLForm::slotFileLoad()
@@ -24,7 +43,9 @@ void SQLForm::slotFileLoad()
     f.close();
 
     FileName = s;
-    emit changeWindowTitle(FileName);
+    SetFileState(FILE_STATE_UNCHANGED);
+    setWindowTitle(FileName);
+    //emit changeWindowTitle(FileName);
   }
 }
 
@@ -41,7 +62,7 @@ void SQLForm::slotFileSave()
   {
     QTextStream(&f) << toPlainText();
     f.close();
-    emit changeWindowTitle(FileName);
+    //emit changeWindowTitle(FileName);
   }
 }
 
@@ -51,6 +72,7 @@ void SQLForm::slotFileSaveAs()
   if (!s.isEmpty())
   {
     FileName = s;
+    setWindowTitle(FileName);
     slotFileSave();
   }
 }

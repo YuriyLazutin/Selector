@@ -4,6 +4,7 @@
 #include <QMenuBar>
 #include <QToolBox>
 #include <QBrush>
+#include <QMdiSubWindow>
 
 Selector::Selector(QWidget *parent) : QMainWindow(parent)
 {
@@ -42,8 +43,8 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
     // //MDIArea.setOption(QMdiArea::DontMaximizeSubWindowOnActivation);
 
     setCentralWidget(&MDIArea);
-    p_SigMapper = new QSignalMapper(this);
-    connect(p_SigMapper, SIGNAL(mapped(QWidget*)), this, SLOT(slotSetActiveSubWindow(QWidget*)));
+    //p_SigMapper = new QSignalMapper(this);
+    //connect(p_SigMapper, SIGNAL(mapped(QWidget*)), this, SLOT(slotSetActiveSubWindow(QWidget*)));
 
     CreateStatusBar();
 
@@ -373,6 +374,7 @@ void Selector::CreateMenu()
       action_file_email.setObjectName(QString::fromUtf8("action_file_email"));
       action_file_email.setText(QApplication::translate("Selector", "&E-mail...", nullptr));
       action_file_email.setEnabled(false);
+      connect(&action_file_email, SIGNAL(triggered()), SLOT(slotNoImpl()));
       menu_file.addAction(&action_file_email);
       // File->-------
       menu_file.addSeparator();
@@ -380,11 +382,13 @@ void Selector::CreateMenu()
       action_file_close.setObjectName(QString::fromUtf8("action_file_close"));
       action_file_close.setText(QApplication::translate("Selector", "&Close", nullptr));
       action_file_close.setEnabled(false);
+      connect(&action_file_close, SIGNAL(triggered()), SLOT(slotNoImpl()));
       menu_file.addAction(&action_file_close);
       // File->Close All
       action_file_close_all.setObjectName(QString::fromUtf8("action_file_close_all"));
       action_file_close_all.setText(QApplication::translate("Selector", "Clos&e All", nullptr));
       action_file_close_all.setEnabled(false);
+      connect(&action_file_close_all, SIGNAL(triggered()), SLOT(slotNoImpl()));
       menu_file.addAction(&action_file_close_all);
       // File->-------
       menu_file.addSeparator();
@@ -392,6 +396,7 @@ void Selector::CreateMenu()
       action_file_print.setObjectName(QString::fromUtf8("action_file_print"));
       action_file_print.setText(QApplication::translate("Selector", "&Print", nullptr));
       action_file_print.setEnabled(false);
+      connect(&action_file_print, SIGNAL(triggered()), SLOT(slotNoImpl()));
       menu_file.addAction(&action_file_print);
       // File->Print Setup...
       action_file_print_setup.setObjectName(QString::fromUtf8("action_file_print_setup"));
@@ -1231,61 +1236,93 @@ void Selector::CreateStatusBar()
   //setStatusBar(&statusbar);
 }
 
+void Selector::slotFileWasChanged()
+{
+  action_file_save.setEnabled(true);
+  action_file_save_as.setEnabled(true);
+  action_file_save_all.setEnabled(true);
+  action_file_email.setEnabled(true);
+  action_file_close.setEnabled(true);
+  action_file_close_all.setEnabled(true);
+  action_file_print.setEnabled(true);
+}
+
+void Selector::slotFileWasUnChanged()
+{
+  action_file_save.setEnabled(false);
+  action_file_save_as.setEnabled(false);
+  action_file_save_all.setEnabled(false);
+  action_file_email.setEnabled(false);
+  action_file_close.setEnabled(false);
+  action_file_close_all.setEnabled(false);
+  action_file_print.setEnabled(false);
+}
+
 void Selector::slotNewSQLForm()
 {
   // SQLForm* p_form = new SQLForm(&MDIArea); Only QMdiSubWindows can be set as children of QMdiArea !!!
   SQLForm* p_form = new SQLForm();
-  MDIArea.addSubWindow(p_form);
-  p_form->setAttribute(Qt::WA_DeleteOnClose);
-  p_form->setWindowTitle("New SQL Document");
-  p_form->setWindowIcon(QIcon(":/icons/new-sql.png")); // ??? This is not working!!!
+  QMdiSubWindow* p_sub_wnd = MDIArea.addSubWindow(p_form);
+  p_sub_wnd->setAttribute(Qt::WA_DeleteOnClose);
+  p_sub_wnd->setWindowTitle("New SQL Document");
+  p_sub_wnd->setWindowIcon(QIcon(":/icons/new-sql.png"));
 
+  connect(p_form, SIGNAL(fileWasChanged()), SLOT(slotFileWasChanged()));
   //connect(p_form, SIGNAL(changeMainTitle(const QString&)), SLOT(slotChangeMainTitle(const QString&))); // ???
-  p_form->show();
+  p_sub_wnd->show();
 }
 
 void Selector::slotOpenSQLForm()
 {
   SQLForm* p_form = new SQLForm;
-  MDIArea.addSubWindow(p_form);
-  p_form->setAttribute(Qt::WA_DeleteOnClose);
-  p_form->setWindowTitle("Open SQL Document");
-  p_form->setWindowIcon(QIcon(":/icons/new-sql.png")); // ??? This is not working!!!
+  QMdiSubWindow* p_sub_wnd = MDIArea.addSubWindow(p_form);
+  p_sub_wnd->setAttribute(Qt::WA_DeleteOnClose);
+  p_sub_wnd->setWindowTitle("Open SQL Document");
+  p_sub_wnd->setWindowIcon(QIcon(":/icons/new-sql.png"));
   p_form->slotFileLoad();
-  connect(p_form, SIGNAL(changeWindowTitle(const QString&)), SLOT(slotChangeWindowTitle(const QString&)));
-  p_form->show();
+  connect(p_form, SIGNAL(fileWasChanged()), SLOT(slotFileWasChanged()));
+  //connect(p_form, SIGNAL(changeWindowTitle(const QString&)), SLOT(slotChangeWindowTitle(const QString&)));
+  p_sub_wnd->show();
 
 }
 
 void Selector::slotFileSave()
 {
-  //QMdiSubWindow* p_sub_form =  MDIArea.activeSubWindow();
-  //SQLForm* p_form = qobject_cast<SQLForm*> (MDIArea.activeSubWindow()); // ???
-  //if (p_form)
-  //  p_form->slotFileSave();
+  QMdiSubWindow* p_sub_wnd = MDIArea.activeSubWindow();
+  if (p_sub_wnd)
+  {
+    SQLForm* p_form = qobject_cast<SQLForm*>(p_sub_wnd->widget());
+    if (p_form)
+      p_form->slotFileSave();
+  }
 }
 
 void Selector::slotFileSaveAs()
 {
-  //QMdiSubWindow* p_sub_form =  MDIArea.activeSubWindow();
-  //SQLForm* p_form = qobject_cast<SQLForm*> ( MDIArea.activeSubWindow() ); // ???
-  //if (p_form)
-  //  p_form->slotFileSaveAs();
+  QMdiSubWindow* p_sub_wnd = MDIArea.activeSubWindow();
+  if (p_sub_wnd)
+  {
+    SQLForm* p_form = qobject_cast<SQLForm*>(p_sub_wnd->widget());
+    if (p_form)
+      p_form->slotFileSaveAs();
+  }
 }
 
 void Selector::slotFileSaveAll()
 {
-
+  QMessageBox::information(0, "Message", "Feature Not implemented!");
 }
 
-void Selector::slotChangeWindowTitle(const QString& new_title)
-{
-  qobject_cast<SQLForm*>(sender())->setWindowTitle(new_title);
-}
+//void Selector::slotChangeWindowTitle(const QString& new_title)
+//{
+//  qobject_cast<SQLForm*>(sender())->setWindowTitle(new_title);
+//}
 
+/*
 void Selector::slotSetActiveSubWindow(QWidget* p_form)
 {
 //  if (p_form)
 //    MDIArea.setActiveSubWindow(qobject_cast<QMdiSubWindow*>(p_form));
 
 }
+*/

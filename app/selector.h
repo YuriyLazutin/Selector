@@ -227,7 +227,7 @@ class Selector : public QMainWindow
 
     //QWidget centralwidget;
     QMdiArea MDIArea;
-    QSignalMapper* p_SigMapper;
+    //QSignalMapper* p_SigMapper;
 
     void CreateToolBars();
     QToolBar toolBarMain;
@@ -255,12 +255,14 @@ class Selector : public QMainWindow
           QMessageBox::information(0, "Message", "Feature Not implemented!");
       }
 
+      void slotFileWasChanged();
+      void slotFileWasUnChanged();
       void slotNewSQLForm();
       void slotOpenSQLForm();
       void slotFileSave();
       void slotFileSaveAs();
       void slotFileSaveAll();
-      void slotChangeWindowTitle(const QString&);
-      void slotSetActiveSubWindow(QWidget*);
+//      void slotChangeWindowTitle(const QString&);
+//      void slotSetActiveSubWindow(QWidget*);
 };
 #endif // SELECTOR_H
