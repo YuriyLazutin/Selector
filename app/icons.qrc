@@ -13,5 +13,6 @@
         <file>icons/rollback.png</file>
         <file>icons/save-sql.png</file>
         <file>icons/selector.png</file>
+        <file>icons/selector.icns</file>
     </qresource>
 </RCC>
