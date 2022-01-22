@@ -45,12 +45,7 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
     p_SigMapper = new QSignalMapper(this);
     connect(p_SigMapper, SIGNAL(mapped(QWidget*)), this, SLOT(slotSetActiveSubWindow(QWidget*)));
 
-
-    QStatusBar* p_status_bar = statusBar();
-    //    statusbar = new QStatusBar(MainWindow);
-    p_status_bar->setObjectName(QString::fromUtf8("statusbar"));
-    p_status_bar->setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
-    //setStatusBar(&statusbar);
+    CreateStatusBar();
 
     QMetaObject::connectSlotsByName(this);
 }
@@ -1225,6 +1220,15 @@ void Selector::CreateMenu()
     p_menu_bar->addAction(menu_help.menuAction());
 
   //setMenuBar(&menubar);
+}
+
+void Selector::CreateStatusBar()
+{
+  // statusbar = new QStatusBar(MainWindow);
+  QStatusBar* p_status_bar = statusBar();
+  p_status_bar->setObjectName(QString::fromUtf8("statusbar"));
+  p_status_bar->setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
+  //setStatusBar(&statusbar);
 }
 
 void Selector::slotNewSQLForm()

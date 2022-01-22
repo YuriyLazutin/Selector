@@ -241,7 +241,9 @@ class Selector : public QMainWindow
     QLabel  bottomDockLabel;
     QTextEdit findTemplate;
 
-   // QStatusBar statusbar;
+    // Status bar
+    void CreateStatusBar();
+    // QStatusBar statusbar;
 
   public:
     Selector(QWidget *parent = nullptr);
