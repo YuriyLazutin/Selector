@@ -47,7 +47,8 @@ int main(int argc, char** argv)
     }
     while (next_option != -1);
 
-    w.show();
+    //w.show();
+    w.showMaximized();
     return a.exec();
 }
 
