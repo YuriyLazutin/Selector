@@ -1237,7 +1237,8 @@ void Selector::CreateMenu()
 
 void Selector::slotNewSQLForm()
 {
-  SQLForm* p_form = new SQLForm(&MDIArea);
+  // SQLForm* p_form = new SQLForm(&MDIArea); Only QMdiSubWindows can be set as children of QMdiArea !!!
+  SQLForm* p_form = new SQLForm();
   MDIArea.addSubWindow(p_form);
   p_form->setAttribute(Qt::WA_DeleteOnClose);
   p_form->setWindowTitle("New SQL Document");
