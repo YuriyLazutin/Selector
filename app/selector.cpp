@@ -135,7 +135,7 @@ void Selector::CreateMenu()
       p_menu_action->setStatusTip("Create a new program unit or database object");
       p_menu_action->setWhatsThis("Create a new program unit or database object");
       p_menu_action->setIcon(QPixmap(":/icons/new-sql.png"));
-      connect(p_menu_action, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      //connect(p_menu_action, SIGNAL(triggered()), SLOT(slotNoImpl()));
       menu_file.addAction(p_menu_action);
 
         // File->New->Program Window
@@ -146,7 +146,7 @@ void Selector::CreateMenu()
         p_menu_action->setStatusTip("Create new PL/SQL program window");
         p_menu_action->setWhatsThis("Create new PL/SQL program window");
         p_menu_action->setIcon(QPixmap(":/icons/new-plsql.png"));
-        connect(p_menu_action, SIGNAL(triggered()), SLOT(slotNoImpl()));
+        //connect(p_menu_action, SIGNAL(triggered()), SLOT(slotNoImpl()));
         menu_file_new.addAction(p_menu_action);
           // File->New->Program Window->Blank
           action_file_new_prog_wnd_blank.setObjectName(QString::fromUtf8("action_file_new_prog_wnd_blank"));
@@ -297,7 +297,7 @@ void Selector::CreateMenu()
       p_menu_action->setStatusTip("Open existing program file");
       p_menu_action->setWhatsThis("Open existing program file");
       p_menu_action->setIcon(QPixmap(":/icons/open-sql.png"));
-      connect(p_menu_action, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      //connect(p_menu_action, SIGNAL(triggered()), SLOT(slotNoImpl()));
       menu_file.addAction(p_menu_action);
       menu_file_open.setTitle(QApplication::translate("Selector", "&Open", nullptr));
         // File->Open->Program File
