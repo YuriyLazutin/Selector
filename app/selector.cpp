@@ -353,34 +353,40 @@ void Selector::CreateMenu()
       // File->Save As...
       action_file_save_as.setObjectName(QString::fromUtf8("action_file_save_as"));
       action_file_save_as.setText(QApplication::translate("Selector", "Save &As...", nullptr));
-      menu_file.addAction(&action_file_save_as);
+      action_file_save_as.setEnabled(false);
       connect(&action_file_save_as, SIGNAL(triggered()), SLOT(slotFileSaveAs()));
+      menu_file.addAction(&action_file_save_as);
       // File->Save All
       action_file_save_all.setObjectName(QString::fromUtf8("action_file_save_all"));
       action_file_save_all.setText(QApplication::translate("Selector", "Save All", nullptr));
-      menu_file.addAction(&action_file_save_all);
+      action_file_save_all.setEnabled(false);
       connect(&action_file_save_all, SIGNAL(triggered()), SLOT(slotFileSaveAll()));
+      menu_file.addAction(&action_file_save_all);
       // File->-------
       menu_file.addSeparator();
       // File->E-mail...
       action_file_email.setObjectName(QString::fromUtf8("action_file_email"));
       action_file_email.setText(QApplication::translate("Selector", "&E-mail...", nullptr));
+      action_file_email.setEnabled(false);
       menu_file.addAction(&action_file_email);
       // File->-------
       menu_file.addSeparator();
       // File->Close
       action_file_close.setObjectName(QString::fromUtf8("action_file_close"));
       action_file_close.setText(QApplication::translate("Selector", "&Close", nullptr));
+      action_file_close.setEnabled(false);
       menu_file.addAction(&action_file_close);
       // File->Close All
       action_file_close_all.setObjectName(QString::fromUtf8("action_file_close_all"));
       action_file_close_all.setText(QApplication::translate("Selector", "Clos&e All", nullptr));
+      action_file_close_all.setEnabled(false);
       menu_file.addAction(&action_file_close_all);
       // File->-------
       menu_file.addSeparator();
       // File->Print
       action_file_print.setObjectName(QString::fromUtf8("action_file_print"));
       action_file_print.setText(QApplication::translate("Selector", "&Print", nullptr));
+      action_file_print.setEnabled(false);
       menu_file.addAction(&action_file_print);
       // File->Print Setup...
       action_file_print_setup.setObjectName(QString::fromUtf8("action_file_print_setup"));
