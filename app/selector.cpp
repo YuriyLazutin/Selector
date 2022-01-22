@@ -2,6 +2,7 @@
 #include "sqlform.h"
 #include <QApplication>
 #include <QMenuBar>
+#include <QBrush>
 
 Selector::Selector(QWidget *parent) : QMainWindow(parent)
 {
@@ -27,6 +28,17 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
     MDIArea.setObjectName(QString::fromUtf8("centralwidgetMDI"));
     MDIArea.setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     MDIArea.setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    MDIArea.setBackground(QBrush(QColor(148, 167, 167)));
+
+    // ToDo: This mode should be switch on/off via View menu
+    // // MDIArea.setViewMode(QMdiArea::SubWindowView); // Default
+    // MDIArea.setViewMode(QMdiArea::TabbedView);
+    // MDIArea.setTabsMovable(true);
+    // MDIArea.setTabsClosable (true);
+    // // MDIArea.setTabShape(QTabWidget::Rounded); // Default
+    // MDIArea.setTabShape(QTabWidget::Triangular);
+    // //MDIArea.setOption(QMdiArea::DontMaximizeSubWindowOnActivation);
+
     setCentralWidget(&MDIArea);
     p_SigMapper = new QSignalMapper(this);
     connect(p_SigMapper, SIGNAL(mapped(QWidget*)), this, SLOT(slotSetActiveSubWindow(QWidget*)));
@@ -1224,7 +1236,7 @@ void Selector::CreateMenu()
 
 void Selector::slotNewSQLForm()
 {
-  SQLForm* p_form = new SQLForm;
+  SQLForm* p_form = new SQLForm(&MDIArea);
   MDIArea.addSubWindow(p_form);
   p_form->setAttribute(Qt::WA_DeleteOnClose);
   p_form->setWindowTitle("New SQL Document");
