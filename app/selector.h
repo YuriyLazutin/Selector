@@ -18,70 +18,22 @@
 #include <QLabel>
 #include <QMdiArea>
 #include <QSignalMapper>
-
+#include "actions.h"
 
 class Selector : public QMainWindow
 {
   Q_OBJECT
 
   private:
+    file_actions act_file;
+
     void CreateMenu();
     //QMenuBar menubar;
       QMenu menu_file;
         QMenu menu_file_new;
           QMenu menu_file_new_prog_wnd;
-            QAction action_file_new_prog_wnd_blank;
-            QAction action_file_new_prog_wnd_func;
-            QAction action_file_new_prog_wnd_jsrc;
-            QAction action_file_new_prog_wnd_pkg;
-            QAction action_file_new_prog_wnd_pkgbdy;
-            QAction action_file_new_prog_wnd_pkgspc;
-            QAction action_file_new_prog_wnd_proc;
-            QAction action_file_new_prog_wnd_trg;
-            QAction action_file_new_prog_wnd_type;
-            QAction action_file_new_prog_wnd_typebdy;
-            QAction action_file_new_prog_wnd_typespc;
-          QAction action_file_new_test;
-          QAction action_file_new_sql;
-          QAction action_file_new_rpt;
-          QAction action_file_new_cmd;
-          QAction action_file_new_explan;
-          QAction action_file_new_diag;
-
-          QAction action_file_new_view;
-          QAction action_file_new_mview;
-          QAction action_file_new_tbl;
-          QAction action_file_new_seq;
-          QAction action_file_new_syn;
-          QAction action_file_new_lib;
-          QAction action_file_new_dir;
-          QAction action_file_new_job;
-          QAction action_file_new_que;
-          QAction action_file_new_quetbl;
-          QAction action_file_new_user;
-          QAction action_file_new_role;
-          QAction action_file_new_profile;
-          QAction action_file_new_dblink;
         QMenu menu_file_open;
-          QAction action_file_open_prog_file;
-          QAction action_file_open_test_script;
-          QAction action_file_open_sql_sqript;
-          QAction action_file_open_rpt_file;
-          QAction action_file_open_cmd_file;
-          QAction action_file_open_diag_file;
         QMenu menu_file_reopen;
-        QAction action_file_save;
-        QAction action_file_save_as;
-        QAction action_file_save_all;
-        QAction action_file_email;
-        QAction action_file_close;
-        QAction action_file_close_all;
-        QAction action_file_print;
-        QAction action_file_print_setup;
-        QAction action_file_page_setup;
-        QAction action_file_new_instance;
-        QAction action_file_authorization;
-        QAction action_file_exit;
       QMenu menu_edit;
         QAction action_edit_undo;
         QAction action_edit_redo;

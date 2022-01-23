@@ -16,11 +16,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    actions.cpp \
     main.cpp \
     selector.cpp \
     sqlform.cpp
 
 HEADERS += \
+    actions.h \
     selector.h \
     sqlform.h
 
@@ -36,7 +38,7 @@ RESOURCES += \
     icons.qrc
 
 # Application information (properties)
-VERSION = 2021.01.22
+VERSION = 2021.01.23
 QMAKE_TARGET_COMPANY = "Country Tech"
 QMAKE_TARGET_PRODUCT = "Selector"
 QMAKE_TARGET_DESCRIPTION = "Application for database development"

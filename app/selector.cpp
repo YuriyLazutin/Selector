@@ -98,7 +98,7 @@ void Selector::CreateToolBars()
   toolBarMain.addSeparator();
   toolBarMain.addAction(menu_file_new.menuAction());
   toolBarMain.addAction(menu_file_open.menuAction());
-  toolBarMain.addAction(&action_file_save);
+  toolBarMain.addAction(act_file.save);
   toolBarMain.addSeparator();
   toolBarMain.addAction(&action_edit_undo);
   toolBarMain.addAction(&action_edit_redo);
@@ -128,7 +128,6 @@ void Selector::CreateMenu()
   QAction* p_menu_action;
 
   p_menu_bar->setObjectName(QString::fromUtf8("menubar"));
-  //p_menu_bar->setGeometry(QRect(0, 0, 800, 22));
   p_menu_bar->setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
     // File
     menu_file.setObjectName(QString::fromUtf8("menu_file"));
@@ -154,148 +153,43 @@ void Selector::CreateMenu()
         p_menu_action->setIcon(QPixmap(":/icons/new-plsql.png"));
         //connect(p_menu_action, SIGNAL(triggered()), SLOT(slotNoImpl()));
         menu_file_new.addAction(p_menu_action);
-          // File->New->Program Window->Blank
-          action_file_new_prog_wnd_blank.setObjectName(QString::fromUtf8("action_file_new_prog_wnd_blank"));
-          action_file_new_prog_wnd_blank.setText(QApplication::translate("Selector", "Blank", nullptr));
-          menu_file_new_prog_wnd.addAction(&action_file_new_prog_wnd_blank);
-          // File->New->Program Window->-------
-          menu_file_new_prog_wnd.addSeparator();
-          // File->New->Program Window->Function
-          action_file_new_prog_wnd_func.setObjectName(QString::fromUtf8("action_file_new_prog_wnd_func"));
-          action_file_new_prog_wnd_func.setText(QApplication::translate("Selector", "Function", nullptr));
-          menu_file_new_prog_wnd.addAction(&action_file_new_prog_wnd_func);
-          // File->New->Program Window->Java source
-          action_file_new_prog_wnd_jsrc.setObjectName(QString::fromUtf8("action_file_new_prog_wnd_jsrc"));
-          action_file_new_prog_wnd_jsrc.setText(QApplication::translate("Selector", "Java Source", nullptr));
-          menu_file_new_prog_wnd.addAction(&action_file_new_prog_wnd_jsrc);
-          // File->New->Program Window->Package
-          action_file_new_prog_wnd_pkg.setObjectName(QString::fromUtf8("action_file_new_prog_wnd_pkg"));
-          action_file_new_prog_wnd_pkg.setText(QApplication::translate("Selector", "Package", nullptr));
-          menu_file_new_prog_wnd.addAction(&action_file_new_prog_wnd_pkg);
-          // File->New->Program Window->Package body
-          action_file_new_prog_wnd_pkgbdy.setObjectName(QString::fromUtf8("action_file_new_prog_wnd_pkgbdy"));
-          action_file_new_prog_wnd_pkgbdy.setText(QApplication::translate("Selector", "Package Body", nullptr));
-          menu_file_new_prog_wnd.addAction(&action_file_new_prog_wnd_pkgbdy);
-          // File->New->Program Window->Package Specification
-          action_file_new_prog_wnd_pkgspc.setObjectName(QString::fromUtf8("action_file_new_prog_wnd_pkgspc"));
-          action_file_new_prog_wnd_pkgspc.setText(QApplication::translate("Selector", "Package Specification", nullptr));
-          menu_file_new_prog_wnd.addAction(&action_file_new_prog_wnd_pkgspc);
-          // File->New->Program Window->Procedure
-          action_file_new_prog_wnd_proc.setObjectName(QString::fromUtf8("action_file_new_prog_wnd_proc"));
-          action_file_new_prog_wnd_proc.setText(QApplication::translate("Selector", "Procedure", nullptr));
-          menu_file_new_prog_wnd.addAction(&action_file_new_prog_wnd_proc);
-          // File->New->Program Window->Trigger
-          action_file_new_prog_wnd_trg.setObjectName(QString::fromUtf8("action_file_new_prog_wnd_trg"));
-          action_file_new_prog_wnd_trg.setText(QApplication::translate("Selector", "Trigger", nullptr));
-          menu_file_new_prog_wnd.addAction(&action_file_new_prog_wnd_trg);
-          // File->New->Program Window->Type
-          action_file_new_prog_wnd_type.setObjectName(QString::fromUtf8("action_file_new_prog_wnd_type"));
-          action_file_new_prog_wnd_type.setText(QApplication::translate("Selector", "Type", nullptr));
-          menu_file_new_prog_wnd.addAction(&action_file_new_prog_wnd_type);
-          // File->New->Program Window->Type body
-          action_file_new_prog_wnd_typebdy.setObjectName(QString::fromUtf8("action_file_new_prog_wnd_typebdy"));
-          action_file_new_prog_wnd_typebdy.setText(QApplication::translate("Selector", "Type Body", nullptr));
-          menu_file_new_prog_wnd.addAction(&action_file_new_prog_wnd_typebdy);
-          // File->New->Program Window->Type Specification
-          action_file_new_prog_wnd_typespc.setObjectName(QString::fromUtf8("action_file_new_prog_wnd_typespc"));
-          action_file_new_prog_wnd_typespc.setText(QApplication::translate("Selector", "Type Specification", nullptr));
-          menu_file_new_prog_wnd.addAction(&action_file_new_prog_wnd_typespc);
-        // File->New->Test Window
-        action_file_new_test.setObjectName(QString::fromUtf8("action_file_new_test"));
-        action_file_new_test.setText(QApplication::translate("Selector", "&Test Window", nullptr));
-        menu_file_new.addAction(&action_file_new_test);
-        // File->New->SQL Window
-        action_file_new_sql.setObjectName(QString::fromUtf8("action_file_new_sql"));
-        action_file_new_sql.setText(QApplication::translate("Selector", "&SQL Window", nullptr));
-        action_file_new_sql.setToolTip("Create new SQL script");
-        action_file_new_sql.setStatusTip("Create a new SQL script, program unit or database object");
-        action_file_new_sql.setWhatsThis("Create a new SQL script, program unit or database object");
-        action_file_new_sql.setIcon(QPixmap(":/icons/new-sql.png"));
-        connect(&action_file_new_sql, SIGNAL(triggered()), SLOT(slotNewSQLForm()));
-        menu_file_new.addAction(&action_file_new_sql);
-        // File->New->Report Window
-        action_file_new_rpt.setObjectName(QString::fromUtf8("action_file_new_rpt"));
-        action_file_new_rpt.setText(QApplication::translate("Selector", "&Report Window", nullptr));
-        action_file_new_rpt.setToolTip("Create new report");
-        action_file_new_rpt.setStatusTip("Create a new report");
-        action_file_new_rpt.setWhatsThis("Create a new report");
-        action_file_new_rpt.setIcon(QPixmap(":/icons/report.png"));
-        connect(&action_file_new_rpt, SIGNAL(triggered()), SLOT(slotNoImpl()));
-        menu_file_new.addAction(&action_file_new_rpt);
-        // File->New->Command Window
-        action_file_new_cmd.setObjectName(QString::fromUtf8("action_file_new_cmd"));
-        action_file_new_cmd.setText(QApplication::translate("Selector", "&Command Window", nullptr));
-        menu_file_new.addAction(&action_file_new_cmd);
-        // File->New->Explain Plan Window
-        action_file_new_explan.setObjectName(QString::fromUtf8("action_file_new_explan"));
-        action_file_new_explan.setText(QApplication::translate("Selector", "&Explain Plan Window", nullptr));
-        menu_file_new.addAction(&action_file_new_explan);
-        // File->New->Diagram Window
-        action_file_new_diag.setObjectName(QString::fromUtf8("action_file_new_diag"));
-        action_file_new_diag.setText(QApplication::translate("Selector", "&Diagram Window", nullptr));
-        menu_file_new.addAction(&action_file_new_diag);
-        // File->New->-------
-        menu_file_new.addSeparator();
-        // File->New->View
-        action_file_new_view.setObjectName(QString::fromUtf8("action_file_new_view"));
-        action_file_new_view.setText(QApplication::translate("Selector", "&View", nullptr));
-        menu_file_new.addAction(&action_file_new_view);
-        // File->New->Materialized View
-        action_file_new_mview.setObjectName(QString::fromUtf8("action_file_new_mview"));
-        action_file_new_mview.setText(QApplication::translate("Selector", "&Materialized View", nullptr));
-        menu_file_new.addAction(&action_file_new_mview);
-        // File->New->Table
-        action_file_new_tbl.setObjectName(QString::fromUtf8("action_file_new_tbl"));
-        action_file_new_tbl.setText(QApplication::translate("Selector", "T&able", nullptr));
-        menu_file_new.addAction(&action_file_new_tbl);
-        // File->New->Sequence
-        action_file_new_seq.setObjectName(QString::fromUtf8("action_file_new_seq"));
-        action_file_new_seq.setText(QApplication::translate("Selector", "Se&quence", nullptr));
-        menu_file_new.addAction(&action_file_new_seq);
-        // File->New->Synonym
-        action_file_new_syn.setObjectName(QString::fromUtf8("action_file_new_syn"));
-        action_file_new_syn.setText(QApplication::translate("Selector", "Sy&nonym", nullptr));
-        menu_file_new.addAction(&action_file_new_syn);
-        // File->New->Library
-        action_file_new_lib.setObjectName(QString::fromUtf8("action_file_new_lib"));
-        action_file_new_lib.setText(QApplication::translate("Selector", "&Library", nullptr));
-        menu_file_new.addAction(&action_file_new_lib);
-        // File->New->Directory
-        action_file_new_dir.setObjectName(QString::fromUtf8("action_file_new_dir"));
-        action_file_new_dir.setText(QApplication::translate("Selector", "D&irectory", nullptr));
-        menu_file_new.addAction(&action_file_new_dir);
-        // File->New->Job
-        action_file_new_job.setObjectName(QString::fromUtf8("action_file_new_job"));
-        action_file_new_job.setText(QApplication::translate("Selector", "&Job", nullptr));
-        menu_file_new.addAction(&action_file_new_job);
-        // File->New->Queue
-        action_file_new_que.setObjectName(QString::fromUtf8("action_file_new_que"));
-        action_file_new_que.setText(QApplication::translate("Selector", "Queue", nullptr));
-        menu_file_new.addAction(&action_file_new_que);
-        // File->New->Queue table
-        action_file_new_quetbl.setObjectName(QString::fromUtf8("action_file_new_quetbl"));
-        action_file_new_quetbl.setText(QApplication::translate("Selector", "Queue ta&ble", nullptr));
-        menu_file_new.addAction(&action_file_new_quetbl);
-        // File->New->-------
-        menu_file_new.addSeparator();
-        // File->New->User
-        action_file_new_user.setObjectName(QString::fromUtf8("action_file_new_user"));
-        action_file_new_user.setText(QApplication::translate("Selector", "&User", nullptr));
-        menu_file_new.addAction(&action_file_new_user);
-        // File->New->Role
-        action_file_new_role.setObjectName(QString::fromUtf8("action_file_new_role"));
-        action_file_new_role.setText(QApplication::translate("Selector", "R&ole", nullptr));
-        menu_file_new.addAction(&action_file_new_role);
-        // File->New->Profile
-        action_file_new_profile.setObjectName(QString::fromUtf8("action_file_new_profile"));
-        action_file_new_profile.setText(QApplication::translate("Selector", "Pro&file", nullptr));
-        menu_file_new.addAction(&action_file_new_profile);
-        // File->New->-------
-        menu_file_new.addSeparator();
-        // File->New->Database Link
-        action_file_new_dblink.setObjectName(QString::fromUtf8("action_file_new_dblink"));
-        action_file_new_dblink.setText(QApplication::translate("Selector", "Database Lin&k", nullptr));
-        menu_file_new.addAction(&action_file_new_dblink);
+          menu_file_new_prog_wnd.addAction(act_file.new_blank);            // File->New->Program Window->Blank
+          menu_file_new_prog_wnd.addSeparator();                           // File->New->Program Window->-------
+          menu_file_new_prog_wnd.addAction(act_file.new_func);             // File->New->Program Window->Function
+          menu_file_new_prog_wnd.addAction(act_file.new_jsrc);             // File->New->Program Window->Java source
+          menu_file_new_prog_wnd.addAction(act_file.new_pkg);              // File->New->Program Window->Package
+          menu_file_new_prog_wnd.addAction(act_file.new_pkgbdy);           // File->New->Program Window->Package body
+          menu_file_new_prog_wnd.addAction(act_file.new_pkgspc);           // File->New->Program Window->Package Specification
+          menu_file_new_prog_wnd.addAction(act_file.new_proc);             // File->New->Program Window->Procedure
+          menu_file_new_prog_wnd.addAction(act_file.new_trg);              // File->New->Program Window->Trigger
+          menu_file_new_prog_wnd.addAction(act_file.new_type);             // File->New->Program Window->Type
+          menu_file_new_prog_wnd.addAction(act_file.new_typebdy);          // File->New->Program Window->Type body
+          menu_file_new_prog_wnd.addAction(act_file.new_typespc);          // File->New->Program Window->Type Specification
+        menu_file_new.addAction(act_file.new_test);                     // File->New->Test Window
+        menu_file_new.addAction(act_file.new_sql);                      // File->New->SQL Window
+        connect(act_file.new_sql, SIGNAL(triggered()), SLOT(slotNewSQLForm()));
+        menu_file_new.addAction(act_file.new_rpt);                      // File->New->Report Window
+        connect(act_file.new_rpt, SIGNAL(triggered()), SLOT(slotNoImpl()));
+        menu_file_new.addAction(act_file.new_cmd);                      // File->New->Command Window
+        menu_file_new.addAction(act_file.new_explan);                   // File->New->Explain Plan Window
+        menu_file_new.addAction(act_file.new_diag);                     // File->New->Diagram Window
+        menu_file_new.addSeparator();                                   // File->New->-------
+        menu_file_new.addAction(act_file.new_view);                     // File->New->View
+        menu_file_new.addAction(act_file.new_mview);                    // File->New->Materialized View
+        menu_file_new.addAction(act_file.new_tbl);                      // File->New->Table
+        menu_file_new.addAction(act_file.new_seq);                      // File->New->Sequence
+        menu_file_new.addAction(act_file.new_syn);                      // File->New->Synonym
+        menu_file_new.addAction(act_file.new_lib);                      // File->New->Library
+        menu_file_new.addAction(act_file.new_dir);                      // File->New->Directory
+        menu_file_new.addAction(act_file.new_job);                      // File->New->Job
+        menu_file_new.addAction(act_file.new_que);                      // File->New->Queue
+        menu_file_new.addAction(act_file.new_quetbl);                   // File->New->Queue table
+        menu_file_new.addSeparator();                                   // File->New->-------
+        menu_file_new.addAction(act_file.new_user);                     // File->New->User
+        menu_file_new.addAction(act_file.new_role);                     // File->New->Role
+        menu_file_new.addAction(act_file.new_profile);                  // File->New->Profile
+        menu_file_new.addSeparator();                                   // File->New->-------
+        menu_file_new.addAction(act_file.new_dblink);                   // File->New->Database Link
       // File->Open
       menu_file_open.setObjectName(QString::fromUtf8("menu_file_open"));
       p_menu_action = menu_file_open.menuAction();
@@ -306,132 +200,50 @@ void Selector::CreateMenu()
       //connect(p_menu_action, SIGNAL(triggered()), SLOT(slotNoImpl()));
       menu_file.addAction(p_menu_action);
       menu_file_open.setTitle(QApplication::translate("Selector", "&Open", nullptr));
-        // File->Open->Program File
-        action_file_open_prog_file.setObjectName(QString::fromUtf8("action_file_open_prog_file"));
-        action_file_open_prog_file.setText(QApplication::translate("Selector", "&Program File", nullptr));
-        menu_file_open.addAction(&action_file_open_prog_file);
-        // File->Open->Test Script
-        action_file_open_test_script.setObjectName(QString::fromUtf8("action_file_open_test_script"));
-        action_file_open_test_script.setText(QApplication::translate("Selector", "&Test Script", nullptr));
-        menu_file_open.addAction(&action_file_open_test_script);
-        // File->Open->SQL Script
-        action_file_open_sql_sqript.setObjectName(QString::fromUtf8("action_file_open_sql_sqript"));
-        action_file_open_sql_sqript.setText(QApplication::translate("Selector", "&SQL Script", nullptr));
-        menu_file_open.addAction(&action_file_open_sql_sqript);
-        connect(&action_file_open_sql_sqript, SIGNAL(triggered()), SLOT(slotOpenSQLForm()));
-        // File->Open->Report File
-        action_file_open_rpt_file.setObjectName(QString::fromUtf8("action_file_open_rpt_file"));
-        action_file_open_rpt_file.setText(QApplication::translate("Selector", "&Report File", nullptr));
-        action_file_open_rpt_file.setToolTip("Open report file");
-        action_file_open_rpt_file.setStatusTip("Open existing report file");
-        action_file_open_rpt_file.setWhatsThis("Open existing report file");
-        action_file_open_rpt_file.setIcon(QPixmap(":/icons/report.png"));
-        connect(&action_file_open_rpt_file, SIGNAL(triggered()), SLOT(slotNoImpl()));
-
-        menu_file_open.addAction(&action_file_open_rpt_file);
-        // File->Open->Command File
-        action_file_open_cmd_file.setObjectName(QString::fromUtf8("action_file_open_cmd_file"));
-        action_file_open_cmd_file.setText(QApplication::translate("Selector", "&Command File", nullptr));
-        menu_file_open.addAction(&action_file_open_cmd_file);
-        // File->Open->Diagram File
-        action_file_open_diag_file.setObjectName(QString::fromUtf8("action_file_open_diag_file"));
-        action_file_open_diag_file.setText(QApplication::translate("Selector", "&Diagram File", nullptr));
-        menu_file_open.addAction(&action_file_open_diag_file);
+        menu_file_open.addAction(act_file.open_prog);                   // File->Open->Program File
+        menu_file_open.addAction(act_file.open_test);                   // File->Open->Test Script
+        menu_file_open.addAction(act_file.open_sql);                    // File->Open->SQL Script
+        connect(act_file.open_sql, SIGNAL(triggered()), SLOT(slotOpenSQLForm()));
+        menu_file_open.addAction(act_file.open_rpt);                    // File->Open->Report File
+        connect(act_file.open_rpt, SIGNAL(triggered()), SLOT(slotNoImpl()));
+        menu_file_open.addAction(act_file.open_cmd);                    // File->Open->Command File
+        menu_file_open.addAction(act_file.open_diag);                   // File->Open->Diagram File
       // File->Reopen
       menu_file_reopen.setObjectName(QString::fromUtf8("menu_file_reopen"));
       menu_file.addAction(menu_file_reopen.menuAction());
       menu_file_reopen.setTitle(QApplication::translate("Selector", "&Reopen", nullptr));
       // File->-------
       menu_file.addSeparator();
-      // File->Save
-      action_file_save.setObjectName(QString::fromUtf8("action_file_save"));
-      action_file_save.setText(QApplication::translate("Selector", "&Save", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_file_save.setShortcut(QApplication::translate("Selector", "Ctrl+S", nullptr));
-      #endif // QT_NO_SHORTCUT
-      action_file_save.setToolTip("Save file");
-      action_file_save.setStatusTip("Save program unit as external text file");
-      action_file_save.setWhatsThis("Save program unit as external text file");
-      action_file_save.setIcon(QPixmap(":/icons/save-sql.png"));
-      action_file_save.setEnabled(false);
-      connect(&action_file_save, SIGNAL(triggered()), SLOT(slotFileSave()));
-      menu_file.addAction(&action_file_save);
-      // File->Save As...
-      action_file_save_as.setObjectName(QString::fromUtf8("action_file_save_as"));
-      action_file_save_as.setText(QApplication::translate("Selector", "Save &As...", nullptr));
-      action_file_save_as.setEnabled(false);
-      connect(&action_file_save_as, SIGNAL(triggered()), SLOT(slotFileSaveAs()));
-      menu_file.addAction(&action_file_save_as);
-      // File->Save All
-      action_file_save_all.setObjectName(QString::fromUtf8("action_file_save_all"));
-      action_file_save_all.setText(QApplication::translate("Selector", "Save All", nullptr));
-      action_file_save_all.setEnabled(false);
-      connect(&action_file_save_all, SIGNAL(triggered()), SLOT(slotFileSaveAll()));
-      menu_file.addAction(&action_file_save_all);
-      // File->-------
-      menu_file.addSeparator();
-      // File->E-mail...
-      action_file_email.setObjectName(QString::fromUtf8("action_file_email"));
-      action_file_email.setText(QApplication::translate("Selector", "&E-mail...", nullptr));
-      action_file_email.setEnabled(false);
-      connect(&action_file_email, SIGNAL(triggered()), SLOT(slotNoImpl()));
-      menu_file.addAction(&action_file_email);
-      // File->-------
-      menu_file.addSeparator();
-      // File->Close
-      action_file_close.setObjectName(QString::fromUtf8("action_file_close"));
-      action_file_close.setText(QApplication::translate("Selector", "&Close", nullptr));
-      action_file_close.setEnabled(false);
-      connect(&action_file_close, SIGNAL(triggered()), SLOT(slotNoImpl()));
-      menu_file.addAction(&action_file_close);
-      // File->Close All
-      action_file_close_all.setObjectName(QString::fromUtf8("action_file_close_all"));
-      action_file_close_all.setText(QApplication::translate("Selector", "Clos&e All", nullptr));
-      action_file_close_all.setEnabled(false);
-      connect(&action_file_close_all, SIGNAL(triggered()), SLOT(slotNoImpl()));
-      menu_file.addAction(&action_file_close_all);
-      // File->-------
-      menu_file.addSeparator();
-      // File->Print
-      action_file_print.setObjectName(QString::fromUtf8("action_file_print"));
-      action_file_print.setText(QApplication::translate("Selector", "&Print", nullptr));
-      action_file_print.setEnabled(false);
-      connect(&action_file_print, SIGNAL(triggered()), SLOT(slotNoImpl()));
-      menu_file.addAction(&action_file_print);
-      // File->Print Setup...
-      action_file_print_setup.setObjectName(QString::fromUtf8("action_file_print_setup"));
-      action_file_print_setup.setText(QApplication::translate("Selector", "Print Setup...", nullptr));
-      connect(&action_file_print_setup, SIGNAL(triggered()), SLOT(slotNoImpl()));
-      menu_file.addAction(&action_file_print_setup);
-      // File->Page Setup...
-      action_file_page_setup.setObjectName(QString::fromUtf8("action_file_page_setup"));
-      action_file_page_setup.setText(QApplication::translate("Selector", "Page Setup...", nullptr));
-      connect(&action_file_page_setup, SIGNAL(triggered()), SLOT(slotNoImpl()));
-      menu_file.addAction(&action_file_page_setup);
-      // File->-------
-      menu_file.addSeparator();
-      // File->New Instance
-      action_file_new_instance.setObjectName(QString::fromUtf8("action_file_new_instance"));
-      action_file_new_instance.setText(QApplication::translate("Selector", "Ne&w Instance", nullptr));
-      connect(&action_file_new_instance, SIGNAL(triggered()), SLOT(slotNoImpl()));
-      menu_file.addAction(&action_file_new_instance);
-      // File->-------
-      menu_file.addSeparator();
-      // File->Authorization...
-      action_file_authorization.setObjectName(QString::fromUtf8("action_file_authorization"));
-      action_file_authorization.setText(QApplication::translate("Selector", "Authori&zation...", nullptr));
-      connect(&action_file_authorization, SIGNAL(triggered()), SLOT(slotNoImpl()));
-      menu_file.addAction(&action_file_authorization);
-      // File->-------
-      menu_file.addSeparator();
-      // File->Exit
-      action_file_exit.setObjectName(QString::fromUtf8("action_file_exit"));
-      action_file_exit.setText(QApplication::translate("Selector", "E&xit", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_file_exit.setShortcut(QApplication::translate("Selector", "Alt+F4", nullptr));
-      #endif // QT_NO_SHORTCUT
-      connect(&action_file_exit, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
-      menu_file.addAction(&action_file_exit);
+      menu_file.addAction(act_file.save);                         // File->Save
+      connect(act_file.save, SIGNAL(triggered()), SLOT(slotFileSave()));
+      menu_file.addAction(act_file.save_as);                      // File->Save As...
+      connect(act_file.save_as, SIGNAL(triggered()), SLOT(slotFileSaveAs()));
+      menu_file.addAction(act_file.save_all);                     // File->Save All
+      connect(act_file.save_all, SIGNAL(triggered()), SLOT(slotFileSaveAll()));
+      menu_file.addSeparator();                                   // File->-------
+      menu_file.addAction(act_file.email);                        // File->E-mail...
+      connect(act_file.email, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      menu_file.addSeparator();                                   // File->-------
+      menu_file.addAction(act_file.close);                        // File->Close
+      connect(act_file.close, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      menu_file.addAction(act_file.close_all);                    // File->Close All
+      connect(act_file.close_all, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      menu_file.addSeparator();                                   // File->-------
+      menu_file.addAction(act_file.print);                        // File->Print
+      connect(act_file.print, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      menu_file.addAction(act_file.print_setup);                  // File->Print Setup...
+      connect(act_file.print_setup, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      menu_file.addAction(act_file.page_setup);                   // File->Page Setup...
+      connect(act_file.page_setup, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      menu_file.addSeparator();                                   // File->-------
+      menu_file.addAction(act_file.new_instance);                 // File->New Instance
+      connect(act_file.new_instance, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      menu_file.addSeparator();                                   // File->-------
+      menu_file.addAction(act_file.authorization);                // File->Authorization...
+      connect(act_file.authorization, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      menu_file.addSeparator();                                   // File->-------
+      menu_file.addAction(act_file.exit);                         // File->Exit
+      connect(act_file.exit, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
     p_menu_bar->addAction(menu_file.menuAction());
 
     // Edit
@@ -1238,24 +1050,24 @@ void Selector::CreateStatusBar()
 
 void Selector::slotFileWasChanged()
 {
-  action_file_save.setEnabled(true);
-  action_file_save_as.setEnabled(true);
-  action_file_save_all.setEnabled(true);
-  action_file_email.setEnabled(true);
-  action_file_close.setEnabled(true);
-  action_file_close_all.setEnabled(true);
-  action_file_print.setEnabled(true);
+  act_file.save->setEnabled(true);
+  act_file.save_as->setEnabled(true);
+  act_file.save_all->setEnabled(true);
+  act_file.email->setEnabled(true);
+  act_file.close->setEnabled(true);
+  act_file.close_all->setEnabled(true);
+  act_file.print->setEnabled(true);
 }
 
 void Selector::slotFileWasUnChanged()
 {
-  action_file_save.setEnabled(false);
-  action_file_save_as.setEnabled(false);
-  action_file_save_all.setEnabled(false);
-  action_file_email.setEnabled(false);
-  action_file_close.setEnabled(false);
-  action_file_close_all.setEnabled(false);
-  action_file_print.setEnabled(false);
+  act_file.save->setEnabled(false);
+  act_file.save_as->setEnabled(false);
+  act_file.save_all->setEnabled(false);
+  act_file.email->setEnabled(false);
+  act_file.close->setEnabled(false);
+  act_file.close_all->setEnabled(false);
+  act_file.print->setEnabled(false);
 }
 
 void Selector::slotNewSQLForm()
