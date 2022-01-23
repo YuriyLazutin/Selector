@@ -59,7 +59,7 @@ Selector::~Selector()
 void Selector::CreateDocks()
 {
   bottomDock.setObjectName(QString::fromUtf8("bottomDock"));
-  bottomDock.setWindowTitle("Bottom Dock (Find Panel)");
+  bottomDock.setWindowTitle("&Search Bar");
   bottomDock.setAllowedAreas(Qt::BottomDockWidgetArea | Qt::TopDockWidgetArea);
   bottomDockLabel.setText("Test Label");
   //(bottomDock.titleBarWidget())->hide();
@@ -100,8 +100,8 @@ void Selector::CreateToolBars()
   toolBarMain.addAction(menu_file_open.menuAction());
   toolBarMain.addAction(act_file.save);
   toolBarMain.addSeparator();
-  toolBarMain.addAction(&action_edit_undo);
-  toolBarMain.addAction(&action_edit_redo);
+  toolBarMain.addAction(act_edit.undo);
+  toolBarMain.addAction(act_edit.redo);
   toolBarMain.addSeparator();
   toolBarMain.addAction(&action_session_execute);
   toolBarMain.addAction(&action_session_break);
@@ -249,235 +249,62 @@ void Selector::CreateMenu()
     // Edit
     menu_edit.setObjectName(QString::fromUtf8("menu_edit"));
     menu_edit.setTitle(QApplication::translate("Selector", "&Edit", nullptr));
-      // Edit->Undo
-      action_edit_undo.setObjectName(QString::fromUtf8("action_edit_undo"));
-      action_edit_undo.setText(QApplication::translate("Selector", "&Undo", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_edit_undo.setShortcut(QApplication::translate("Selector", "Ctrl+Z", nullptr));
-      #endif // QT_NO_SHORTCUT
-      action_edit_undo.setToolTip("Undo last edit operation");
-      action_edit_undo.setStatusTip("Allow you to undo last edit operations");
-      action_edit_undo.setWhatsThis("Allow you to undo last edit operations");
-      action_edit_undo.setIcon(QPixmap(":/icons/edit-undo.png"));
-      action_edit_undo.setEnabled(false);
-      connect(&action_edit_undo, SIGNAL(triggered()), SLOT(slotNoImpl()));
-      menu_edit.addAction(&action_edit_undo);
-      // Edit->Redo
-      action_edit_redo.setObjectName(QString::fromUtf8("action_edit_redo"));
-      action_edit_redo.setText(QApplication::translate("Selector", "&Redo", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_edit_redo.setShortcut(QApplication::translate("Selector", "Shift+Ctrl+Z", nullptr));
-      #endif // QT_NO_SHORTCUT
-      action_edit_redo.setToolTip("Redo last undo");
-      action_edit_redo.setStatusTip("Allow you to restore last edit operations (if it was undone)");
-      action_edit_redo.setWhatsThis("Allow you to restore last edit operations (if it was undone)");
-      action_edit_redo.setIcon(QPixmap(":/icons/edit-redo.png"));
-      action_edit_redo.setEnabled(false);
-      connect(&action_edit_redo, SIGNAL(triggered()), SLOT(slotNoImpl()));
-      menu_edit.addAction(&action_edit_redo);
-      // Edit->-------
-      menu_edit.addSeparator();
-      // Edit->Beautifier
-      action_edit_beautifier.setObjectName(QString::fromUtf8("action_edit_beautifier"));
-      action_edit_beautifier.setText(QApplication::translate("Selector", "&Beautifier", nullptr));
-      menu_edit.addAction(&action_edit_beautifier);
-      // Edit->Beautifier Options
-      action_edit_beautifier_optns.setObjectName(QString::fromUtf8("action_edit_beautifier_optns"));
-      action_edit_beautifier_optns.setText(QApplication::translate("Selector", "Beautifier Options", nullptr));
-      menu_edit.addAction(&action_edit_beautifier_optns);
-      // Edit->-------
-      menu_edit.addSeparator();
-      // Edit->Cut
-      action_edit_cut.setObjectName(QString::fromUtf8("action_edit_cut"));
-      action_edit_cut.setText(QApplication::translate("Selector", "Cut", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_edit_cut.setShortcut(QApplication::translate("Selector", "Ctrl+X", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_edit.addAction(&action_edit_cut);
-      // Edit->Copy
-      action_edit_copy.setObjectName(QString::fromUtf8("action_edit_copy"));
-      action_edit_copy.setText(QApplication::translate("Selector", "&Copy", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_edit_copy.setShortcut(QApplication::translate("Selector", "Ctrl+C", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_edit.addAction(&action_edit_copy);
-      // Edit->Paste
-      action_edit_paste.setObjectName(QString::fromUtf8("action_edit_paste"));
-      action_edit_paste.setText(QApplication::translate("Selector", "&Paste", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_edit_paste.setShortcut(QApplication::translate("Selector", "Ctrl+V", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_edit.addAction(&action_edit_paste);
-      // Edit->Append
-      action_edit_append.setObjectName(QString::fromUtf8("action_edit_append"));
-      action_edit_append.setText(QApplication::translate("Selector", "&Append", nullptr));
-      menu_edit.addAction(&action_edit_append);
-      // Edit->Clear
-      action_edit_clear.setObjectName(QString::fromUtf8("action_edit_clear"));
-      action_edit_clear.setText(QApplication::translate("Selector", "C&lear", nullptr));
-      menu_edit.addAction(&action_edit_clear);
-      // Edit->Select All
-      action_edit_select_all.setObjectName(QString::fromUtf8("action_edit_select_all"));
-      action_edit_select_all.setText(QApplication::translate("Selector", "Select All", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_edit_select_all.setShortcut(QApplication::translate("Selector", "Ctrl+A", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_edit.addAction(&action_edit_select_all);
-      // Edit->Recall Statement
-      action_edit_recall.setObjectName(QString::fromUtf8("action_edit_recall"));
-      action_edit_recall.setText(QApplication::translate("Selector", "R&ecall Statement", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_edit_recall.setShortcut(QApplication::translate("Selector", "Ctrl+E", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_edit.addAction(&action_edit_recall);
+      menu_edit.addAction(act_edit.undo);                        // Edit->Undo
+      connect(act_edit.undo, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      menu_edit.addAction(act_edit.redo);                        // Edit->Redo
+      connect(act_edit.redo, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      menu_edit.addSeparator();                                  // Edit->-------
+      menu_edit.addAction(act_edit.beautifier);                  // Edit->Beautifier
+      menu_edit.addAction(act_edit.beautifier_optns);            // Edit->Beautifier Options
+      menu_edit.addSeparator();                                  // Edit->-------
+      menu_edit.addAction(act_edit.cut);                         // Edit->Cut
+      menu_edit.addAction(act_edit.copy);                        // Edit->Copy
+      menu_edit.addAction(act_edit.paste);                       // Edit->Paste
+      menu_edit.addAction(act_edit.append);                      // Edit->Append
+      menu_edit.addAction(act_edit.clear);                       // Edit->Clear
+      menu_edit.addAction(act_edit.select_all);                  // Edit->Select All
+      menu_edit.addAction(act_edit.recall);                      // Edit->Recall Statement
       // Edit->Special Copy
       menu_edit_scpy.setObjectName(QString::fromUtf8("menu_edit_scpy"));
       menu_edit_scpy.setTitle(QApplication::translate("Selector", "Special Copy", nullptr));
       menu_edit.addAction(menu_edit_scpy.menuAction());
-        // Edit->Special Copy->C++
-        action_edit_scpy_cpp.setObjectName(QString::fromUtf8("action_edit_scpy_cpp"));
-        action_edit_scpy_cpp.setText(QApplication::translate("Selector", "C++", nullptr));
-        menu_edit_scpy.addAction(&action_edit_scpy_cpp);
-        // Edit->Special Copy->Delphi
-        action_edit_scpy_delphi.setObjectName(QString::fromUtf8("action_edit_scpy_delphi"));
-        action_edit_scpy_delphi.setText(QApplication::translate("Selector", "Delphi", nullptr));
-        menu_edit_scpy.addAction(&action_edit_scpy_delphi);
-        // Edit->Special Copy->Java
-        action_edit_scpy_java.setObjectName(QString::fromUtf8("action_edit_scpy_java"));
-        action_edit_scpy_java.setText(QApplication::translate("Selector", "Java", nullptr));
-        menu_edit_scpy.addAction(&action_edit_scpy_java);
-        // Edit->Special Copy->PL/SQL
-        action_edit_scpy_plsql.setObjectName(QString::fromUtf8("action_edit_scpy_plsql"));
-        action_edit_scpy_plsql.setText(QApplication::translate("Selector", "PL/SQL", nullptr));
-        menu_edit_scpy.addAction(&action_edit_scpy_plsql);
-        // Edit->Special Copy->Visual Basic
-        action_edit_scpy_basic.setObjectName(QString::fromUtf8("action_edit_scpy_basic"));
-        action_edit_scpy_basic.setText(QApplication::translate("Selector", "Visual Basic", nullptr));
-        menu_edit_scpy.addAction(&action_edit_scpy_basic);
+        menu_edit_scpy.addAction(act_edit.scpy_cpp);                // Edit->Special Copy->C++
+        menu_edit_scpy.addAction(act_edit.scpy_delphi);             // Edit->Special Copy->Delphi
+        menu_edit_scpy.addAction(act_edit.scpy_java);               // Edit->Special Copy->Java
+        menu_edit_scpy.addAction(act_edit.scpy_plsql);              // Edit->Special Copy->PL/SQL
+        menu_edit_scpy.addAction(act_edit.scpy_basic);              // Edit->Special Copy->Visual Basic
       // Edit->Selection
       menu_edit_selection.setObjectName(QString::fromUtf8("menu_edit_selection"));
       menu_edit_selection.setTitle(QApplication::translate("Selector", "&Selection", nullptr));
       menu_edit.addAction(menu_edit_selection.menuAction());
-        // Edit->Selection->Indent
-        action_edit_selection_indent.setObjectName(QString::fromUtf8("action_edit_selection_indent"));
-        action_edit_selection_indent.setText(QApplication::translate("Selector", "&Indent", nullptr));
-        #ifndef QT_NO_SHORTCUT
-        action_edit_selection_indent.setShortcut(QApplication::translate("Selector", "Ctrl+I", nullptr));
-        #endif // QT_NO_SHORTCUT
-        menu_edit_selection.addAction(&action_edit_selection_indent);
-        // Edit->Selection->Unindent
-        action_edit_selection_unindent.setObjectName(QString::fromUtf8("action_edit_selection_unindent"));
-        action_edit_selection_unindent.setText(QApplication::translate("Selector", "&Unindent", nullptr));
-        #ifndef QT_NO_SHORTCUT
-        action_edit_selection_unindent.setShortcut(QApplication::translate("Selector", "Ctrl+U", nullptr));
-        #endif // QT_NO_SHORTCUT
-        menu_edit_selection.addAction(&action_edit_selection_unindent);
-        // Edit->Selection->Uppercase
-        action_edit_selection_uppercase.setObjectName(QString::fromUtf8("action_edit_selection_uppercase"));
-        action_edit_selection_uppercase.setText(QApplication::translate("Selector", "Upper&case", nullptr));
-        menu_edit_selection.addAction(&action_edit_selection_uppercase);
-        // Edit->Selection->Lowercase
-        action_edit_selection_lowercase.setObjectName(QString::fromUtf8("action_edit_selection_lowercase"));
-        action_edit_selection_lowercase.setText(QApplication::translate("Selector", "&Lowercase", nullptr));
-        menu_edit_selection.addAction(&action_edit_selection_lowercase);
-        // Edit->Selection->Comment
-        action_edit_selection_comment.setObjectName(QString::fromUtf8("action_edit_selection_comment"));
-        action_edit_selection_comment.setText(QApplication::translate("Selector", "C&omment", nullptr));
-        menu_edit_selection.addAction(&action_edit_selection_comment);
-        // Edit->Selection->Uncomment
-        action_edit_selection_uncomment.setObjectName(QString::fromUtf8("action_edit_selection_uncomment"));
-        action_edit_selection_uncomment.setText(QApplication::translate("Selector", "U&ncomment", nullptr));
-        menu_edit_selection.addAction(&action_edit_selection_uncomment);
-        // Edit->Selection->Apply Syntax Case
-        action_edit_selection_aplsyncase.setObjectName(QString::fromUtf8("action_edit_selection_aplsyncase"));
-        action_edit_selection_aplsyncase.setText(QApplication::translate("Selector", "&Apply Syntax Case", nullptr));
-        menu_edit_selection.addAction(&action_edit_selection_aplsyncase);
-        // Edit->Selection->Sort
-        action_edit_selection_sort.setObjectName(QString::fromUtf8("action_edit_selection_sort"));
-        action_edit_selection_sort.setText(QApplication::translate("Selector", "&Sort", nullptr));
-        menu_edit_selection.addAction(&action_edit_selection_sort);
-        // Edit->Selection->Color Mark
-        action_edit_selection_mark.setObjectName(QString::fromUtf8("action_edit_selection_mark"));
-        action_edit_selection_mark.setText(QApplication::translate("Selector", "Color &Mark", nullptr));
-        menu_edit_selection.addAction(&action_edit_selection_mark);
+        menu_edit_selection.addAction(act_edit.slctn_indent);       // Edit->Selection->Indent
+        menu_edit_selection.addAction(act_edit.slctn_unindent);     // Edit->Selection->Unindent
+        menu_edit_selection.addAction(act_edit.slctn_uppercase);    // Edit->Selection->Uppercase
+        menu_edit_selection.addAction(act_edit.slctn_lowercase);    // Edit->Selection->Lowercase
+        menu_edit_selection.addAction(act_edit.slctn_comment);      // Edit->Selection->Comment
+        menu_edit_selection.addAction(act_edit.slctn_uncomment);    // Edit->Selection->Uncomment
+        menu_edit_selection.addAction(act_edit.slctn_aplsyncase);   // Edit->Selection->Apply Syntax Case
+        menu_edit_selection.addAction(act_edit.slctn_sort);         // Edit->Selection->Sort
+        menu_edit_selection.addAction(act_edit.slctn_mark);         // Edit->Selection->Color Mark
       // Edit->To-Do Items
       menu_edit_todo.setObjectName(QString::fromUtf8("menu_edit_todo"));
       menu_edit_todo.setTitle(QApplication::translate("Selector", "To-&Do Items", nullptr));
       menu_edit.addAction(menu_edit_todo.menuAction());
-          // Edit->To-Do Items->Show List...
-          action_edit_todo_list.setObjectName(QString::fromUtf8("action_edit_todo_list"));
-          action_edit_todo_list.setText(QApplication::translate("Selector", "&Show List...", nullptr));
-          menu_edit_todo.addAction(&action_edit_todo_list);
-          // Edit->To-Do Items->Add Item...
-          action_edit_todo_add.setObjectName(QString::fromUtf8("action_edit_todo_add"));
-          action_edit_todo_add.setText(QApplication::translate("Selector", "&Add Item...", nullptr));
-          menu_edit_todo.addAction(&action_edit_todo_add);
-          // Edit->To-Do Items->Edit Item...
-          action_edit_todo_edit.setObjectName(QString::fromUtf8("action_edit_todo_edit"));
-          action_edit_todo_edit.setText(QApplication::translate("Selector", "&Edit Item...", nullptr));
-          menu_edit_todo.addAction(&action_edit_todo_edit);
-          // Edit->To-Do Items->Close Item
-          action_edit_todo_close.setObjectName(QString::fromUtf8("action_edit_todo_close"));
-          action_edit_todo_close.setText(QApplication::translate("Selector", "&Close Item", nullptr));
-          menu_edit_todo.addAction(&action_edit_todo_close);
-          // Edit->To-Do Items->Delete Item
-          action_edit_todo_del.setObjectName(QString::fromUtf8("action_edit_todo_del"));
-          action_edit_todo_del.setText(QApplication::translate("Selector", "&Delete Item", nullptr));
-          menu_edit_todo.addAction(&action_edit_todo_del);
+          menu_edit_todo.addAction(act_edit.todo_list);             // Edit->To-Do Items->Show List...
+          menu_edit_todo.addAction(act_edit.todo_add);              // Edit->To-Do Items->Add Item...
+          menu_edit_todo.addAction(act_edit.todo_edit);             // Edit->To-Do Items->Edit Item...
+          menu_edit_todo.addAction(act_edit.todo_close);            // Edit->To-Do Items->Close Item
+          menu_edit_todo.addAction(act_edit.todo_del);              // Edit->To-Do Items->Delete Item
       // Edit->-------
       menu_edit.addSeparator();
-      // Edit->Find
-      action_edit_find.setObjectName(QString::fromUtf8("action_edit_find"));
-      action_edit_find.setText(QApplication::translate("Selector", "&Find", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_edit_find.setShortcut(QApplication::translate("Selector", "Ctrl+F", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_edit.addAction(&action_edit_find);
-      // Edit->Repeat Last Find
-      action_edit_repeat_find.setObjectName(QString::fromUtf8("action_edit_repeat_find"));
-      action_edit_repeat_find.setText(QApplication::translate("Selector", "Repeat &Last Find", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_edit_repeat_find.setShortcut(QApplication::translate("Selector", "Ctrl+L", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_edit.addAction(&action_edit_repeat_find);
-      // Edit->Replace
-      action_edit_replace.setObjectName(QString::fromUtf8("action_edit_replace"));
-      action_edit_replace.setText(QApplication::translate("Selector", "Repl&ace", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_edit_replace.setShortcut(QApplication::translate("Selector", "Ctrl+P", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_edit.addAction(&action_edit_replace);
-      // Edit->Search Bar
-      action_edit_search_bar.setObjectName(QString::fromUtf8("action_edit_search_bar"));  // ToDo: Remove this if docks will implemented
-      action_edit_search_bar.setText(QApplication::translate("Selector", "&Search Bar", nullptr));  // ToDo: Remove this if docks will implemented
-      menu_edit.addAction(&action_edit_search_bar);  // ToDo: Remove this if docks will implemented
-      menu_edit.addAction(bottomDock.toggleViewAction());
-      // Edit->Find Matches
-      action_edit_find_matches.setObjectName(QString::fromUtf8("action_edit_find_matches"));
-      action_edit_find_matches.setText(QApplication::translate("Selector", "Find &Matches", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_edit_find_matches.setShortcut(QApplication::translate("Selector", "Ctrl+M", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_edit.addAction(&action_edit_find_matches);
-      // Edit->Show Special Characters
-      action_edit_show_spec.setObjectName(QString::fromUtf8("action_edit_show_spec"));
-      action_edit_show_spec.setText(QApplication::translate("Selector", "Show Special Characters", nullptr));
-      action_edit_show_spec.setCheckable(true);
-      action_edit_show_spec.setChecked(false);
-      menu_edit.addAction(&action_edit_show_spec);
-      // Edit->Code Folding
-      action_edit_code_folding.setObjectName(QString::fromUtf8("action_edit_code_folding"));
-      action_edit_code_folding.setText(QApplication::translate("Selector", "Code Folding", nullptr));
-      action_edit_code_folding.setCheckable(true);
-      action_edit_code_folding.setChecked(true);
-      menu_edit.addAction(&action_edit_code_folding);
-      // Edit->Set Bookmark
-      action_edit_bookmark_set.setObjectName(QString::fromUtf8("action_edit_bookmark_set"));
-      action_edit_bookmark_set.setText(QApplication::translate("Selector", "Set Book&makr", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_edit_bookmark_set.setShortcut(QApplication::translate("Selector", "Ctrl+K", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_edit.addAction(&action_edit_bookmark_set);
+      menu_edit.addAction(act_edit.find);                              // Edit->Find
+      menu_edit.addAction(act_edit.repeat_find);                       // Edit->Repeat Last Find
+      menu_edit.addAction(act_edit.replace);                           // Edit->Replace
+      menu_edit.addAction(bottomDock.toggleViewAction());              // Edit->Search Bar
+      menu_edit.addAction(act_edit.find_matches);                      // Edit->Find Matches
+      menu_edit.addAction(act_edit.show_spec);                         // Edit->Show Special Characters
+      menu_edit.addAction(act_edit.code_folding);                      // Edit->Code Folding
+      menu_edit.addAction(act_edit.bookmark_set);                      // Edit->Set Bookmark
       // Edit->Go to Bookmark
       menu_edit_bookmark_goto.setObjectName(QString::fromUtf8("menu_edit_bookmark_goto"));
       menu_edit_bookmark_goto.setTitle(QApplication::translate("Selector", "Go to Boo&kmark", nullptr));
@@ -485,41 +312,13 @@ void Selector::CreateMenu()
       menu_edit_bookmark_goto.menuAction()->setShortcut(QApplication::translate("Selector", "Ctrl+Q", nullptr));
       #endif // QT_NO_SHORTCUT
       menu_edit.addAction(menu_edit_bookmark_goto.menuAction());
-        // Edit->Go to Bookmark->Next
-        action_edit_bookmark_goto_next.setObjectName(QString::fromUtf8("action_edit_bookmark_goto_next"));
-        action_edit_bookmark_goto_next.setText(QApplication::translate("Selector", "&Next", nullptr));
-        menu_edit_bookmark_goto.addAction(&action_edit_bookmark_goto_next);
-        // Edit->Go to Bookmark->Previous
-        action_edit_bookmark_goto_prev.setObjectName(QString::fromUtf8("action_edit_bookmark_goto_prev"));
-        action_edit_bookmark_goto_prev.setText(QApplication::translate("Selector", "&Previous", nullptr));
-        menu_edit_bookmark_goto.addAction(&action_edit_bookmark_goto_prev);
-      // Edit->Bookmark List
-      action_edit_bookmark_list.setObjectName(QString::fromUtf8("action_edit_bookmark_list"));
-      action_edit_bookmark_list.setText(QApplication::translate("Selector", "Bookmakr List", nullptr));
-      menu_edit.addAction(&action_edit_bookmark_list);
-      // Edit->Go to Line
-      action_edit_goto.setObjectName(QString::fromUtf8("action_edit_goto"));
-      action_edit_goto.setText(QApplication::translate("Selector", "&Go to Line", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_edit_goto.setShortcut(QApplication::translate("Selector", "Ctrl+G", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_edit.addAction(&action_edit_goto);
-      // Edit->-------
-      menu_edit.addSeparator();
-      // Edit->Next Tab Page
-      action_edit_next_tab.setObjectName(QString::fromUtf8("action_edit_next_tab"));
-      action_edit_next_tab.setText(QApplication::translate("Selector", "&Next Tab Page", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_edit_next_tab.setShortcut(QApplication::translate("Selector", "Ctrl+H", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_edit.addAction(&action_edit_next_tab);
-      // Edit->Previous Tab Page
-      action_edit_prev_tab.setObjectName(QString::fromUtf8("action_edit_prev_tab"));
-      action_edit_prev_tab.setText(QApplication::translate("Selector", "&Previous Tab Page", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_edit_prev_tab.setShortcut(QApplication::translate("Selector", "Shift+Ctrl+H", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_edit.addAction(&action_edit_prev_tab);
+        menu_edit_bookmark_goto.addAction(act_edit.bookmark_goto_next);   // Edit->Go to Bookmark->Next
+        menu_edit_bookmark_goto.addAction(act_edit.bookmark_goto_prev);   // Edit->Go to Bookmark->Previous
+      menu_edit.addAction(act_edit.bookmark_list);                        // Edit->Bookmark List
+      menu_edit.addAction(act_edit.go_to);                                // Edit->Go to Line
+      menu_edit.addSeparator();                                           // Edit->-------
+      menu_edit.addAction(act_edit.next_tab);                             // Edit->Next Tab Page
+      menu_edit.addAction(act_edit.prev_tab);                             // Edit->Previous Tab Page
     p_menu_bar->addAction(menu_edit.menuAction());
 
     // Session

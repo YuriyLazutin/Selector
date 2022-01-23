@@ -62,4 +62,60 @@ class file_actions
     ~file_actions();
 };
 
+class edit_actions
+{
+  public:
+    QAction* undo;
+    QAction* redo;
+    QAction* beautifier;
+    QAction* beautifier_optns;
+    QAction* cut;
+    QAction* copy;
+    QAction* paste;
+    QAction* append;
+    QAction* clear;
+    QAction* select_all;
+    QAction* recall;
+
+    QAction* scpy_cpp;
+    QAction* scpy_delphi;
+    QAction* scpy_java;
+    QAction* scpy_plsql;
+    QAction* scpy_basic;
+
+    QAction* slctn_indent;
+    QAction* slctn_unindent;
+    QAction* slctn_uppercase;
+    QAction* slctn_lowercase;
+    QAction* slctn_comment;
+    QAction* slctn_uncomment;
+    QAction* slctn_aplsyncase;
+    QAction* slctn_sort;
+    QAction* slctn_mark;
+
+    QAction* todo_list;
+    QAction* todo_add;
+    QAction* todo_edit;
+    QAction* todo_close;
+    QAction* todo_del;
+
+    QAction* find;
+    QAction* repeat_find;
+    QAction* replace;
+    QAction* find_matches;
+    QAction* show_spec;
+    QAction* code_folding;
+
+    QAction* bookmark_set;
+    QAction* bookmark_goto_next;
+    QAction* bookmark_goto_prev;
+    QAction* bookmark_list;
+
+    QAction* go_to;
+    QAction* next_tab;
+    QAction* prev_tab;
+
+    edit_actions();
+    ~edit_actions();
+};
 #endif // ACTIONS_H
