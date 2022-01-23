@@ -869,3 +869,99 @@ edit_actions::~edit_actions()
   delete redo;
   delete undo;
 }
+
+session_actions::session_actions()
+{
+  // Session->Log on
+  lon = new QAction;
+  lon->setObjectName(QString::fromUtf8("action_session_logon"));
+  lon->setText(QApplication::translate("Selector", "&Log on...", nullptr));
+  lon->setToolTip("Log on");
+  lon->setStatusTip("Create a new connection to the remote server");
+  lon->setWhatsThis("Create a new connection to the remote server");
+  lon->setIcon(QPixmap(":/icons/login.png"));
+  // Session->Log off
+  loff = new QAction;
+  loff->setObjectName(QString::fromUtf8("action_session_logoff"));
+  loff->setText(QApplication::translate("Selector", "Log &off", nullptr));
+  loff->setToolTip("Log off");
+  loff->setStatusTip("Complete work and break connection with database");
+  loff->setWhatsThis("Complete work and break connection with database");
+  loff->setEnabled(false);
+  // Session->Execute
+  exe = new QAction;
+  exe->setObjectName(QString::fromUtf8("action_session_execute"));
+  exe->setText(QApplication::translate("Selector", "&Execute", nullptr));
+  #ifndef QT_NO_SHORTCUT
+  exe->setShortcut(QApplication::translate("Selector", "F8", nullptr));
+  #endif // QT_NO_SHORTCUT
+  exe->setToolTip("Execute");
+  exe->setStatusTip("Execute program or script");
+  exe->setWhatsThis("Execute program or script");
+  exe->setIcon(QPixmap(":/icons/execute.png"));
+  exe->setEnabled(false);
+  // Session->Break
+  brk = new QAction;
+  brk->setObjectName(QString::fromUtf8("action_session_break"));
+  brk->setText(QApplication::translate("Selector", "&Break", nullptr));
+  #ifndef QT_NO_SHORTCUT
+  brk->setShortcut(QApplication::translate("Selector", "Shift+Esc", nullptr));
+  #endif // QT_NO_SHORTCUT
+  brk->setToolTip("Break");
+  brk->setStatusTip("Break program or script execution");
+  brk->setWhatsThis("Break program or script execution");
+  brk->setIcon(QPixmap(":/icons/abort.png"));
+  brk->setEnabled(false);
+  // Session->Kill
+  kll = new QAction;
+  kll->setObjectName(QString::fromUtf8("action_session_kill"));
+  kll->setText(QApplication::translate("Selector", "&Kill", nullptr));
+  kll->setToolTip("Kill session");
+  kll->setStatusTip("Abort script or program execution and break session");
+  kll->setWhatsThis("Abort script or program execution and break session");
+  kll->setEnabled(false);
+  // Session->Commit
+  cmmt = new QAction;
+  cmmt->setObjectName(QString::fromUtf8("action_session_commit"));
+  cmmt->setText(QApplication::translate("Selector", "&Commit", nullptr));
+  #ifndef QT_NO_SHORTCUT
+  cmmt->setShortcut(QApplication::translate("Selector", "F10", nullptr));
+  #endif // QT_NO_SHORTCUT
+  cmmt->setToolTip("Commit");
+  cmmt->setStatusTip("Commit current transaction");
+  cmmt->setWhatsThis("Commit current transaction");
+  cmmt->setIcon(QPixmap(":/icons/commit.png"));
+  cmmt->setEnabled(false);
+  // Session->Rollback
+  rllbck = new QAction;
+  rllbck->setObjectName(QString::fromUtf8("action_session_rollback"));
+  rllbck->setText(QApplication::translate("Selector", "&Rollback", nullptr));
+  #ifndef QT_NO_SHORTCUT
+  rllbck->setShortcut(QApplication::translate("Selector", "Shift+F10", nullptr));
+  #endif // QT_NO_SHORTCUT
+  rllbck->setToolTip("Rollback");
+  rllbck->setStatusTip("Rollback current transaction");
+  rllbck->setWhatsThis("Rollback current transaction");
+  rllbck->setIcon(QPixmap(":/icons/rollback.png"));
+  rllbck->setEnabled(false);
+  // Session->SQL Trace
+  trce = new QAction;
+  trce->setObjectName(QString::fromUtf8("action_session_trace"));
+  trce->setText(QApplication::translate("Selector", "SQL &Trace", nullptr));
+  trce->setToolTip("Run SQL trace");
+  trce->setStatusTip("Run SQL trace");
+  trce->setWhatsThis("Run SQL trace");
+  trce->setEnabled(false);
+}
+
+session_actions::~session_actions()
+{
+  delete trce;
+  delete rllbck;
+  delete cmmt;
+  delete kll;
+  delete brk;
+  delete exe;
+  delete loff;
+  delete lon;
+}

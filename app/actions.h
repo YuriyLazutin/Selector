@@ -118,4 +118,21 @@ class edit_actions
     edit_actions();
     ~edit_actions();
 };
+
+class session_actions
+{
+  public:
+    QAction* lon;
+    QAction* loff;
+    QAction* exe;
+    QAction* brk;
+    QAction* kll;
+    QAction* cmmt;
+    QAction* rllbck;
+    QAction* trce;
+
+    session_actions();
+    ~session_actions();
+};
+
 #endif // ACTIONS_H

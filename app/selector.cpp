@@ -94,7 +94,7 @@ void Selector::CreateToolBars()
   toolBarMain.setObjectName(QString::fromUtf8("toolBarMain"));
   toolBarMain.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
   toolBarMain.setWindowTitle("Main operations");
-  toolBarMain.addAction(&action_session_logon);
+  toolBarMain.addAction(act_sesn.lon);
   toolBarMain.addSeparator();
   toolBarMain.addAction(menu_file_new.menuAction());
   toolBarMain.addAction(menu_file_open.menuAction());
@@ -103,10 +103,10 @@ void Selector::CreateToolBars()
   toolBarMain.addAction(act_edit.undo);
   toolBarMain.addAction(act_edit.redo);
   toolBarMain.addSeparator();
-  toolBarMain.addAction(&action_session_execute);
-  toolBarMain.addAction(&action_session_break);
-  toolBarMain.addAction(&action_session_commit);
-  toolBarMain.addAction(&action_session_rollback);
+  toolBarMain.addAction(act_sesn.exe);
+  toolBarMain.addAction(act_sesn.brk);
+  toolBarMain.addAction(act_sesn.cmmt);
+  toolBarMain.addAction(act_sesn.rllbck);
   toolBarMain.addSeparator();
   addToolBar(Qt::TopToolBarArea, &toolBarMain);
 
@@ -114,10 +114,10 @@ void Selector::CreateToolBars()
   toolBarDML.setObjectName(QString::fromUtf8("toolBarDML"));
   toolBarDML.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
   toolBarDML.setWindowTitle("DML operations");
-  toolBarDML.addAction(&action_session_execute); // ToDo: replace with correct buttons
-  toolBarDML.addAction(&action_session_break); // ToDo: replace with correct buttons
-  toolBarDML.addAction(&action_session_commit); // ToDo: replace with correct buttons
-  toolBarDML.addAction(&action_session_rollback); // ToDo: replace with correct buttons
+  toolBarDML.addAction(act_sesn.exe); // ToDo: replace with correct buttons
+  toolBarDML.addAction(act_sesn.brk); // ToDo: replace with correct buttons
+  toolBarDML.addAction(act_sesn.cmmt); // ToDo: replace with correct buttons
+  toolBarDML.addAction(act_sesn.rllbck); // ToDo: replace with correct buttons
   toolBarDML.addSeparator();
   addToolBar(Qt::TopToolBarArea, &toolBarDML);
 }
@@ -324,84 +324,20 @@ void Selector::CreateMenu()
     // Session
     menu_session.setObjectName(QString::fromUtf8("menu_session"));
     menu_session.setTitle(QApplication::translate("Selector", "&Session", nullptr));
-      // Session->Log on
-      action_session_logon.setObjectName(QString::fromUtf8("action_session_logon"));
-      action_session_logon.setText(QApplication::translate("Selector", "&Log on...", nullptr));
-      action_session_logon.setToolTip("Log on");
-      action_session_logon.setStatusTip("Create a new connection to the remote server");
-      action_session_logon.setWhatsThis("Create a new connection to the remote server");
-      action_session_logon.setIcon(QPixmap(":/icons/login.png"));
-      connect(&action_session_logon, SIGNAL(triggered()), SLOT(slotNoImpl()));
-      menu_session.addAction(&action_session_logon);
-      // Session->Log off
-      action_session_logoff.setObjectName(QString::fromUtf8("action_session_logoff"));
-      action_session_logoff.setText(QApplication::translate("Selector", "Log &off", nullptr));
-      action_session_logoff.setEnabled(false);
-      menu_session.addAction(&action_session_logoff);
-      // Session->-------
-      menu_session.addSeparator();
-      // Session->Execute
-      action_session_execute.setObjectName(QString::fromUtf8("action_session_execute"));
-      action_session_execute.setText(QApplication::translate("Selector", "&Execute", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_session_execute.setShortcut(QApplication::translate("Selector", "F8", nullptr));
-      #endif // QT_NO_SHORTCUT
-      action_session_execute.setToolTip("Execute");
-      action_session_execute.setStatusTip("Execute program or script");
-      action_session_execute.setWhatsThis("Execute program or script");
-      action_session_execute.setIcon(QPixmap(":/icons/execute.png"));
-      connect(&action_session_execute, SIGNAL(triggered()), SLOT(slotNoImpl()));
-      action_session_execute.setEnabled(false);
-      menu_session.addAction(&action_session_execute);
-      // Session->Break
-      action_session_break.setObjectName(QString::fromUtf8("action_session_break"));
-      action_session_break.setText(QApplication::translate("Selector", "&Break", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_session_break.setShortcut(QApplication::translate("Selector", "Shift+Esc", nullptr));
-      #endif // QT_NO_SHORTCUT
-      action_session_break.setToolTip("Break");
-      action_session_break.setStatusTip("Break program or script execution");
-      action_session_break.setWhatsThis("Break program or script execution");
-      action_session_break.setIcon(QPixmap(":/icons/abort.png"));
-      connect(&action_session_break, SIGNAL(triggered()), SLOT(slotNoImpl()));
-      action_session_break.setEnabled(false);
-      menu_session.addAction(&action_session_break);
-      // Session->Kill
-      action_session_kill.setObjectName(QString::fromUtf8("action_session_kill"));
-      action_session_kill.setText(QApplication::translate("Selector", "&Kill", nullptr));
-      action_session_kill.setEnabled(false);
-      menu_session.addAction(&action_session_kill);
-      // Session->Commit
-      action_session_commit.setObjectName(QString::fromUtf8("action_session_commit"));
-      action_session_commit.setText(QApplication::translate("Selector", "&Commit", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_session_commit.setShortcut(QApplication::translate("Selector", "F10", nullptr));
-      #endif // QT_NO_SHORTCUT
-      action_session_commit.setToolTip("Commit");
-      action_session_commit.setStatusTip("Commit current transaction");
-      action_session_commit.setWhatsThis("Commit current transaction");
-      action_session_commit.setIcon(QPixmap(":/icons/commit.png"));
-      connect(&action_session_commit, SIGNAL(triggered()), SLOT(slotNoImpl()));
-      action_session_commit.setEnabled(false);
-      menu_session.addAction(&action_session_commit);
-      // Session->Rollback
-      action_session_rollback.setObjectName(QString::fromUtf8("action_session_rollback"));
-      action_session_rollback.setText(QApplication::translate("Selector", "&Rollback", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_session_rollback.setShortcut(QApplication::translate("Selector", "Shift+F10", nullptr));
-      #endif // QT_NO_SHORTCUT
-      action_session_rollback.setToolTip("Rollback");
-      action_session_rollback.setStatusTip("Rollback current transaction");
-      action_session_rollback.setWhatsThis("Rollback current transaction");
-      action_session_rollback.setIcon(QPixmap(":/icons/rollback.png"));
-      connect(&action_session_rollback, SIGNAL(triggered()), SLOT(slotNoImpl()));
-      action_session_rollback.setEnabled(false);
-      menu_session.addAction(&action_session_rollback);
-      // Session->SQL Trace
-      action_session_trace.setObjectName(QString::fromUtf8("action_session_trace"));
-      action_session_trace.setText(QApplication::translate("Selector", "SQL &Trace", nullptr));
-      action_session_trace.setEnabled(false);
-      menu_session.addAction(&action_session_trace);
+      menu_session.addAction(act_sesn.lon);                              // Session->Log on
+      connect(act_sesn.lon, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      menu_session.addAction(act_sesn.loff);                             // Session->Log off
+      menu_session.addSeparator();                                       // Session->-------
+      menu_session.addAction(act_sesn.exe);                              // Session->Execute
+      connect(act_sesn.exe, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      menu_session.addAction(act_sesn.brk);                              // Session->Break
+      connect(act_sesn.brk, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      menu_session.addAction(act_sesn.kll);                              // Session->Kill
+      menu_session.addAction(act_sesn.cmmt);                             // Session->Commit
+      connect(act_sesn.cmmt, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      menu_session.addAction(act_sesn.rllbck);                            // Session->Rollback
+      connect(act_sesn.rllbck, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      menu_session.addAction(act_sesn.trce);                             // Session->SQL Trace
     p_menu_bar->addAction(menu_session.menuAction());
 
     // Debug

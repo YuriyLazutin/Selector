@@ -25,8 +25,9 @@ class Selector : public QMainWindow
   Q_OBJECT
 
   private:
-    file_actions act_file;
-    edit_actions act_edit;
+    file_actions      act_file;
+    edit_actions      act_edit;
+    session_actions   act_sesn;
 
     void CreateMenu();
     //QMenuBar menubar;
@@ -41,14 +42,6 @@ class Selector : public QMainWindow
         QMenu menu_edit_todo;
         QMenu menu_edit_bookmark_goto;
       QMenu menu_session;
-        QAction action_session_logon;
-        QAction action_session_logoff;
-        QAction action_session_execute;
-        QAction action_session_break;
-        QAction action_session_kill;
-        QAction action_session_commit;
-        QAction action_session_rollback;
-        QAction action_session_trace;
       QMenu menu_debug;
         QAction action_debug_breakpoint;
         QAction action_debug_mod_brkpnts;
