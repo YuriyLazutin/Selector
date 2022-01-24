@@ -1632,3 +1632,50 @@ window_actions::~window_actions()
   delete cascade;
   delete tile;
 }
+
+help_actions::help_actions()
+{
+  // Help->Help
+  help = new QAction;
+  help->setObjectName(QString::fromUtf8("action_help_help"));
+  help->setText(QApplication::translate("Selector", "&Help", nullptr));
+  #ifndef QT_NO_SHORTCUT
+  help->setShortcut(QApplication::translate("Selector", "F1", nullptr));
+  #endif // QT_NO_SHORTCUT
+  help->setToolTip("Show help");
+  help->setStatusTip("Show help and user guides");
+  help->setWhatsThis("Show help and user guides");
+  help->setEnabled(false);
+  // Help->Donates & Thanksgiving...
+  donate = new QAction;
+  donate->setObjectName(QString::fromUtf8("action_help_dnt"));
+  donate->setText(QApplication::translate("Selector", "&Donates && Thanksgiving...", nullptr));
+  donate->setToolTip("Show information about donates and thanksgiving");
+  donate->setStatusTip("Show information about donates and thanksgiving");
+  donate->setWhatsThis("Show information about donates and thanksgiving");
+  donate->setEnabled(false);
+  // Help->Support Info...
+  suprt = new QAction;
+  suprt->setObjectName(QString::fromUtf8("action_help_supp"));
+  suprt->setText(QApplication::translate("Selector", "&Support Info...", nullptr));
+  suprt->setToolTip("Show information about supporting this product");
+  suprt->setStatusTip("Show information about supporting this product");
+  suprt->setWhatsThis("Show information about supporting this product");
+  suprt->setEnabled(false);
+  // Help->About Selector...
+  about = new QAction;
+  about->setObjectName(QString::fromUtf8("action_help_about"));
+  about->setText(QApplication::translate("Selector", "&About", nullptr));
+  about->setToolTip("Show information about Selector");
+  about->setStatusTip("Show information about Selector");
+  about->setWhatsThis("Show information about Selector");
+  about->setEnabled(false);
+}
+
+help_actions::~help_actions()
+{
+  delete about;
+  delete suprt;
+  delete donate;
+  delete help;
+}

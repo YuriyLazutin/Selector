@@ -234,4 +234,16 @@ class window_actions
     ~window_actions();
 };
 
+class help_actions
+{
+  public:
+    QAction* help;
+    QAction* donate;
+    QAction* suprt;
+    QAction* about;
+
+    help_actions();
+    ~help_actions();
+};
+
 #endif // ACTIONS_H

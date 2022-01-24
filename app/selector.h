@@ -32,6 +32,7 @@ class Selector : public QMainWindow
     tools_actions     act_tols;
     report_actions    act_rpt;
     window_actions    act_wnd;
+    help_actions      act_hlp;
 
     void CreateMenu();
     //QMenuBar menubar;
@@ -58,10 +59,6 @@ class Selector : public QMainWindow
         QMenu menu_reps_user;
       QMenu menu_window;
       QMenu menu_help;
-        QAction action_help_help;
-        QAction action_help_dnt;
-        QAction action_help_supp;
-        QAction action_help_about;
 
     //QWidget centralwidget;
     QMdiArea MDIArea;

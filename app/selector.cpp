@@ -476,28 +476,11 @@ void Selector::CreateMenu()
     // Help
     menu_help.setObjectName(QString::fromUtf8("menu_help"));
     menu_help.setTitle(QApplication::translate("Selector", "&Help", nullptr));
-      // Help->Help
-      action_help_help.setObjectName(QString::fromUtf8("action_help_help"));
-      action_help_help.setText(QApplication::translate("Selector", "&Help", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_help_help.setShortcut(QApplication::translate("Selector", "F1", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_help.addAction(&action_help_help);
-      // Help->Donates & Thanksgiving...
-      action_help_dnt.setObjectName(QString::fromUtf8("action_help_dnt"));
-      action_help_dnt.setText(QApplication::translate("Selector", "&Donates && Thanksgiving...", nullptr));
-      menu_help.addAction(&action_help_dnt);
-      // Help->Support Info...
-      action_help_supp.setObjectName(QString::fromUtf8("action_help_supp"));
-      action_help_supp.setText(QApplication::translate("Selector", "&Support Info...", nullptr));
-      menu_help.addAction(&action_help_supp);
-      // Help->-------
-      menu_help.addSeparator();
-      // Help->About Selector...
-      action_help_about.setObjectName(QString::fromUtf8("action_help_about"));
-      action_help_about.setText(QApplication::translate("Selector", "&About", nullptr));
-      menu_help.addAction(&action_help_about);
-
+      menu_help.addAction(act_hlp.help);                          // Help->Help
+      menu_help.addAction(act_hlp.donate);                        // Help->Donates & Thanksgiving...
+      menu_help.addAction(act_hlp.suprt);                         // Help->Support Info...
+      menu_help.addSeparator();                                   // Help->-------
+      menu_help.addAction(act_hlp.about);                         // Help->About Selector...
     p_menu_bar->addAction(menu_help.menuAction());
 
   //setMenuBar(&menubar);
