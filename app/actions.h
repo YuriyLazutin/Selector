@@ -152,4 +152,42 @@ class debug_actions
     ~debug_actions();
 };
 
+class tools_actions
+{
+  public:
+    QAction* pref;
+    QAction* cfgplgns;
+    QAction* cfgtools;
+    QAction* cfgdocs;
+    QAction* cfgreps;
+    QAction* macro_rec;
+    QAction* macro_play;
+    QAction* macro_lib;
+    QAction* brodir;
+    QAction* brofil;
+    QAction* tmpl;
+    QAction* tlbr;
+    QAction* expln;
+    QAction* astnt;
+    QAction* cntnts;
+    QAction* shnts;
+    QAction* qbldr;
+    QAction* fdbo;
+    QAction* cpinv;
+    QAction* expobj;
+    QAction* cmpobj;
+    QAction* emon;
+    QAction* sessns;
+    QAction* tstmngr;
+    QAction* exptbls;
+    QAction* imptbls;
+    QAction* cmptbld;
+    QAction* imptxt;
+    QAction* impODBC;
+    QAction* gendat;
+
+    tools_actions();
+    ~tools_actions();
+};
+
 #endif // ACTIONS_H

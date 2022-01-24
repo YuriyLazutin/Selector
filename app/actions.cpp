@@ -1072,3 +1072,296 @@ debug_actions::~debug_actions()
   delete mod_brkpnts;
   delete breakpoint;
 }
+
+
+tools_actions::tools_actions()
+{
+  // Tools->Preferences...
+  pref = new QAction;
+  pref->setObjectName(QString::fromUtf8("action_tools_pref"));
+  pref->setText(QApplication::translate("Selector", "&Preferences...", nullptr));
+  pref->setToolTip("Preferences");
+  pref->setStatusTip("Preferences");
+  pref->setWhatsThis("Preferences");
+  // Tools->Configure Plug-Ins...
+  cfgplgns = new QAction;
+  cfgplgns->setObjectName(QString::fromUtf8("action_tools_cfgplgns"));
+  cfgplgns->setText(QApplication::translate("Selector", "Configure Plug-Ins...", nullptr));
+  cfgplgns->setToolTip("Configure plug-ins");
+  cfgplgns->setStatusTip("Configure plug-ins");
+  cfgplgns->setWhatsThis("Configure plug-ins");
+  cfgplgns->setEnabled(false);
+  // Tools->Configure Tools...
+  cfgtools = new QAction;
+  cfgtools->setObjectName(QString::fromUtf8("action_tools_cfgtools"));
+  cfgtools->setText(QApplication::translate("Selector", "Configure T&ools...", nullptr));
+  cfgtools->setToolTip("Configure tools");
+  cfgtools->setStatusTip("Configure tools");
+  cfgtools->setWhatsThis("Configure tools");
+  cfgtools->setEnabled(false);
+  // Tools->Configure Documents...
+  cfgdocs = new QAction;
+  cfgdocs->setObjectName(QString::fromUtf8("action_tools_cfgdocs"));
+  cfgdocs->setText(QApplication::translate("Selector", "Configure &Documents...", nullptr));
+  cfgdocs->setToolTip("Configure documents");
+  cfgdocs->setStatusTip("Configure documents");
+  cfgdocs->setWhatsThis("Configure documents");
+  cfgdocs->setEnabled(false);
+  // Tools->Configure Reports...
+  cfgreps = new QAction;
+  cfgreps->setObjectName(QString::fromUtf8("action_tools_cfgreps"));
+  cfgreps->setText(QApplication::translate("Selector", "Configure &Reports...", nullptr));
+  cfgreps->setToolTip("Configure reports");
+  cfgreps->setStatusTip("Configure reports");
+  cfgreps->setWhatsThis("Configure reports");
+  cfgreps->setEnabled(false);
+  // Tools->Macro->Record
+  macro_rec = new QAction;
+  macro_rec->setObjectName(QString::fromUtf8("action_tools_macro_rec"));
+  macro_rec->setText(QApplication::translate("Selector", "&Record", nullptr));
+  #ifndef QT_NO_SHORTCUT
+  macro_rec->setShortcut(QApplication::translate("Selector", "F11", nullptr));
+  #endif // QT_NO_SHORTCUT
+  macro_rec->setToolTip("Record macro");
+  macro_rec->setStatusTip("Record macro");
+  macro_rec->setWhatsThis("Record macro");
+  macro_rec->setEnabled(false);
+  // Tools->Macro->Playback
+  macro_play = new QAction;
+  macro_play->setObjectName(QString::fromUtf8("action_tools_macro_play"));
+  macro_play->setText(QApplication::translate("Selector", "&Playback", nullptr));
+  #ifndef QT_NO_SHORTCUT
+  macro_play->setShortcut(QApplication::translate("Selector", "F12", nullptr));
+  #endif // QT_NO_SHORTCUT
+  macro_play->setToolTip("Playback macro");
+  macro_play->setStatusTip("Playback macro");
+  macro_play->setWhatsThis("Playback macro");
+  macro_play->setEnabled(false);
+  // Tools->Macro->Library...
+  macro_lib = new QAction;
+  macro_lib->setObjectName(QString::fromUtf8("action_tools_macro_lib"));
+  macro_lib->setText(QApplication::translate("Selector", "&Library...", nullptr));
+  macro_lib->setToolTip("Open macro library");
+  macro_lib->setStatusTip("Open macro library");
+  macro_lib->setWhatsThis("Open macro library");
+  macro_lib->setEnabled(false);
+  // Tools->Browser Folders...
+  brodir = new QAction;
+  brodir->setObjectName(QString::fromUtf8("action_tools_brodir"));
+  brodir->setText(QApplication::translate("Selector", "Browser &Folders...", nullptr));
+  brodir->setToolTip("Open browser folders");
+  brodir->setStatusTip("Open browser folders");
+  brodir->setWhatsThis("Open browser folders");
+  brodir->setEnabled(false);
+  // Tools->Browser Filters...
+  brofil = new QAction;
+  brofil->setObjectName(QString::fromUtf8("action_tools_brofil"));
+  brofil->setText(QApplication::translate("Selector", "Browser F&ilters...", nullptr));
+  brofil->setToolTip("Open browser filters");
+  brofil->setStatusTip("Open browser filters");
+  brofil->setWhatsThis("Open browser filters");
+  brofil->setEnabled(false);
+  // Tools->Template List
+  tmpl = new QAction;
+  tmpl->setObjectName(QString::fromUtf8("action_tools_tmpl"));
+  tmpl->setText(QApplication::translate("Selector", "T&emplate List", nullptr));
+  tmpl->setToolTip("Open template list");
+  tmpl->setStatusTip("Open template list");
+  tmpl->setWhatsThis("Open template list");
+  tmpl->setCheckable(true);
+  tmpl->setChecked(false);
+  tmpl->setEnabled(false);
+  // Tools->Toolbar
+  tlbr = new QAction;
+  tlbr->setObjectName(QString::fromUtf8("action_tools_tlbr"));
+  tlbr->setText(QApplication::translate("Selector", "Toolbar", nullptr));
+  tlbr->setToolTip("Show toolbars");
+  tlbr->setStatusTip("Show toolbars");
+  tlbr->setWhatsThis("Show toolbars");
+  tlbr->setCheckable(true);
+  tlbr->setChecked(true);
+  // Tools->Explain Plan
+  expln = new QAction;
+  expln->setObjectName(QString::fromUtf8("action_tools_expln"));
+  expln->setText(QApplication::translate("Selector", "E&xplain Plan", nullptr));
+  #ifndef QT_NO_SHORTCUT
+  expln->setShortcut(QApplication::translate("Selector", "F5", nullptr));
+  #endif // QT_NO_SHORTCUT
+  expln->setToolTip("Run explain plan command");
+  expln->setStatusTip("Run explain plan command");
+  expln->setWhatsThis("Run explain plan command");
+  expln->setEnabled(false);
+  // Tools->Code Assistant
+  astnt = new QAction;
+  astnt->setObjectName(QString::fromUtf8("action_tools_astnt"));
+  astnt->setText(QApplication::translate("Selector", "Code &Assistant", nullptr));
+  #ifndef QT_NO_SHORTCUT
+  astnt->setShortcut(QApplication::translate("Selector", "F6", nullptr));
+  #endif // QT_NO_SHORTCUT
+  astnt->setToolTip("Run code assistant");
+  astnt->setStatusTip("Run code assistant");
+  astnt->setWhatsThis("Run code assistant");
+  astnt->setEnabled(false);
+  // Tools->Code Contents
+  cntnts = new QAction;
+  cntnts->setObjectName(QString::fromUtf8("action_tools_cntnts"));
+  cntnts->setText(QApplication::translate("Selector", "&Code Contents", nullptr));
+  cntnts->setToolTip("Show code contents");
+  cntnts->setStatusTip("Show code contents");
+  cntnts->setWhatsThis("Show code contents");
+  cntnts->setEnabled(false);
+  // Tools->Show Compiler Hints
+  shnts = new QAction;
+  shnts->setObjectName(QString::fromUtf8("action_tools_chnts"));
+  shnts->setText(QApplication::translate("Selector", "Show Compiler &Hints", nullptr));
+  shnts->setToolTip("Show compiler hints");
+  shnts->setStatusTip("Show compiler hints");
+  shnts->setWhatsThis("Show compiler hints");
+  shnts->setEnabled(false);
+  // Tools->Query Builder...
+  qbldr = new QAction;
+  qbldr->setObjectName(QString::fromUtf8("action_tools_qbldr"));
+  qbldr->setText(QApplication::translate("Selector", "&Query Builder...", nullptr));
+  qbldr->setToolTip("Run query builder");
+  qbldr->setStatusTip("Run query builder");
+  qbldr->setWhatsThis("Run query builder");
+  qbldr->setEnabled(false);
+  // Tools->Find Database Objects...
+  fdbo = new QAction;
+  fdbo->setObjectName(QString::fromUtf8("action_tools_fdbo"));
+  fdbo->setText(QApplication::translate("Selector", "Find &Database Objects...", nullptr));
+  fdbo->setToolTip("Execute search under database objects");
+  fdbo->setStatusTip("Execute search under database objects");
+  fdbo->setWhatsThis("Execute search under database objects");
+  fdbo->setEnabled(false);
+  // Tools->Compile Invalide Objects...
+  cpinv = new QAction;
+  cpinv->setObjectName(QString::fromUtf8("action_tools_cpinv"));
+  cpinv->setText(QApplication::translate("Selector", "Compile I&nvalid Objects...", nullptr));
+  cpinv->setToolTip("Compile invalide objects");
+  cpinv->setStatusTip("Compile invalide objects");
+  cpinv->setWhatsThis("Compile invalide objects");
+  cpinv->setEnabled(false);
+  // Tools->Export User Objects...
+  expobj = new QAction;
+  expobj->setObjectName(QString::fromUtf8("action_tools_expobj"));
+  expobj->setText(QApplication::translate("Selector", "Export &User Objects...", nullptr));
+  expobj->setToolTip("Export user objects");
+  expobj->setStatusTip("Export user objects");
+  expobj->setWhatsThis("Export user objects");
+  expobj->setEnabled(false);
+  // Tools->Compare User Objects...
+  cmpobj = new QAction;
+  cmpobj->setObjectName(QString::fromUtf8("action_tools_cmpobj"));
+  cmpobj->setText(QApplication::translate("Selector", "Compare User O&bjects...", nullptr));
+  cmpobj->setToolTip("Compare user objects");
+  cmpobj->setStatusTip("Compare user objects");
+  cmpobj->setWhatsThis("Compare user objects");
+  cmpobj->setEnabled(false);
+  // Tools->Event Monitor...
+  emon = new QAction;
+  emon->setObjectName(QString::fromUtf8("action_tools_emon"));
+  emon->setText(QApplication::translate("Selector", "E&vent Monitor...", nullptr));
+  emon->setToolTip("Run event monitor");
+  emon->setStatusTip("Run event monitor");
+  emon->setWhatsThis("Run event monitor");
+  emon->setEnabled(false);
+  // Tools->Sessions...
+  sessns = new QAction;
+  sessns->setObjectName(QString::fromUtf8("action_tools_sessns"));
+  sessns->setText(QApplication::translate("Selector", "&Sessions...", nullptr));
+  sessns->setToolTip("Show sessions");
+  sessns->setStatusTip("Show sessions");
+  sessns->setWhatsThis("Show sessions");
+  sessns->setEnabled(false);
+  // Tools->Test Manager...
+  tstmngr = new QAction;
+  tstmngr->setObjectName(QString::fromUtf8("action_tools_tstmngr"));
+  tstmngr->setText(QApplication::translate("Selector", "Test Manager...", nullptr));
+  tstmngr->setToolTip("Show test manager");
+  tstmngr->setStatusTip("Show test manager");
+  tstmngr->setWhatsThis("Show test manager");
+  tstmngr->setEnabled(false);
+  // Tools->Export Tables...
+  exptbls = new QAction;
+  exptbls->setObjectName(QString::fromUtf8("action_tools_exptbls"));
+  exptbls->setText(QApplication::translate("Selector", "E&xport Tables...", nullptr));
+  exptbls->setToolTip("Run export tables tool");
+  exptbls->setStatusTip("Run export tables tool");
+  exptbls->setWhatsThis("Run export tables tool");
+  exptbls->setEnabled(false);
+  // Tools->Import Tables...
+  imptbls = new QAction;
+  imptbls->setObjectName(QString::fromUtf8("action_tools_imptbls"));
+  imptbls->setText(QApplication::translate("Selector", "Import Tables...", nullptr));
+  imptbls->setToolTip("Run import tables tool");
+  imptbls->setStatusTip("Run import tables tool");
+  imptbls->setWhatsThis("Run import tables tool");
+  imptbls->setEnabled(false);
+  // Tools->Compare Table Data...
+  cmptbld = new QAction;
+  cmptbld->setObjectName(QString::fromUtf8("action_tools_cmptbld"));
+  cmptbld->setText(QApplication::translate("Selector", "Compare &Table Data...", nullptr));
+  cmptbld->setToolTip("Run compare tables data tool");
+  cmptbld->setStatusTip("Run compare tables data tool");
+  cmptbld->setWhatsThis("Run compare tables data tool");
+  cmptbld->setEnabled(false);
+  // Tools->Text Importer...
+  imptxt = new QAction;
+  imptxt->setObjectName(QString::fromUtf8("action_tools_imptxt"));
+  imptxt->setText(QApplication::translate("Selector", "Text Importer...", nullptr));
+  imptxt->setToolTip("Run text importer");
+  imptxt->setStatusTip("Run text importer");
+  imptxt->setWhatsThis("Run text importer");
+  imptxt->setEnabled(false);
+  // Tools->ODBC Importer...
+  impODBC = new QAction;
+  impODBC->setObjectName(QString::fromUtf8("action_tools_impODBC"));
+  impODBC->setText(QApplication::translate("Selector", "ODBC Importer...", nullptr));
+  impODBC->setToolTip("Run ODBC importer");
+  impODBC->setStatusTip("Run ODBC importer");
+  impODBC->setWhatsThis("Run ODBC importer");
+  impODBC->setEnabled(false);
+  // Tools->Data Generator...
+  gendat = new QAction;
+  gendat->setObjectName(QString::fromUtf8("action_tools_gendat"));
+  gendat->setText(QApplication::translate("Selector", "Data &Generator...", nullptr));
+  gendat->setToolTip("Run data generator");
+  gendat->setStatusTip("Run data generator");
+  gendat->setWhatsThis("Run data generator");
+  gendat->setEnabled(false);
+}
+
+tools_actions::~tools_actions()
+{
+  delete gendat;
+  delete impODBC;
+  delete imptxt;
+  delete cmptbld;
+  delete imptbls;
+  delete exptbls;
+  delete tstmngr;
+  delete sessns;
+  delete emon;
+  delete cmpobj;
+  delete expobj;
+  delete cpinv;
+  delete fdbo;
+  delete qbldr;
+  delete shnts;
+  delete cntnts;
+  delete astnt;
+  delete expln;
+  delete tlbr;
+  delete tmpl;
+  delete brofil;
+  delete brodir;
+  delete macro_lib;
+  delete macro_play;
+  delete macro_rec;
+  delete cfgreps;
+  delete cfgdocs;
+  delete cfgtools;
+  delete cfgplgns;
+  delete pref;
+}
