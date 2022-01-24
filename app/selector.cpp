@@ -466,28 +466,11 @@ void Selector::CreateMenu()
     // Window
     menu_window.setObjectName(QString::fromUtf8("menu_window"));
     menu_window.setTitle(QApplication::translate("Selector", "&Window", nullptr));
-      // Window->Tile
-      action_window_tile.setObjectName(QString::fromUtf8("action_window_tile"));
-      action_window_tile.setText(QApplication::translate("Selector", "&Tile", nullptr));
-      action_window_tile.setEnabled(false);
-      menu_window.addAction(&action_window_tile);
-      // Window->Cascade
-      action_window_cscd.setObjectName(QString::fromUtf8("action_window_cscd"));
-      action_window_cscd.setText(QApplication::translate("Selector", "&Cascade", nullptr));
-      action_window_cscd.setEnabled(false);
-      menu_window.addAction(&action_window_cscd);
-      // Window->Arrange All
-      action_window_arrall.setObjectName(QString::fromUtf8("action_window_arrall"));
-      action_window_arrall.setText(QApplication::translate("Selector", "&Arrange All", nullptr));
-      action_window_arrall.setEnabled(false);
-      menu_window.addAction(&action_window_arrall);
-      // Window->-------
-      menu_window.addSeparator();
-      // Window->Save Layout
-      action_window_savelo.setObjectName(QString::fromUtf8("action_window_savelo"));
-      action_window_savelo.setText(QApplication::translate("Selector", "&Save Layout", nullptr));
-      menu_window.addAction(&action_window_savelo);
-
+      menu_window.addAction(act_wnd.tile);                         // Window->Tile
+      menu_window.addAction(act_wnd.cascade);                      // Window->Cascade
+      menu_window.addAction(act_wnd.arrall);                       // Window->Arrange All
+      menu_window.addSeparator();                                  // Window->-------
+      menu_window.addAction(act_wnd.savelo);                       // Window->Save Layout
     p_menu_bar->addAction(menu_window.menuAction());
 
     // Help

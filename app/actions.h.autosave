@@ -234,4 +234,13 @@ class window_actions
     ~window_actions();
 };
 
+class help_actions
+{
+  public:
+    QAction* tile;
+
+    help_actions();
+    ~help_actions();
+};
+
 #endif // ACTIONS_H

@@ -31,6 +31,7 @@ class Selector : public QMainWindow
     debug_actions     act_debg;
     tools_actions     act_tols;
     report_actions    act_rpt;
+    window_actions    act_wnd;
 
     void CreateMenu();
     //QMenuBar menubar;
@@ -56,10 +57,6 @@ class Selector : public QMainWindow
         QMenu menu_reps_plsql;
         QMenu menu_reps_user;
       QMenu menu_window;
-        QAction action_window_tile;
-        QAction action_window_cscd;
-        QAction action_window_arrall;
-        QAction action_window_savelo;
       QMenu menu_help;
         QAction action_help_help;
         QAction action_help_dnt;

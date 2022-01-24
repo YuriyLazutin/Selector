@@ -1588,3 +1588,47 @@ report_actions::~report_actions()
   delete dba_nlspar;
   delete dba_initpar;
 }
+
+window_actions::window_actions()
+{
+  // Window->Tile
+  tile = new QAction;
+  tile->setObjectName(QString::fromUtf8("action_window_tile"));
+  tile->setText(QApplication::translate("Selector", "&Tile", nullptr));
+  tile->setToolTip("Arrange windows in tile position");
+  tile->setStatusTip("Arrange windows in tile position");
+  tile->setWhatsThis("Arrange windows in tile position");
+  tile->setEnabled(false);
+  // Window->Cascade
+  cascade = new QAction;
+  cascade->setObjectName(QString::fromUtf8("action_window_cscd"));
+  cascade->setText(QApplication::translate("Selector", "&Cascade", nullptr));
+  cascade->setToolTip("Arrange windows in cascade position");
+  cascade->setStatusTip("Arrange windows in cascade position");
+  cascade->setWhatsThis("Arrange windows in cascade position");
+  cascade->setEnabled(false);
+  // Window->Arrange All
+  arrall = new QAction;
+  arrall->setObjectName(QString::fromUtf8("action_window_arrall"));
+  arrall->setText(QApplication::translate("Selector", "&Arrange All", nullptr));
+  arrall->setToolTip("Arrange windows in ??? position");
+  arrall->setStatusTip("Arrange windows in ??? position");
+  arrall->setWhatsThis("Arrange windows in ??? position");
+  arrall->setEnabled(false);
+  // Window->Save Layout
+  savelo = new QAction;
+  savelo->setObjectName(QString::fromUtf8("action_window_savelo"));
+  savelo->setText(QApplication::translate("Selector", "&Save Layout", nullptr));
+  savelo->setToolTip("Save current window layout");
+  savelo->setStatusTip("Save current window layout");
+  savelo->setWhatsThis("Save current window layout");
+  savelo->setEnabled(false);
+}
+
+window_actions::~window_actions()
+{
+  delete savelo;
+  delete arrall;
+  delete cascade;
+  delete tile;
+}
