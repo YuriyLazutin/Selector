@@ -422,118 +422,45 @@ void Selector::CreateMenu()
       menu_reps_dba.setObjectName(QString::fromUtf8("menu_reps_dba"));
       menu_reps_dba.setTitle(QApplication::translate("Selector", "DBA", nullptr));
       menu_reps.addAction(menu_reps_dba.menuAction());
-        // Reports->DBA->Initialization Parameters
-        action_reps_dba_initpar.setObjectName(QString::fromUtf8("action_reps_dba_initpar"));
-        action_reps_dba_initpar.setText(QApplication::translate("Selector", "Initialization Parameters", nullptr));
-        menu_reps_dba.addAction(&action_reps_dba_initpar);
-        // Reports->DBA->NLS Database Parameters
-        action_reps_dba_nlspar.setObjectName(QString::fromUtf8("action_reps_dba_nlspar"));
-        action_reps_dba_nlspar.setText(QApplication::translate("Selector", "NLS Database Parameters", nullptr));
-        menu_reps_dba.addAction(&action_reps_dba_nlspar);
-        // Reports->DBA->Role Privileges
-        action_reps_dba_rolprv.setObjectName(QString::fromUtf8("action_reps_dba_rolprv"));
-        action_reps_dba_rolprv.setText(QApplication::translate("Selector", "Role Privileges", nullptr));
-        menu_reps_dba.addAction(&action_reps_dba_rolprv);
-        // Reports->DBA->Roles
-        action_reps_dba_rol.setObjectName(QString::fromUtf8("action_reps_dba_rol"));
-        action_reps_dba_rol.setText(QApplication::translate("Selector", "Roles", nullptr));
-        menu_reps_dba.addAction(&action_reps_dba_rol);
-        // Reports->DBA->Rollback Segments
-        action_reps_dba_rlbseg.setObjectName(QString::fromUtf8("action_reps_dba_rlbseg"));
-        action_reps_dba_rlbseg.setText(QApplication::translate("Selector", "Rollback Segments", nullptr));
-        menu_reps_dba.addAction(&action_reps_dba_rlbseg);
-        // Reports->DBA->Server Components
-        action_reps_dba_srvcom.setObjectName(QString::fromUtf8("action_reps_dba_srvcom"));
-        action_reps_dba_srvcom.setText(QApplication::translate("Selector", "Server Components", nullptr));
-        menu_reps_dba.addAction(&action_reps_dba_srvcom);
-        // Reports->DBA->System Priveleges
-        action_reps_dba_sysprv.setObjectName(QString::fromUtf8("action_reps_dba_sysprv"));
-        action_reps_dba_sysprv.setText(QApplication::translate("Selector", "System Priveleges", nullptr));
-        menu_reps_dba.addAction(&action_reps_dba_sysprv);
-        // Reports->DBA->Tablespaces
-        action_reps_dba_tblspcs.setObjectName(QString::fromUtf8("action_reps_dba_tblspcs"));
-        action_reps_dba_tblspcs.setText(QApplication::translate("Selector", "Tablespaces", nullptr));
-        menu_reps_dba.addAction(&action_reps_dba_tblspcs);
-        // Reports->DBA->Total Free Space
-        action_reps_dba_tfs.setObjectName(QString::fromUtf8("action_reps_dba_tfs"));
-        action_reps_dba_tfs.setText(QApplication::translate("Selector", "Total Free Space", nullptr));
-        menu_reps_dba.addAction(&action_reps_dba_tfs);
-        // Reports->DBA->Users
-        action_reps_dba_usrs.setObjectName(QString::fromUtf8("action_reps_dba_usrs"));
-        action_reps_dba_usrs.setText(QApplication::translate("Selector", "Users", nullptr));
-        menu_reps_dba.addAction(&action_reps_dba_usrs);
+        menu_reps_dba.addAction(act_rpt.dba_initpar);                // Reports->DBA->Initialization Parameters
+        menu_reps_dba.addAction(act_rpt.dba_nlspar);                 // Reports->DBA->NLS Database Parameters
+        menu_reps_dba.addAction(act_rpt.dba_rolprv);                 // Reports->DBA->Role Privileges
+        menu_reps_dba.addAction(act_rpt.dba_rol);                    // Reports->DBA->Roles
+        menu_reps_dba.addAction(act_rpt.dba_rlbseg);                 // Reports->DBA->Rollback Segments
+        menu_reps_dba.addAction(act_rpt.dba_srvcom);                 // Reports->DBA->Server Components
+        menu_reps_dba.addAction(act_rpt.dba_sysprv);                 // Reports->DBA->System Priveleges
+        menu_reps_dba.addAction(act_rpt.dba_tblspcs);                // Reports->DBA->Tablespaces
+        menu_reps_dba.addAction(act_rpt.dba_tfs);                    // Reports->DBA->Total Free Space
+        menu_reps_dba.addAction(act_rpt.dba_usrs);                   // Reports->DBA->Users
 
       // Reports->Objects
       menu_reps_objects.setObjectName(QString::fromUtf8("menu_reps_objects"));
       menu_reps_objects.setTitle(QApplication::translate("Selector", "Objects", nullptr));
       menu_reps.addAction(menu_reps_objects.menuAction());
-        // Reports->Objects->All Objects
-        action_reps_objects_all.setObjectName(QString::fromUtf8("action_reps_objects_all"));
-        action_reps_objects_all.setText(QApplication::translate("Selector", "All Objects", nullptr));
-        menu_reps_objects.addAction(&action_reps_objects_all);
-        // Reports->Objects->Indexes
-        action_reps_objects_idx.setObjectName(QString::fromUtf8("action_reps_objects_idx"));
-        action_reps_objects_idx.setText(QApplication::translate("Selector", "Indexes", nullptr));
-        menu_reps_objects.addAction(&action_reps_objects_idx);
-        // Reports->Objects->Sequences
-        action_reps_objects_seq.setObjectName(QString::fromUtf8("action_reps_objects_seq"));
-        action_reps_objects_seq.setText(QApplication::translate("Selector", "Sequences", nullptr));
-        menu_reps_objects.addAction(&action_reps_objects_seq);
-        // Reports->Objects->Synonyms
-        action_reps_objects_syn.setObjectName(QString::fromUtf8("action_reps_objects_syn"));
-        action_reps_objects_syn.setText(QApplication::translate("Selector", "Synonyms", nullptr));
-        menu_reps_objects.addAction(&action_reps_objects_syn);
-        // Reports->Objects->Tables
-        action_reps_objects_tbs.setObjectName(QString::fromUtf8("action_reps_objects_tbs"));
-        action_reps_objects_tbs.setText(QApplication::translate("Selector", "Tables", nullptr));
-        menu_reps_objects.addAction(&action_reps_objects_tbs);
-        // Reports->Objects->Triggers
-        action_reps_objects_trg.setObjectName(QString::fromUtf8("action_reps_objects_trg"));
-        action_reps_objects_trg.setText(QApplication::translate("Selector", "Triggers", nullptr));
-        menu_reps_objects.addAction(&action_reps_objects_trg);
-        // Reports->Objects->Types
-        action_reps_objects_tps.setObjectName(QString::fromUtf8("action_reps_objects_tps"));
-        action_reps_objects_tps.setText(QApplication::translate("Selector", "Types", nullptr));
-        menu_reps_objects.addAction(&action_reps_objects_tps);
-        // Reports->Objects->Views
-        action_reps_objects_views.setObjectName(QString::fromUtf8("action_reps_objects_views"));
-        action_reps_objects_views.setText(QApplication::translate("Selector", "Views", nullptr));
-        menu_reps_objects.addAction(&action_reps_objects_views);
+        menu_reps_objects.addAction(act_rpt.objects_all);            // Reports->Objects->All Objects
+        menu_reps_objects.addAction(act_rpt.objects_idx);            // Reports->Objects->Indexes
+        menu_reps_objects.addAction(act_rpt.objects_seq);            // Reports->Objects->Sequences
+        menu_reps_objects.addAction(act_rpt.objects_syn);            // Reports->Objects->Synonyms
+        menu_reps_objects.addAction(act_rpt.objects_tbs);            // Reports->Objects->Tables
+        menu_reps_objects.addAction(act_rpt.objects_trg);            // Reports->Objects->Triggers
+        menu_reps_objects.addAction(act_rpt.objects_tps);            // Reports->Objects->Types
+        menu_reps_objects.addAction(act_rpt.objects_views);          // Reports->Objects->Views
 
       // Reports->PL/SQL
       menu_reps_plsql.setObjectName(QString::fromUtf8("menu_reps_plsql"));
       menu_reps_plsql.setTitle(QApplication::translate("Selector", "PL/SQL", nullptr));
       menu_reps.addAction(menu_reps_plsql.menuAction());
-        // Reports->Objects->Compilation Errors
-        action_reps_plsql_cperrs.setObjectName(QString::fromUtf8("action_reps_plsql_cperrs"));
-        action_reps_plsql_cperrs.setText(QApplication::translate("Selector", "Compilation Errors", nullptr));
-        menu_reps_plsql.addAction(&action_reps_plsql_cperrs);
+        menu_reps_plsql.addAction(act_rpt.plsql_cperrs);            // Reports->Objects->Compilation Errors
 
       // Reports->User
       menu_reps_user.setObjectName(QString::fromUtf8("menu_reps_user"));
       menu_reps_user.setTitle(QApplication::translate("Selector", "User", nullptr));
       menu_reps.addAction(menu_reps_user.menuAction());
-        // Reports->Objects->Granted Roles
-        action_reps_user_grrol.setObjectName(QString::fromUtf8("action_reps_user_grrol"));
-        action_reps_user_grrol.setText(QApplication::translate("Selector", "Granted Roles", nullptr));
-        menu_reps_user.addAction(&action_reps_user_grrol);
-        // Reports->Objects->Granted System Privileges
-        action_reps_user_grsysprv.setObjectName(QString::fromUtf8("action_reps_user_grsysprv"));
-        action_reps_user_grsysprv.setText(QApplication::translate("Selector", "Granted System Privileges", nullptr));
-        menu_reps_user.addAction(&action_reps_user_grsysprv);
-        // Reports->Objects->NLS Session Parameters
-        action_reps_user_nlssespar.setObjectName(QString::fromUtf8("action_reps_user_nlssespar"));
-        action_reps_user_nlssespar.setText(QApplication::translate("Selector", "NLS Session Parameters", nullptr));
-        menu_reps_user.addAction(&action_reps_user_nlssespar);
-        // Reports->Objects->Object Privileges Made
-        action_reps_user_objprvmde.setObjectName(QString::fromUtf8("action_reps_user_objprvmde"));
-        action_reps_user_objprvmde.setText(QApplication::translate("Selector", "Object Privileges Made", nullptr));
-        menu_reps_user.addAction(&action_reps_user_objprvmde);
-        // Reports->Objects->Object Privileges Received
-        action_reps_user_objprvrcvd.setObjectName(QString::fromUtf8("action_reps_user_objprvrcvd"));
-        action_reps_user_objprvrcvd.setText(QApplication::translate("Selector", "Object Privileges Received", nullptr));
-        menu_reps_user.addAction(&action_reps_user_objprvrcvd);
-
+        menu_reps_user.addAction(act_rpt.user_grrol);              // Reports->Objects->Granted Roles
+        menu_reps_user.addAction(act_rpt.user_grsysprv);           // Reports->Objects->Granted System Privileges
+        menu_reps_user.addAction(act_rpt.user_nlssespar);          // Reports->Objects->NLS Session Parameters
+        menu_reps_user.addAction(act_rpt.user_objprvmde);          // Reports->Objects->Object Privileges Made
+        menu_reps_user.addAction(act_rpt.user_objprvrcvd);         // Reports->Objects->Object Privileges Received
     p_menu_bar->addAction(menu_reps.menuAction());
 
     // Window

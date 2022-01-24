@@ -190,4 +190,35 @@ class tools_actions
     ~tools_actions();
 };
 
+class report_actions
+{
+  public:
+    QAction* dba_initpar;
+    QAction* dba_nlspar;
+    QAction* dba_rolprv;
+    QAction* dba_rol;
+    QAction* dba_rlbseg;
+    QAction* dba_srvcom;
+    QAction* dba_sysprv;
+    QAction* dba_tblspcs;
+    QAction* dba_tfs;
+    QAction* dba_usrs;
+    QAction* objects_all;
+    QAction* objects_idx;
+    QAction* objects_seq;
+    QAction* objects_syn;
+    QAction* objects_tbs;
+    QAction* objects_trg;
+    QAction* objects_tps;
+    QAction* objects_views;
+    QAction* plsql_cperrs;
+    QAction* user_grrol;
+    QAction* user_grsysprv;
+    QAction* user_nlssespar;
+    QAction* user_objprvmde;
+    QAction* user_objprvrcvd;
+
+    report_actions();
+    ~report_actions();
+};
 #endif // ACTIONS_H

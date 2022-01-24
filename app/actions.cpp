@@ -1073,7 +1073,6 @@ debug_actions::~debug_actions()
   delete breakpoint;
 }
 
-
 tools_actions::tools_actions()
 {
   // Tools->Preferences...
@@ -1364,4 +1363,228 @@ tools_actions::~tools_actions()
   delete cfgtools;
   delete cfgplgns;
   delete pref;
+}
+
+report_actions::report_actions()
+{
+  // Reports->DBA->Initialization Parameters
+  dba_initpar = new QAction;
+  dba_initpar->setObjectName(QString::fromUtf8("action_reps_dba_initpar"));
+  dba_initpar->setText(QApplication::translate("Selector", "Initialization Parameters", nullptr));
+  dba_initpar->setToolTip("Run report \"Database initialization parameters\"");
+  dba_initpar->setStatusTip("Run report \"Database initialization parameters\"");
+  dba_initpar->setWhatsThis("Run report \"Database initialization parameters\"");
+  dba_initpar->setEnabled(false);
+  // Reports->DBA->NLS Database Parameters
+  dba_nlspar = new QAction;
+  dba_nlspar->setObjectName(QString::fromUtf8("action_reps_dba_nlspar"));
+  dba_nlspar->setText(QApplication::translate("Selector", "NLS Database Parameters", nullptr));
+  dba_nlspar->setToolTip("Run report \"NLS database parameters\"");
+  dba_nlspar->setStatusTip("Run report \"NLS database parameters\"");
+  dba_nlspar->setWhatsThis("Run report \"NLS database parameters\"");
+  dba_nlspar->setEnabled(false);
+  // Reports->DBA->Role Privileges
+  dba_rolprv = new QAction;
+  dba_rolprv->setObjectName(QString::fromUtf8("action_reps_dba_rolprv"));
+  dba_rolprv->setText(QApplication::translate("Selector", "Role Privileges", nullptr));
+  dba_rolprv->setToolTip("Run report \"Role privileges\"");
+  dba_rolprv->setStatusTip("Run report \"Role privileges\"");
+  dba_rolprv->setWhatsThis("Run report \"Role privileges\"");
+  dba_rolprv->setEnabled(false);
+  // Reports->DBA->Roles
+  dba_rol = new QAction;
+  dba_rol->setObjectName(QString::fromUtf8("action_reps_dba_rol"));
+  dba_rol->setText(QApplication::translate("Selector", "Roles", nullptr));
+  dba_rol->setToolTip("Run report \"Roles\"");
+  dba_rol->setStatusTip("Run report \"Roles\"");
+  dba_rol->setWhatsThis("Run report \"Roles\"");
+  dba_rol->setEnabled(false);
+  // Reports->DBA->Rollback Segments
+  dba_rlbseg = new QAction;
+  dba_rlbseg->setObjectName(QString::fromUtf8("action_reps_dba_rlbseg"));
+  dba_rlbseg->setText(QApplication::translate("Selector", "Rollback Segments", nullptr));
+  dba_rlbseg->setToolTip("Run report \"Rollback segments\"");
+  dba_rlbseg->setStatusTip("Run report \"Rollback segments\"");
+  dba_rlbseg->setWhatsThis("Run report \"Rollback segments\"");
+  dba_rlbseg->setEnabled(false);
+  // Reports->DBA->Server Components
+  dba_srvcom = new QAction;
+  dba_srvcom->setObjectName(QString::fromUtf8("action_reps_dba_srvcom"));
+  dba_srvcom->setText(QApplication::translate("Selector", "Server Components", nullptr));
+  dba_srvcom->setToolTip("Run report \"Server components\"");
+  dba_srvcom->setStatusTip("Run report \"Server components\"");
+  dba_srvcom->setWhatsThis("Run report \"Server components\"");
+  dba_srvcom->setEnabled(false);
+  // Reports->DBA->System Priveleges
+  dba_sysprv = new QAction;
+  dba_sysprv->setObjectName(QString::fromUtf8("action_reps_dba_sysprv"));
+  dba_sysprv->setText(QApplication::translate("Selector", "System Priveleges", nullptr));
+  dba_sysprv->setToolTip("Run report \"System priveleges\"");
+  dba_sysprv->setStatusTip("Run report \"System priveleges\"");
+  dba_sysprv->setWhatsThis("Run report \"System priveleges\"");
+  dba_sysprv->setEnabled(false);
+  // Reports->DBA->Tablespaces
+  dba_tblspcs = new QAction;
+  dba_tblspcs->setObjectName(QString::fromUtf8("action_reps_dba_tblspcs"));
+  dba_tblspcs->setText(QApplication::translate("Selector", "Tablespaces", nullptr));
+  dba_tblspcs->setToolTip("Run report \"Tablespaces\"");
+  dba_tblspcs->setStatusTip("Run report \"Tablespaces\"");
+  dba_tblspcs->setWhatsThis("Run report \"Tablespaces\"");
+  dba_tblspcs->setEnabled(false);
+  // Reports->DBA->Total Free Space
+  dba_tfs = new QAction;
+  dba_tfs->setObjectName(QString::fromUtf8("action_reps_dba_tfs"));
+  dba_tfs->setText(QApplication::translate("Selector", "Total Free Space", nullptr));
+  dba_tfs->setToolTip("Run report \"Total free space\"");
+  dba_tfs->setStatusTip("Run report \"Total free space\"");
+  dba_tfs->setWhatsThis("Run report \"Total free space\"");
+  dba_tfs->setEnabled(false);
+  // Reports->DBA->Users
+  dba_usrs = new QAction;
+  dba_usrs->setObjectName(QString::fromUtf8("action_reps_dba_usrs"));
+  dba_usrs->setText(QApplication::translate("Selector", "Users", nullptr));
+  dba_usrs->setToolTip("Run report \"Users\"");
+  dba_usrs->setStatusTip("Run report \"Users\"");
+  dba_usrs->setWhatsThis("Run report \"Users\"");
+  dba_usrs->setEnabled(false);
+  // Reports->Objects->All Objects
+  objects_all = new QAction;
+  objects_all->setObjectName(QString::fromUtf8("action_reps_objects_all"));
+  objects_all->setText(QApplication::translate("Selector", "All Objects", nullptr));
+  objects_all->setToolTip("Run report \"All objects\"");
+  objects_all->setStatusTip("Run report \"All objects\"");
+  objects_all->setWhatsThis("Run report \"All objects\"");
+  objects_all->setEnabled(false);
+  // Reports->Objects->Indexes
+  objects_idx = new QAction;
+  objects_idx->setObjectName(QString::fromUtf8("action_reps_objects_idx"));
+  objects_idx->setText(QApplication::translate("Selector", "Indexes", nullptr));
+  objects_idx->setToolTip("Run report \"Indexes\"");
+  objects_idx->setStatusTip("Run report \"Indexes\"");
+  objects_idx->setWhatsThis("Run report \"Indexes\"");
+  objects_idx->setEnabled(false);
+  // Reports->Objects->Sequences
+  objects_seq = new QAction;
+  objects_seq->setObjectName(QString::fromUtf8("action_reps_objects_seq"));
+  objects_seq->setText(QApplication::translate("Selector", "Sequences", nullptr));
+  objects_seq->setToolTip("Run report \"Sequences\"");
+  objects_seq->setStatusTip("Run report \"Sequences\"");
+  objects_seq->setWhatsThis("Run report \"Sequences\"");
+  objects_seq->setEnabled(false);
+  // Reports->Objects->Synonyms
+  objects_syn = new QAction;
+  objects_syn->setObjectName(QString::fromUtf8("action_reps_objects_syn"));
+  objects_syn->setText(QApplication::translate("Selector", "Synonyms", nullptr));
+  objects_syn->setToolTip("Run report \"Synonyms\"");
+  objects_syn->setStatusTip("Run report \"Synonyms\"");
+  objects_syn->setWhatsThis("Run report \"Synonyms\"");
+  objects_syn->setEnabled(false);
+  // Reports->Objects->Tables
+  objects_tbs = new QAction;
+  objects_tbs->setObjectName(QString::fromUtf8("action_reps_objects_tbs"));
+  objects_tbs->setText(QApplication::translate("Selector", "Tables", nullptr));
+  objects_tbs->setToolTip("Run report \"Tables\"");
+  objects_tbs->setStatusTip("Run report \"Tables\"");
+  objects_tbs->setWhatsThis("Run report \"Tables\"");
+  objects_tbs->setEnabled(false);
+  // Reports->Objects->Triggers
+  objects_trg = new QAction;
+  objects_trg->setObjectName(QString::fromUtf8("action_reps_objects_trg"));
+  objects_trg->setText(QApplication::translate("Selector", "Triggers", nullptr));
+  objects_trg->setToolTip("Run report \"Triggers\"");
+  objects_trg->setStatusTip("Run report \"Triggers\"");
+  objects_trg->setWhatsThis("Run report \"Triggers\"");
+  objects_trg->setEnabled(false);
+  // Reports->Objects->Types
+  objects_tps = new QAction;
+  objects_tps->setObjectName(QString::fromUtf8("action_reps_objects_tps"));
+  objects_tps->setText(QApplication::translate("Selector", "Types", nullptr));
+  objects_tps->setToolTip("Run report \"Types\"");
+  objects_tps->setStatusTip("Run report \"Types\"");
+  objects_tps->setWhatsThis("Run report \"Types\"");
+  objects_tps->setEnabled(false);
+  // Reports->Objects->Views
+  objects_views = new QAction;
+  objects_views->setObjectName(QString::fromUtf8("action_reps_objects_views"));
+  objects_views->setText(QApplication::translate("Selector", "Views", nullptr));
+  objects_views->setToolTip("Run report \"Views\"");
+  objects_views->setStatusTip("Run report \"Views\"");
+  objects_views->setWhatsThis("Run report \"Views\"");
+  objects_views->setEnabled(false);
+  // Reports->Objects->Compilation Errors
+  plsql_cperrs = new QAction;
+  plsql_cperrs->setObjectName(QString::fromUtf8("action_reps_plsql_cperrs"));
+  plsql_cperrs->setText(QApplication::translate("Selector", "Compilation Errors", nullptr));
+  plsql_cperrs->setToolTip("Run report \"Compilation errors\"");
+  plsql_cperrs->setStatusTip("Run report \"Compilation errors\"");
+  plsql_cperrs->setWhatsThis("Run report \"Compilation errors\"");
+  plsql_cperrs->setEnabled(false);
+  // Reports->Objects->Granted Roles
+  user_grrol = new QAction;
+  user_grrol->setObjectName(QString::fromUtf8("action_reps_user_grrol"));
+  user_grrol->setText(QApplication::translate("Selector", "Granted Roles", nullptr));
+  user_grrol->setToolTip("Run report \"Granted roles\"");
+  user_grrol->setStatusTip("Run report \"Granted roles\"");
+  user_grrol->setWhatsThis("Run report \"Granted roles\"");
+  user_grrol->setEnabled(false);
+  // Reports->Objects->Granted System Privileges
+  user_grsysprv = new QAction;
+  user_grsysprv->setObjectName(QString::fromUtf8("action_reps_user_grsysprv"));
+  user_grsysprv->setText(QApplication::translate("Selector", "Granted System Privileges", nullptr));
+  user_grsysprv->setToolTip("Run report \"Granted system privileges\"");
+  user_grsysprv->setStatusTip("Run report \"Granted system privileges\"");
+  user_grsysprv->setWhatsThis("Run report \"Granted system privileges\"");
+  user_grsysprv->setEnabled(false);
+  // Reports->Objects->NLS Session Parameters
+  user_nlssespar = new QAction;
+  user_nlssespar->setObjectName(QString::fromUtf8("action_reps_user_nlssespar"));
+  user_nlssespar->setText(QApplication::translate("Selector", "NLS Session Parameters", nullptr));
+  user_nlssespar->setToolTip("Run report \"NLS session parameters\"");
+  user_nlssespar->setStatusTip("Run report \"NLS session parameters\"");
+  user_nlssespar->setWhatsThis("Run report \"NLS session parameters\"");
+  user_nlssespar->setEnabled(false);
+  // Reports->Objects->Object Privileges Made
+  user_objprvmde = new QAction;
+  user_objprvmde->setObjectName(QString::fromUtf8("action_reps_user_objprvmde"));
+  user_objprvmde->setText(QApplication::translate("Selector", "Object Privileges Made", nullptr));
+  user_objprvmde->setToolTip("Run report \"Object privileges made\"");
+  user_objprvmde->setStatusTip("Run report \"Object privileges made\"");
+  user_objprvmde->setWhatsThis("Run report \"Object privileges made\"");
+  user_objprvmde->setEnabled(false);
+  // Reports->Objects->Object Privileges Received
+  user_objprvrcvd = new QAction;
+  user_objprvrcvd->setObjectName(QString::fromUtf8("action_reps_user_objprvrcvd"));
+  user_objprvrcvd->setText(QApplication::translate("Selector", "Object Privileges Received", nullptr));
+  user_objprvrcvd->setToolTip("Run report \"Object privileges received\"");
+  user_objprvrcvd->setStatusTip("Run report \"Object privileges received\"");
+  user_objprvrcvd->setWhatsThis("Run report \"Object privileges received\"");
+  user_objprvrcvd->setEnabled(false);
+}
+
+report_actions::~report_actions()
+{
+  delete user_objprvrcvd;
+  delete user_objprvmde;
+  delete user_nlssespar;
+  delete user_grsysprv;
+  delete user_grrol;
+  delete plsql_cperrs;
+  delete objects_views;
+  delete objects_tps;
+  delete objects_trg;
+  delete objects_tbs;
+  delete objects_syn;
+  delete objects_seq;
+  delete objects_idx;
+  delete objects_all;
+  delete dba_usrs;
+  delete dba_tfs;
+  delete dba_tblspcs;
+  delete dba_sysprv;
+  delete dba_srvcom;
+  delete dba_rlbseg;
+  delete dba_rol;
+  delete dba_rolprv;
+  delete dba_nlspar;
+  delete dba_initpar;
 }
