@@ -28,6 +28,7 @@ class Selector : public QMainWindow
     file_actions      act_file;
     edit_actions      act_edit;
     session_actions   act_sesn;
+    debug_actions     act_debg;
 
     void CreateMenu();
     //QMenuBar menubar;
@@ -43,15 +44,6 @@ class Selector : public QMainWindow
         QMenu menu_edit_bookmark_goto;
       QMenu menu_session;
       QMenu menu_debug;
-        QAction action_debug_breakpoint;
-        QAction action_debug_mod_brkpnts;
-        QAction action_debug_start;
-        QAction action_debug_run;
-        QAction action_debug_step_into;
-        QAction action_debug_step_over;
-        QAction action_debug_step_out;
-        QAction action_debug_continue;
-        QAction action_debug_var;
       QMenu menu_tools;
         QAction action_tools_pref;
         QAction action_tools_cfgplgns;

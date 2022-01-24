@@ -965,3 +965,110 @@ session_actions::~session_actions()
   delete loff;
   delete lon;
 }
+
+debug_actions::debug_actions()
+{
+  // Debug->Toggle Breakpoint
+  breakpoint = new QAction;
+  breakpoint->setObjectName(QString::fromUtf8("action_debug_breakpoint"));
+  breakpoint->setText(QApplication::translate("Selector", "Toggle &Breakpoint", nullptr));
+  #ifndef QT_NO_SHORTCUT
+  breakpoint->setShortcut(QApplication::translate("Selector", "Ctrl+B", nullptr));
+  #endif // QT_NO_SHORTCUT
+  breakpoint->setToolTip("Toggle breakpoint");
+  breakpoint->setStatusTip("Toggle breakpoint");
+  breakpoint->setWhatsThis("Toggle breakpoint");
+  breakpoint->setEnabled(false);
+  // Debug->Modify Breakpoints...
+  mod_brkpnts = new QAction;
+  mod_brkpnts->setObjectName(QString::fromUtf8("action_debug_mod_brkpnts"));
+  mod_brkpnts->setText(QApplication::translate("Selector", "&Modify Breakpoints...", nullptr));
+  mod_brkpnts->setToolTip("Modify breakpoints");
+  mod_brkpnts->setStatusTip("Modify breakpoints");
+  mod_brkpnts->setWhatsThis("Modify breakpoints");
+  mod_brkpnts->setEnabled(false);
+  // Debug->Start
+  start = new QAction;
+  start->setObjectName(QString::fromUtf8("action_debug_start"));
+  start->setText(QApplication::translate("Selector", "&Start", nullptr));
+  #ifndef QT_NO_SHORTCUT
+  start->setShortcut(QApplication::translate("Selector", "F9", nullptr));
+  #endif // QT_NO_SHORTCUT
+  start->setToolTip("Start debugger");
+  start->setStatusTip("Start debugger");
+  start->setWhatsThis("Start debugger");
+  start->setEnabled(false);
+  // Debug->Run
+  run = new QAction;
+  run->setObjectName(QString::fromUtf8("action_debug_run"));
+  run->setText(QApplication::translate("Selector", "&Run", nullptr));
+  #ifndef QT_NO_SHORTCUT
+  run->setShortcut(QApplication::translate("Selector", "Ctrl+R", nullptr));
+  #endif // QT_NO_SHORTCUT
+  run->setToolTip("Run program");
+  run->setStatusTip("Run program");
+  run->setWhatsThis("Run program");
+  run->setEnabled(false);
+  // Debug->Step Into
+  step_into = new QAction;
+  step_into->setObjectName(QString::fromUtf8("action_debug_step_into"));
+  step_into->setText(QApplication::translate("Selector", "Step &Into", nullptr));
+  #ifndef QT_NO_SHORTCUT
+  step_into->setShortcut(QApplication::translate("Selector", "Ctrl+N", nullptr));
+  #endif // QT_NO_SHORTCUT
+  step_into->setToolTip("Step into");
+  step_into->setStatusTip("Step into");
+  step_into->setWhatsThis("Step into");
+  step_into->setEnabled(false);
+  // Debug->Step Over
+  step_over = new QAction;
+  step_over->setObjectName(QString::fromUtf8("action_debug_step_over"));
+  step_over->setText(QApplication::translate("Selector", "Step &Over", nullptr));
+  #ifndef QT_NO_SHORTCUT
+  step_over->setShortcut(QApplication::translate("Selector", "Ctrl+O", nullptr));
+  #endif // QT_NO_SHORTCUT
+  step_over->setToolTip("Step over");
+  step_over->setStatusTip("Step over");
+  step_over->setWhatsThis("Step over");
+  step_over->setEnabled(false);
+  // Debug->Step Out
+  step_out = new QAction;
+  step_out->setObjectName(QString::fromUtf8("action_debug_step_out"));
+  step_out->setText(QApplication::translate("Selector", "Step Ou&t", nullptr));
+  #ifndef QT_NO_SHORTCUT
+  step_out->setShortcut(QApplication::translate("Selector", "Ctrl+T", nullptr));
+  #endif // QT_NO_SHORTCUT
+  step_out->setToolTip("Step out");
+  step_out->setStatusTip("Step out");
+  step_out->setWhatsThis("Step out");
+  step_out->setEnabled(false);
+  // Debug->Run to Exception
+  cont = new QAction;
+  cont->setObjectName(QString::fromUtf8("action_debug_continue"));
+  cont->setText(QApplication::translate("Selector", "Run to &Exception", nullptr));
+  cont->setToolTip("Continue");
+  cont->setStatusTip("Run to exception");
+  cont->setWhatsThis("Run to exception");
+  cont->setEnabled(false);
+  // Debug->Set Variable...
+  set_var = new QAction;
+  set_var->setObjectName(QString::fromUtf8("action_debug_var"));
+  set_var->setText(QApplication::translate("Selector", "Set &Variable...", nullptr));
+  set_var->setToolTip("Set variable");
+  set_var->setStatusTip("Set variable");
+  set_var->setWhatsThis("Set variable");
+  set_var->setEnabled(false);
+}
+
+debug_actions::~debug_actions()
+{
+  delete set_var;
+  delete cont;
+  delete step_out;
+  delete step_over;
+  delete step_into;
+  delete run;
+  delete start;
+  delete mod_brkpnts;
+  delete breakpoint;
+}

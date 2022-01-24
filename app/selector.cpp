@@ -343,64 +343,18 @@ void Selector::CreateMenu()
     // Debug
     menu_debug.setObjectName(QString::fromUtf8("menu_debug"));
     menu_debug.setTitle(QApplication::translate("Selector", "&Debug", nullptr));
-      // Debug->Toggle Breakpoint
-      action_debug_breakpoint.setObjectName(QString::fromUtf8("action_debug_breakpoint"));
-      action_debug_breakpoint.setText(QApplication::translate("Selector", "Toggle &Breakpoint", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_debug_breakpoint.setShortcut(QApplication::translate("Selector", "Ctrl+B", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_debug.addAction(&action_debug_breakpoint);
-      // Debug->Modify Breakpoints...
-      action_debug_mod_brkpnts.setObjectName(QString::fromUtf8("action_debug_mod_brkpnts"));
-      action_debug_mod_brkpnts.setText(QApplication::translate("Selector", "&Modify Breakpoints...", nullptr));
-      menu_debug.addAction(&action_debug_mod_brkpnts);
-      // Debug->Start
-      action_debug_start.setObjectName(QString::fromUtf8("action_debug_start"));
-      action_debug_start.setText(QApplication::translate("Selector", "&Start", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_debug_start.setShortcut(QApplication::translate("Selector", "F9", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_debug.addAction(&action_debug_start);
-      // Debug->-------
-      menu_debug.addSeparator();
-      // Debug->Run
-      action_debug_run.setObjectName(QString::fromUtf8("action_debug_run"));
-      action_debug_run.setText(QApplication::translate("Selector", "&Run", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_debug_run.setShortcut(QApplication::translate("Selector", "Ctrl+R", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_debug.addAction(&action_debug_run);
-      // Debug->Step Into
-      action_debug_step_into.setObjectName(QString::fromUtf8("action_debug_step_into"));
-      action_debug_step_into.setText(QApplication::translate("Selector", "Step &Into", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_debug_step_into.setShortcut(QApplication::translate("Selector", "Ctrl+N", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_debug.addAction(&action_debug_step_into);
-      // Debug->Step Over
-      action_debug_step_over.setObjectName(QString::fromUtf8("action_debug_step_over"));
-      action_debug_step_over.setText(QApplication::translate("Selector", "Step &Over", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_debug_step_over.setShortcut(QApplication::translate("Selector", "Ctrl+O", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_debug.addAction(&action_debug_step_over);
-      // Debug->Step Out
-      action_debug_step_out.setObjectName(QString::fromUtf8("action_debug_step_out"));
-      action_debug_step_out.setText(QApplication::translate("Selector", "Step Ou&t", nullptr));
-      #ifndef QT_NO_SHORTCUT
-      action_debug_step_out.setShortcut(QApplication::translate("Selector", "Ctrl+T", nullptr));
-      #endif // QT_NO_SHORTCUT
-      menu_debug.addAction(&action_debug_step_out);
-      // Debug->Run to Exception
-      action_debug_continue.setObjectName(QString::fromUtf8("action_debug_continue"));
-      action_debug_continue.setText(QApplication::translate("Selector", "Run to &Exception", nullptr));
-      menu_debug.addAction(&action_debug_continue);
-      // Debug->-------
-      menu_debug.addSeparator();
-      // Debug->Set Variable...
-      action_debug_var.setObjectName(QString::fromUtf8("action_debug_var"));
-      action_debug_var.setText(QApplication::translate("Selector", "Set &Variable...", nullptr));
-      menu_debug.addAction(&action_debug_var);
+
+      menu_debug.addAction(act_debg.breakpoint);                         // Debug->Toggle Breakpoint
+      menu_debug.addAction(act_debg.mod_brkpnts);                        // Debug->Modify Breakpoints...
+      menu_debug.addAction(act_debg.start);                              // Debug->Start
+      menu_debug.addSeparator();                                         // Debug->-------
+      menu_debug.addAction(act_debg.run);                                // Debug->Run
+      menu_debug.addAction(act_debg.step_into);                          // Debug->Step Into
+      menu_debug.addAction(act_debg.step_over);                          // Debug->Step Over
+      menu_debug.addAction(act_debg.step_out);                           // Debug->Step Out
+      menu_debug.addAction(act_debg.cont);                               // Debug->Run to Exception
+      menu_debug.addSeparator();                                         // Debug->-------
+      menu_debug.addAction(act_debg.set_var);                            // Debug->Set Variable...
     p_menu_bar->addAction(menu_debug.menuAction());
 
     // Tools

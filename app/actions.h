@@ -135,4 +135,21 @@ class session_actions
     ~session_actions();
 };
 
+class debug_actions
+{
+  public:
+    QAction* breakpoint;
+    QAction* mod_brkpnts;
+    QAction* start;
+    QAction* run;
+    QAction* step_into;
+    QAction* step_over;
+    QAction* step_out;
+    QAction* cont;
+    QAction* set_var;
+
+    debug_actions();
+    ~debug_actions();
+};
+
 #endif // ACTIONS_H
