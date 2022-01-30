@@ -71,7 +71,167 @@ void Selector::CreateDocks()
 
   leftDockBrowser.setObjectName(QString::fromUtf8("leftDockBrowser"));
   leftDockBrowser.setWindowTitle("Browser");
-  leftDockBrowser.setWidget(&findTemplate);
+  BrowserTree.setHeaderLabel("DB Objects");
+  BrowserTree.headerItem()->setHidden(true);
+  QTreeWidgetItem* pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Resent objects");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+  //pItem->setDisabled(true);
+  //pItem->setHidden(true);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Recycle bin");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Functions");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Procedures");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Packages");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Package bodies");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Types");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Type bodies");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Triggers");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Java sources");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Jobs");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Queues");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Queue tables");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Libraries");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Directories");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Tables");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Views");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Materialized views");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Sequences");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Users");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Profiles");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Roles");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Synonyms");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Database links");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Tablespaces");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  pItem = new QTreeWidgetItem();
+  pItem->setText(0, "Clusters");
+  pItem->setIcon(0, QPixmap(":/icons/open-sql.png"));
+  pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+  BrowserTree.addTopLevelItem(pItem);
+
+  leftDockBrowser.setWidget(&BrowserTree);
   addDockWidget(Qt::LeftDockWidgetArea, &leftDockBrowser);
 
   DockWindowList.setObjectName(QString::fromUtf8("DockWindowList"));

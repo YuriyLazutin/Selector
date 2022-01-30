@@ -15,6 +15,7 @@
 #include <QMessageBox>
 #include <QTextEdit>
 #include <QDockWidget>
+#include <QTreeWidget>
 #include <QLabel>
 #include <QMdiArea>
 #include <QSignalMapper>
@@ -71,6 +72,7 @@ class Selector : public QMainWindow
     // Docks
     void CreateDocks();
     QDockWidget leftDockBrowser;
+      QTreeWidget  BrowserTree;
     QDockWidget DockWindowList;
     QDockWidget bottomDock;
     QLabel  bottomDockLabel;
