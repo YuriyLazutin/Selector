@@ -15,11 +15,11 @@
 #include <QMessageBox>
 #include <QTextEdit>
 #include <QDockWidget>
-#include <QTreeWidget>
 #include <QLabel>
 #include <QMdiArea>
 #include <QSignalMapper>
 #include "actions.h"
+#include "browser.h"
 
 class Selector : public QMainWindow
 {
@@ -72,7 +72,7 @@ class Selector : public QMainWindow
     // Docks
     void CreateDocks();
     QDockWidget leftDockBrowser;
-      QTreeWidget  BrowserTree;
+      Browser     BrowserTree;
     QDockWidget DockWindowList;
     QDockWidget bottomDock;
     QLabel  bottomDockLabel;

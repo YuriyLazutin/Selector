@@ -17,12 +17,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     actions.cpp \
+    browser.cpp \
     main.cpp \
     selector.cpp \
     sqlform.cpp
 
 HEADERS += \
     actions.h \
+    browser.h \
     selector.h \
     sqlform.h
 
@@ -38,7 +40,7 @@ RESOURCES += \
     icons.qrc
 
 # Application information (properties)
-VERSION = 2021.01.23
+VERSION = 2021.02.01
 QMAKE_TARGET_COMPANY = "Country Tech"
 QMAKE_TARGET_PRODUCT = "Selector"
 QMAKE_TARGET_DESCRIPTION = "Application for database development"
