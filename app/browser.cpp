@@ -11,7 +11,7 @@ Browser::Browser(QWidget *parent) : QWidget(parent)
   refresh->setToolTip("Refresh data");
   refresh->setStatusTip("Refresh data");
   refresh->setWhatsThis("Refresh data");
-  refresh->setIcon(QPixmap(":/icons/commit.png"));
+  refresh->setIcon(QPixmap(":/icons/refresh.png"));
   //refresh->setEnabled(false);
 
   // Expand all
@@ -21,7 +21,7 @@ Browser::Browser(QWidget *parent) : QWidget(parent)
   expand_all->setToolTip("Expand all folders in browser");
   expand_all->setStatusTip("Expand all folders in browser");
   expand_all->setWhatsThis("Expand all folders in browser");
-  expand_all->setIcon(QPixmap(":/icons/edit-undo.png"));
+  expand_all->setIcon(QPixmap(":/icons/expand_all.png"));
   //expand_all->setEnabled(false);
 
   // Collapse all
@@ -31,7 +31,7 @@ Browser::Browser(QWidget *parent) : QWidget(parent)
   collapse_all->setToolTip("Collapse all folders in browser");
   collapse_all->setStatusTip("Collapse all folders in browser");
   collapse_all->setWhatsThis("Collapse all folders in browser");
-  collapse_all->setIcon(QPixmap(":/icons/edit-redo.png"));
+  collapse_all->setIcon(QPixmap(":/icons/collapse_all.png"));
   //collapse_all->setEnabled(false);
 
   // Find Database Objects...
@@ -41,7 +41,7 @@ Browser::Browser(QWidget *parent) : QWidget(parent)
   find_dbo->setToolTip("Allow you to find database objects in database");
   find_dbo->setStatusTip("Allow you to find database objects in database");
   find_dbo->setWhatsThis("Allow you to find database objects in database");
-  find_dbo->setIcon(QPixmap(":/icons/execute.png"));
+  find_dbo->setIcon(QPixmap(":/icons/find_dbo.png"));
   //find_dbo->setEnabled(false);
 
   // Filters
@@ -51,7 +51,7 @@ Browser::Browser(QWidget *parent) : QWidget(parent)
   filters->setToolTip("Allow you to customize filter setups");
   filters->setStatusTip("Allow you to customize filter setups");
   filters->setWhatsThis("Allow you to customize filter setups");
-  filters->setIcon(QPixmap(":/icons/rollback.png"));
+  filters->setIcon(QPixmap(":/icons/filter-settings.png"));
   //filters->setEnabled(false);
 
   // Folders
@@ -61,14 +61,14 @@ Browser::Browser(QWidget *parent) : QWidget(parent)
   folders->setToolTip("Allow you to customize folders setups");
   folders->setStatusTip("Allow you to customize folders setups");
   folders->setWhatsThis("Allow you to customize folders setups");
-  folders->setIcon(QPixmap(":/icons/open-sql.png"));
+  folders->setIcon(QPixmap(":/icons/folder_settings.png"));
   //folders->setEnabled(false);
 
   // Create ToolBar
   ToolBar.setObjectName(QString::fromUtf8("browser_toolbar"));
   //ToolBar.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
   ToolBar.setWindowTitle("Browser operations");
-  ToolBar.setIconSize(QSize(16, 16));
+  ToolBar.setIconSize(QSize(24, 24));
   ToolBar.addAction(refresh);
   ToolBar.addAction(expand_all);
   ToolBar.addAction(collapse_all);
@@ -90,6 +90,7 @@ Browser::Browser(QWidget *parent) : QWidget(parent)
   // Populate Folders Tree
   Tree.setObjectName(QString::fromUtf8("browser_folders_tree"));
   Tree.setHeaderLabel("DB Objects");
+  Tree.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
   Tree.headerItem()->setHidden(true);
   QTreeWidgetItem* pItem = new QTreeWidgetItem();
   pItem->setText(0, "Resent objects");

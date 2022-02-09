@@ -246,4 +246,20 @@ class help_actions
     ~help_actions();
 };
 
+class transaction_actions
+{
+  public:
+    QAction* edt_rec;
+    QAction* ins_rec;
+    QAction* del_rec;
+    QAction* post_chng;
+    QAction* fetch_rec;
+    QAction* fetch_all;
+    QAction* qry_by_ex;
+    QAction* clr_rec;
+
+    transaction_actions();
+    ~transaction_actions();
+};
+
 #endif // ACTIONS_H

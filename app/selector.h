@@ -34,6 +34,7 @@ class Selector : public QMainWindow
     report_actions    act_rpt;
     window_actions    act_wnd;
     help_actions      act_hlp;
+    transaction_actions   act_trns;
 
     void CreateMenu();
     //QMenuBar menubar;

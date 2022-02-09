@@ -1679,3 +1679,104 @@ help_actions::~help_actions()
   delete donate;
   delete help;
 }
+
+transaction_actions::transaction_actions()
+{
+  // Edit Data
+  edt_rec = new QAction;
+  edt_rec->setObjectName(QString::fromUtf8("action_trans_edt_rec"));
+  edt_rec->setText(QApplication::translate("Selector", "Edit Data", nullptr));
+  edt_rec->setToolTip("Unlock records for editing");
+  edt_rec->setStatusTip("Unlock records for editing");
+  edt_rec->setWhatsThis("Unlock records for editing");
+  edt_rec->setIcon(QPixmap(":/icons/edit_data.png"));
+  edt_rec->setEnabled(false);
+
+  // Insert Record
+  ins_rec = new QAction;
+  ins_rec->setObjectName(QString::fromUtf8("action_trans_ins_rec"));
+  ins_rec->setText(QApplication::translate("Selector", "Insert Record", nullptr));
+  ins_rec->setToolTip("Insert new record");
+  ins_rec->setStatusTip("Insert new record");
+  ins_rec->setWhatsThis("Insert new record");
+  ins_rec->setIcon(QPixmap(":/icons/insert_record.png"));
+  ins_rec->setEnabled(false);
+
+  // Delete Record
+  del_rec = new QAction;
+  del_rec->setObjectName(QString::fromUtf8("action_trans_del_rec"));
+  del_rec->setText(QApplication::translate("Selector", "Delete Record", nullptr));
+  del_rec->setToolTip("Delete record");
+  del_rec->setStatusTip("Delete record");
+  del_rec->setWhatsThis("Delete record");
+  del_rec->setIcon(QPixmap(":/icons/delete_record.png"));
+  del_rec->setEnabled(false);
+
+  // Post Changes into DB
+  post_chng = new QAction;
+  post_chng->setObjectName(QString::fromUtf8("action_trans_post_chng"));
+  post_chng->setText(QApplication::translate("Selector", "Post Changes", nullptr));
+  post_chng->setToolTip("Post changes into database");
+  post_chng->setStatusTip("Post changes into database");
+  post_chng->setWhatsThis("Post changes into database");
+  post_chng->setIcon(QPixmap(":/icons/post_changes.png"));
+  post_chng->setEnabled(false);
+
+  // Fetch Next Page (Alt+PgDown)
+  fetch_rec = new QAction;
+  fetch_rec->setObjectName(QString::fromUtf8("action_trans_fetch_rec"));
+  fetch_rec->setText(QApplication::translate("Selector", "Fetch Next Page", nullptr));
+  fetch_rec->setToolTip("Fetch next data portion from database");
+  fetch_rec->setStatusTip("Fetch next data portion from database");
+  fetch_rec->setWhatsThis("Fetch next data portion from database");
+  fetch_rec->setIcon(QPixmap(":/icons/fetch_next_page.png"));
+  #ifndef QT_NO_SHORTCUT
+  fetch_rec->setShortcut(QApplication::translate("Selector", "Alt+PgDown", nullptr)); // ??? check shortcut
+  #endif // QT_NO_SHORTCUT
+  fetch_rec->setEnabled(false);
+
+  // Fetch All Records (Alt+End)
+  fetch_all = new QAction;
+  fetch_all->setObjectName(QString::fromUtf8("action_trans_fetch_all"));
+  fetch_all->setText(QApplication::translate("Selector", "Fetch All Records", nullptr));
+  fetch_all->setToolTip("Fetch all data from database");
+  fetch_all->setStatusTip("Fetch all data from database");
+  fetch_all->setWhatsThis("Fetch all data from database");
+  fetch_all->setIcon(QPixmap(":/icons/fetch_all_records.png"));
+  #ifndef QT_NO_SHORTCUT
+  fetch_all->setShortcut(QApplication::translate("Selector", "Alt+End", nullptr)); // ??? check shortcut
+  #endif // QT_NO_SHORTCUT
+  fetch_all->setEnabled(false);
+
+  // Query By Example ???
+  qry_by_ex = new QAction;
+  qry_by_ex->setObjectName(QString::fromUtf8("action_trans_qry_by_ex"));
+  qry_by_ex->setText(QApplication::translate("Selector", "Query By Example", nullptr));
+  qry_by_ex->setToolTip("Query by example");
+  qry_by_ex->setStatusTip("Query by example");
+  qry_by_ex->setWhatsThis("Query by example");
+  qry_by_ex->setIcon(QPixmap(":/icons/query_by_example.png"));
+  qry_by_ex->setEnabled(false);
+
+  // Clear Record
+  clr_rec = new QAction;
+  clr_rec->setObjectName(QString::fromUtf8("action_trans_clr_rec"));
+  clr_rec->setText(QApplication::translate("Selector", "Clear Record", nullptr));
+  clr_rec->setToolTip("Clear record contents");
+  clr_rec->setStatusTip("Clear record contents");
+  clr_rec->setWhatsThis("Clear record contents");
+  clr_rec->setIcon(QPixmap(":/icons/clear_record.png"));
+  clr_rec->setEnabled(false);
+}
+
+transaction_actions::~transaction_actions()
+{
+  delete clr_rec;
+  delete qry_by_ex;
+  delete fetch_all;
+  delete fetch_rec;
+  delete post_chng;
+  delete del_rec;
+  delete ins_rec;
+  delete edt_rec;
+}

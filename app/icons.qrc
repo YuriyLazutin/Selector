@@ -8,11 +8,25 @@
         <file>icons/login.png</file>
         <file>icons/new-plsql.png</file>
         <file>icons/new-sql.png</file>
-        <file>icons/open-sql.png</file>
         <file>icons/report.png</file>
         <file>icons/rollback.png</file>
         <file>icons/save-sql.png</file>
         <file>icons/selector.png</file>
         <file>icons/selector.icns</file>
+        <file>icons/collapse_all.png</file>
+        <file>icons/expand_all.png</file>
+        <file>icons/find_dbo.png</file>
+        <file>icons/folder_settings.png</file>
+        <file>icons/refresh.png</file>
+        <file>icons/filter-settings.png</file>
+        <file>icons/edit_data.png</file>
+        <file>icons/delete_record.png</file>
+        <file>icons/insert_record.png</file>
+        <file>icons/post_changes.png</file>
+        <file>icons/fetch_all_records.png</file>
+        <file>icons/fetch_next_page.png</file>
+        <file>icons/clear_record.png</file>
+        <file>icons/query_by_example.png</file>
+        <file>icons/open_file.png</file>
     </qresource>
 </RCC>

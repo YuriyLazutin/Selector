@@ -97,6 +97,7 @@ void Selector::CreateToolBars()
   toolBarMain.setObjectName(QString::fromUtf8("toolBarMain"));
   toolBarMain.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
   toolBarMain.setWindowTitle("Main operations");
+  toolBarMain.setIconSize(QSize(32, 32));
   toolBarMain.addAction(act_sesn.lon);
   toolBarMain.addSeparator();
   toolBarMain.addAction(menu_file_new.menuAction());
@@ -117,10 +118,16 @@ void Selector::CreateToolBars()
   toolBarDML.setObjectName(QString::fromUtf8("toolBarDML"));
   toolBarDML.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
   toolBarDML.setWindowTitle("DML operations");
-  toolBarDML.addAction(act_sesn.exe); // ToDo: replace with correct buttons
-  toolBarDML.addAction(act_sesn.brk); // ToDo: replace with correct buttons
-  toolBarDML.addAction(act_sesn.cmmt); // ToDo: replace with correct buttons
-  toolBarDML.addAction(act_sesn.rllbck); // ToDo: replace with correct buttons
+  toolBarDML.setIconSize(QSize(32, 32));
+  toolBarDML.addAction(act_trns.edt_rec);
+  toolBarDML.addAction(act_trns.ins_rec);
+  toolBarDML.addAction(act_trns.del_rec);
+  toolBarDML.addAction(act_trns.post_chng);
+  toolBarDML.addSeparator();
+  toolBarDML.addAction(act_trns.fetch_rec);
+  toolBarDML.addAction(act_trns.fetch_all);
+  toolBarDML.addAction(act_trns.qry_by_ex);
+  toolBarDML.addAction(act_trns.clr_rec);
   toolBarDML.addSeparator();
   addToolBar(Qt::TopToolBarArea, &toolBarDML);
 }
@@ -199,7 +206,7 @@ void Selector::CreateMenu()
       p_menu_action->setToolTip("Open existing file");
       p_menu_action->setStatusTip("Open existing program file");
       p_menu_action->setWhatsThis("Open existing program file");
-      p_menu_action->setIcon(QPixmap(":/icons/open-sql.png"));
+      p_menu_action->setIcon(QPixmap(":/icons/open_file.png"));
       //connect(p_menu_action, SIGNAL(triggered()), SLOT(slotNoImpl()));
       menu_file.addAction(p_menu_action);
       menu_file_open.setTitle(QApplication::translate("Selector", "&Open", nullptr));
