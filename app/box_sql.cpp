@@ -1,15 +1,15 @@
-#include "sqlform.h"
+#include "box_sql.h"
 #include <QFileDialog>
 #include <QTextStream>
 #include <QMessageBox>
 
-SQLForm::SQLForm(QWidget* p_Parent /*= 0*/) : QTextEdit(p_Parent)
+BOX_SQL::BOX_SQL(QWidget* p_Parent /*= 0*/) : QTextEdit(p_Parent)
 {
   FileState = FILE_STATE_UNCHANGED;
   connect(this, SIGNAL(textChanged()), SLOT(slotFileChanged()));
 }
 
-void SQLForm::SetFileState(const unsigned int NewState)
+void BOX_SQL::SetFileState(const unsigned int NewState)
 {
   unsigned int OldState = FileState;
   FileState = NewState;
@@ -18,18 +18,18 @@ void SQLForm::SetFileState(const unsigned int NewState)
     isFileChanged() ? emit fileWasChanged() : emit fileWasUnChanged();
 }
 
-bool SQLForm::isFileChanged()
+bool BOX_SQL::isFileChanged()
 {
   return FileState == FILE_STATE_UNCHANGED ? false : true;
 }
 
-void SQLForm::slotFileChanged()
+void BOX_SQL::slotFileChanged()
 {
   if (!isFileChanged())
     SetFileState(FILE_STATE_CHANGED);
 }
 
-void SQLForm::slotFileLoad()
+void BOX_SQL::slotFileLoad()
 {
   QString s = QFileDialog::getOpenFileName();
   if (s.isEmpty())
@@ -49,7 +49,7 @@ void SQLForm::slotFileLoad()
   }
 }
 
-void SQLForm::slotFileSave()
+void BOX_SQL::slotFileSave()
 {
   if (FileName.isEmpty())
   {
@@ -66,7 +66,7 @@ void SQLForm::slotFileSave()
   }
 }
 
-void SQLForm::slotFileSaveAs()
+void BOX_SQL::slotFileSaveAs()
 {
   QString s = QFileDialog::getSaveFileName(0, FileName);
   if (!s.isEmpty())
@@ -77,7 +77,7 @@ void SQLForm::slotFileSaveAs()
   }
 }
 
-void SQLForm::slotSQLExecute()
+void BOX_SQL::slotSQLExecute()
 {
   QMessageBox::information(0, "Message", "SQL should be executed, but \"Feature Not implemented!\" :(");
 }

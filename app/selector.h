@@ -95,8 +95,8 @@ class Selector : public QMainWindow
 
       void slotFileWasChanged();
       void slotFileWasUnChanged();
-      void slotNewSQLForm();
-      void slotOpenSQLForm();
+      void slotNewBOX_SQL();
+      void slotOpenBOX_SQL();
       void slotFileSave();
       void slotFileSaveAs();
       void slotFileSaveAll();

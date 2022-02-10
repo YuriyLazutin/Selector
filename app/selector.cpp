@@ -1,5 +1,5 @@
 #include "selector.h"
-#include "sqlform.h"
+#include "box_sql.h"
 #include <QApplication>
 #include <QMenuBar>
 #include <QToolBox>
@@ -177,7 +177,7 @@ void Selector::CreateMenu()
           menu_file_new_prog_wnd.addAction(act_file.new_typespc);          // File->New->Program Window->Type Specification
         menu_file_new.addAction(act_file.new_test);                     // File->New->Test Window
         menu_file_new.addAction(act_file.new_sql);                      // File->New->SQL Window
-        connect(act_file.new_sql, SIGNAL(triggered()), SLOT(slotNewSQLForm()));
+        connect(act_file.new_sql, SIGNAL(triggered()), SLOT(slotNewBOX_SQL()));
         menu_file_new.addAction(act_file.new_rpt);                      // File->New->Report Window
         connect(act_file.new_rpt, SIGNAL(triggered()), SLOT(slotNoImpl()));
         menu_file_new.addAction(act_file.new_cmd);                      // File->New->Command Window
@@ -213,7 +213,7 @@ void Selector::CreateMenu()
         menu_file_open.addAction(act_file.open_prog);                   // File->Open->Program File
         menu_file_open.addAction(act_file.open_test);                   // File->Open->Test Script
         menu_file_open.addAction(act_file.open_sql);                    // File->Open->SQL Script
-        connect(act_file.open_sql, SIGNAL(triggered()), SLOT(slotOpenSQLForm()));
+        connect(act_file.open_sql, SIGNAL(triggered()), SLOT(slotOpenBOX_SQL()));
         menu_file_open.addAction(act_file.open_rpt);                    // File->Open->Report File
         connect(act_file.open_rpt, SIGNAL(triggered()), SLOT(slotNoImpl()));
         menu_file_open.addAction(act_file.open_cmd);                    // File->Open->Command File
@@ -527,10 +527,10 @@ void Selector::slotFileWasUnChanged()
   act_file.print->setEnabled(false);
 }
 
-void Selector::slotNewSQLForm()
+void Selector::slotNewBOX_SQL()
 {
-  // SQLForm* p_form = new SQLForm(&MDIArea); Only QMdiSubWindows can be set as children of QMdiArea !!!
-  SQLForm* p_form = new SQLForm();
+  // BOX_SQL* p_form = new BOX_SQL(&MDIArea); Only QMdiSubWindows can be set as children of QMdiArea !!!
+  BOX_SQL* p_form = new BOX_SQL();
   QMdiSubWindow* p_sub_wnd = MDIArea.addSubWindow(p_form);
   p_sub_wnd->setAttribute(Qt::WA_DeleteOnClose);
   p_sub_wnd->setWindowTitle("New SQL Document");
@@ -541,9 +541,9 @@ void Selector::slotNewSQLForm()
   p_sub_wnd->show();
 }
 
-void Selector::slotOpenSQLForm()
+void Selector::slotOpenBOX_SQL()
 {
-  SQLForm* p_form = new SQLForm;
+  BOX_SQL* p_form = new BOX_SQL;
   QMdiSubWindow* p_sub_wnd = MDIArea.addSubWindow(p_form);
   p_sub_wnd->setAttribute(Qt::WA_DeleteOnClose);
   p_sub_wnd->setWindowTitle("Open SQL Document");
@@ -560,7 +560,7 @@ void Selector::slotFileSave()
   QMdiSubWindow* p_sub_wnd = MDIArea.activeSubWindow();
   if (p_sub_wnd)
   {
-    SQLForm* p_form = qobject_cast<SQLForm*>(p_sub_wnd->widget());
+    BOX_SQL* p_form = qobject_cast<BOX_SQL*>(p_sub_wnd->widget());
     if (p_form)
       p_form->slotFileSave();
   }
@@ -571,7 +571,7 @@ void Selector::slotFileSaveAs()
   QMdiSubWindow* p_sub_wnd = MDIArea.activeSubWindow();
   if (p_sub_wnd)
   {
-    SQLForm* p_form = qobject_cast<SQLForm*>(p_sub_wnd->widget());
+    BOX_SQL* p_form = qobject_cast<BOX_SQL*>(p_sub_wnd->widget());
     if (p_form)
       p_form->slotFileSaveAs();
   }
@@ -584,7 +584,7 @@ void Selector::slotFileSaveAll()
 
 //void Selector::slotChangeWindowTitle(const QString& new_title)
 //{
-//  qobject_cast<SQLForm*>(sender())->setWindowTitle(new_title);
+//  qobject_cast<BOX_SQL*>(sender())->setWindowTitle(new_title);
 //}
 
 /*

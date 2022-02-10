@@ -1,12 +1,12 @@
-#ifndef SQLFORM_H
-#define SQLFORM_H
+#ifndef BOX_SQL_H
+#define BOX_SQL_H
 
 #include <QTextEdit>
 
 #define FILE_STATE_UNCHANGED   0
 #define FILE_STATE_CHANGED     1
 
-class SQLForm : public QTextEdit
+class BOX_SQL : public QTextEdit
 {
   Q_OBJECT
 
@@ -17,7 +17,7 @@ class SQLForm : public QTextEdit
     void SetFileState(const unsigned int NewState);
 
   public:
-    SQLForm(QWidget* p_Parent = 0);
+    BOX_SQL(QWidget* p_Parent = 0);
     bool isFileChanged();
 
   signals:
@@ -33,4 +33,4 @@ class SQLForm : public QTextEdit
     void slotSQLExecute();
 };
 
-#endif // SQLFORM_H
+#endif // BOX_SQL_H
