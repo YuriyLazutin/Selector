@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     actions.cpp \
+    box_pkg.cpp \
     box_sql.cpp \
     browser.cpp \
     main.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
 
 HEADERS += \
     actions.h \
+    box_pkg.h \
     box_sql.h \
     browser.h \
     selector.h
@@ -40,7 +42,7 @@ RESOURCES += \
     icons.qrc
 
 # Application information (properties)
-VERSION = 2021.02.01
+VERSION = 2022.02.11
 QMAKE_TARGET_COMPANY = "Country Tech"
 QMAKE_TARGET_PRODUCT = "Selector"
 QMAKE_TARGET_DESCRIPTION = "Application for database development"

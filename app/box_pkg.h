@@ -1,24 +1,26 @@
-#ifndef BOX_SQL_H
-#define BOX_SQL_H
+#ifndef BOX_PKG_H
+#define BOX_PKG_H
 
+#include <QWidget>
+#include <QTreeWidget>
 #include <QTextEdit>
 
 #define FILE_STATE_UNCHANGED   0
 #define FILE_STATE_CHANGED     1
 
-class BOX_SQL : public QTextEdit
+class BOX_PKG : public QWidget
 {
-  Q_OBJECT
-
+    Q_OBJECT
   private:
-    QString        FileName;
-    unsigned int   FileState;
-
+    QTreeWidget   PkgTree;
+    QTextEdit     PkgText;
+    QString       FileName;
+    unsigned int  FileState;
     void SetFileState(const unsigned int NewState);
 
   public:
-    explicit BOX_SQL(QWidget* p_Parent = 0);
-    ~BOX_SQL();
+    explicit BOX_PKG(QWidget *parent = nullptr);
+             ~BOX_PKG();
     bool isFileChanged();
 
   signals:
@@ -31,7 +33,7 @@ class BOX_SQL : public QTextEdit
     void slotFileLoad();
     void slotFileSave();
     void slotFileSaveAs();
-    void slotSQLExecute();
+    void slotPkgCompile();
 };
 
-#endif // BOX_SQL_H
+#endif // BOX_PKG_H

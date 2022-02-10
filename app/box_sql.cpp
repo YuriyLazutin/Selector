@@ -9,6 +9,11 @@ BOX_SQL::BOX_SQL(QWidget* p_Parent /*= 0*/) : QTextEdit(p_Parent)
   connect(this, SIGNAL(textChanged()), SLOT(slotFileChanged()));
 }
 
+BOX_SQL::~BOX_SQL()
+{
+
+}
+
 void BOX_SQL::SetFileState(const unsigned int NewState)
 {
   unsigned int OldState = FileState;

@@ -100,6 +100,10 @@ class Selector : public QMainWindow
       void slotFileSave();
       void slotFileSaveAs();
       void slotFileSaveAll();
+      void slotNewBOX_PKG();
+      void slotNewBOX_PKGBDY();
+      void slotNewBOX_PKGSPC();
+      void slotOpenBOX_PKG();
 //      void slotChangeWindowTitle(const QString&);
 //      void slotSetActiveSubWindow(QWidget*);
 };

@@ -5,6 +5,7 @@
 #include <QToolBox>
 #include <QBrush>
 #include <QMdiSubWindow>
+#include "box_pkg.h"
 
 Selector::Selector(QWidget *parent) : QMainWindow(parent)
 {
@@ -168,8 +169,11 @@ void Selector::CreateMenu()
           menu_file_new_prog_wnd.addAction(act_file.new_func);             // File->New->Program Window->Function
           menu_file_new_prog_wnd.addAction(act_file.new_jsrc);             // File->New->Program Window->Java source
           menu_file_new_prog_wnd.addAction(act_file.new_pkg);              // File->New->Program Window->Package
+          connect(act_file.new_pkg, SIGNAL(triggered()), SLOT(slotNewBOX_PKG()));
           menu_file_new_prog_wnd.addAction(act_file.new_pkgbdy);           // File->New->Program Window->Package body
+          connect(act_file.new_pkgbdy, SIGNAL(triggered()), SLOT(slotNewBOX_PKGBDY()));
           menu_file_new_prog_wnd.addAction(act_file.new_pkgspc);           // File->New->Program Window->Package Specification
+          connect(act_file.new_pkgspc, SIGNAL(triggered()), SLOT(slotNewBOX_PKGSPC()));
           menu_file_new_prog_wnd.addAction(act_file.new_proc);             // File->New->Program Window->Procedure
           menu_file_new_prog_wnd.addAction(act_file.new_trg);              // File->New->Program Window->Trigger
           menu_file_new_prog_wnd.addAction(act_file.new_type);             // File->New->Program Window->Type
@@ -211,6 +215,7 @@ void Selector::CreateMenu()
       menu_file.addAction(p_menu_action);
       menu_file_open.setTitle(QApplication::translate("Selector", "&Open", nullptr));
         menu_file_open.addAction(act_file.open_prog);                   // File->Open->Program File
+        connect(act_file.open_prog, SIGNAL(triggered()), SLOT(slotOpenBOX_PKG()));
         menu_file_open.addAction(act_file.open_test);                   // File->Open->Test Script
         menu_file_open.addAction(act_file.open_sql);                    // File->Open->SQL Script
         connect(act_file.open_sql, SIGNAL(triggered()), SLOT(slotOpenBOX_SQL()));
@@ -595,3 +600,43 @@ void Selector::slotSetActiveSubWindow(QWidget* p_form)
 
 }
 */
+
+
+void Selector::slotNewBOX_PKG()
+{
+  BOX_PKG* p_form = new BOX_PKG();
+  QMdiSubWindow* p_sub_wnd = MDIArea.addSubWindow(p_form);
+  p_sub_wnd->setAttribute(Qt::WA_DeleteOnClose);
+  p_sub_wnd->setWindowTitle("New package");
+  p_sub_wnd->setWindowIcon(QIcon(":/icons/new-plsql.png"));
+
+  connect(p_form, SIGNAL(fileWasChanged()), SLOT(slotFileWasChanged()));
+  //connect(p_form, SIGNAL(changeMainTitle(const QString&)), SLOT(slotChangeMainTitle(const QString&))); // ???
+  p_sub_wnd->show();
+}
+
+
+void Selector::slotNewBOX_PKGBDY()
+{
+  slotNewBOX_PKG();
+  // ToDo: Disable specification here...
+}
+
+void Selector::slotNewBOX_PKGSPC()
+{
+  slotNewBOX_PKG();
+  // ToDo: Disable body here...
+}
+
+void Selector::slotOpenBOX_PKG()
+{
+  BOX_PKG* p_form = new BOX_PKG();
+  QMdiSubWindow* p_sub_wnd = MDIArea.addSubWindow(p_form);
+  p_sub_wnd->setAttribute(Qt::WA_DeleteOnClose);
+  p_sub_wnd->setWindowTitle("Open package");
+  p_sub_wnd->setWindowIcon(QIcon(":/icons/new-plsql.png"));
+  p_form->slotFileLoad();
+  connect(p_form, SIGNAL(fileWasChanged()), SLOT(slotFileWasChanged()));
+  //connect(p_form, SIGNAL(changeWindowTitle(const QString&)), SLOT(slotChangeWindowTitle(const QString&)));
+  p_sub_wnd->show();
+}
