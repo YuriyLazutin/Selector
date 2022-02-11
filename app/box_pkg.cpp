@@ -8,6 +8,12 @@ BOX_PKG::BOX_PKG(QWidget *parent) : QWidget(parent)
 {
     FileState = FILE_STATE_UNCHANGED;
 
+    PkgTree.setObjectName(QString::fromUtf8("box_pkg_tree_widget"));
+    PkgTree.setHeaderLabel("Package contents");
+    PkgTree.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
+    PkgTree.headerItem()->setHidden(true);
+    //PkgTree.resize(300,1024);
+
     // Add fake items into pkg tree
     QTreeWidgetItem* pItem;
     pItem = new QTreeWidgetItem();
@@ -31,8 +37,8 @@ BOX_PKG::BOX_PKG(QWidget *parent) : QWidget(parent)
 
 
     pBoxSplitter->setOrientation(Qt::Horizontal);
-    //pBoxSplitter->setStretchFactor(0,20);
-    //pBoxSplitter->setStretchFactor(1,80);
+    pBoxSplitter->setStretchFactor(0,20);
+    pBoxSplitter->setStretchFactor(1,80);
     QPalette p;
     p.setColor(QPalette::Background, Qt::red);
     pBoxSplitter->setPalette(p);
@@ -41,6 +47,8 @@ BOX_PKG::BOX_PKG(QWidget *parent) : QWidget(parent)
 //    PkgTree.setSize(200,200);
 //    PkgText.setSize(300,300);
     pBoxSplitter->addWidget(&PkgTree);
+
+    PkgText.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
     pBoxSplitter->addWidget(&PkgText);
     connect(&PkgText, SIGNAL(textChanged()), SLOT(slotFileChanged()));
 }
