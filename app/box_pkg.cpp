@@ -2,9 +2,8 @@
 #include <QFileDialog>
 #include <QTextStream>
 #include <QMessageBox>
-#include <QSplitter>
 
-BOX_PKG::BOX_PKG(QWidget *parent) : QWidget(parent)
+BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
 {
     FileState = FILE_STATE_UNCHANGED;
 
@@ -12,7 +11,7 @@ BOX_PKG::BOX_PKG(QWidget *parent) : QWidget(parent)
     PkgTree.setHeaderLabel("Package contents");
     PkgTree.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
     PkgTree.headerItem()->setHidden(true);
-    //PkgTree.resize(300,1024);
+    PkgTree.resize(200,1024);
 
     // Add fake items into pkg tree
     QTreeWidgetItem* pItem;
@@ -32,24 +31,26 @@ BOX_PKG::BOX_PKG(QWidget *parent) : QWidget(parent)
     pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
     PkgTree.addTopLevelItem(pItem);
 
-    QSplitter* pBoxSplitter = new QSplitter(this);
-    //resize(400, 400);
+    //QSplitter* pBoxSplitter = new QSplitter(this);
+    //resize(1500, 1024);
 
 
-    pBoxSplitter->setOrientation(Qt::Horizontal);
-    pBoxSplitter->setStretchFactor(0,20);
-    pBoxSplitter->setStretchFactor(1,80);
+    setOrientation(Qt::Horizontal);
+    //setSizes(QList<int>({200, 1200}));
+    //setSizes({static_cast<int>(10000 / 1.618), static_cast<int>(10000 - 10000 / 1.618)});
+    // Stretch in Golden ratio
+    //setStretchFactor(0,1);
+    setStretchFactor(1,1.618);
     QPalette p;
     p.setColor(QPalette::Background, Qt::red);
-    pBoxSplitter->setPalette(p);
-    pBoxSplitter->setHandleWidth(5);
+    setPalette(p);
+    setHandleWidth(5);
 
-//    PkgTree.setSize(200,200);
-//    PkgText.setSize(300,300);
-    pBoxSplitter->addWidget(&PkgTree);
+    addWidget(&PkgTree);
 
     PkgText.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
-    pBoxSplitter->addWidget(&PkgText);
+    PkgText.resize(1000,1024);
+    addWidget(&PkgText);
     connect(&PkgText, SIGNAL(textChanged()), SLOT(slotFileChanged()));
 }
 
