@@ -28,5 +28,7 @@
         <file>icons/clear_record.png</file>
         <file>icons/query_by_example.png</file>
         <file>icons/open_file.png</file>
+        <file>icons/pkg_head.png</file>
+        <file>icons/pkg_body.png</file>
     </qresource>
 </RCC>

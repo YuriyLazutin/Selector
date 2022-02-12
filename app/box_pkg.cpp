@@ -2,16 +2,51 @@
 #include <QFileDialog>
 #include <QTextStream>
 #include <QMessageBox>
+#include <QApplication>
+#include <QToolBar>
+#include <QVBoxLayout>
 
 BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
 {
     FileState = FILE_STATE_UNCHANGED;
 
+    // Head button
+    act_head.setObjectName(QString::fromUtf8("box_pkg_action_head"));
+    act_head.setText(QApplication::translate("Selector", "Head", nullptr));
+    act_head.setToolTip("Switch to package head");
+    act_head.setStatusTip("Switch to package head");
+    act_head.setWhatsThis("Switch to package head");
+    act_head.setIcon(QPixmap(":/icons/pkg_head.png"));
+    act_head.setCheckable(true);
+    act_head.setChecked(true);
+    //act_head.setEnabled(false);
+
+    // Body button
+    act_body.setObjectName(QString::fromUtf8("box_pkg_action_body"));
+    act_body.setText(QApplication::translate("Selector", "Body", nullptr));
+    act_body.setToolTip("Switch to package body");
+    act_body.setStatusTip("Switch to package body");
+    act_body.setWhatsThis("Switch to package body");
+    act_body.setIcon(QPixmap(":/icons/pkg_body.png"));
+    act_body.setCheckable(true);
+    act_body.setChecked(false);
+    //act_body.setEnabled(false);
+
+    QToolBar* pToolBar = new QToolBar;
+    pToolBar->setObjectName(QString::fromUtf8("box_pkg_toolbar"));
+    pToolBar->setStyleSheet(QString::fromUtf8("background-color: rgb(183, 199, 206);"));
+    pToolBar->setWindowTitle("Switch package parts");
+    pToolBar->setIconSize(QSize(24, 24));
+    //pToolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    pToolBar->addAction(&act_head);
+    pToolBar->addAction(&act_body);
+
+    // Create tree
     PkgTree.setObjectName(QString::fromUtf8("box_pkg_tree_widget"));
     PkgTree.setHeaderLabel("Package contents");
     PkgTree.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
     PkgTree.headerItem()->setHidden(true);
-    PkgTree.resize(200,1024);
+    PkgTree.resize(280,739); //739 = 768-24(toolbar)-5(margin)
 
     // Add fake items into pkg tree
     QTreeWidgetItem* pItem;
@@ -31,27 +66,31 @@ BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
     pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
     PkgTree.addTopLevelItem(pItem);
 
-    //QSplitter* pBoxSplitter = new QSplitter(this);
-    //resize(1500, 1024);
-    setFixedSize(1280, 768);
+    //Layout setup
+    QWidget* pRightWidget = new QWidget(this);
+    QVBoxLayout* pVLayout = new QVBoxLayout(pRightWidget);
+    pVLayout->setMargin(1);
+    pVLayout->setSpacing(5);
+    pVLayout->addWidget(pToolBar);
+    pVLayout->addWidget(&PkgTree);
+    pRightWidget->setLayout(pVLayout);
 
+    setFixedSize(1280, 768);
     setOrientation(Qt::Horizontal);
+
+    addWidget(pRightWidget);
+
+    PkgText.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
+    PkgText.resize(1000,768);
+    addWidget(&PkgText);
+
+    connect(&PkgText, SIGNAL(textChanged()), SLOT(slotFileChanged()));
+
     //setSizes(QList<int>({200, 1200}));
     //setSizes({static_cast<int>(10000 / 1.618), static_cast<int>(10000 - 10000 / 1.618)});
     // Stretch in Golden ratio
     //setStretchFactor(0,1);
     setStretchFactor(1,1.618);
-    QPalette p;
-    p.setColor(QPalette::Background, Qt::red);
-    setPalette(p);
-    setHandleWidth(5);
-
-    addWidget(&PkgTree);
-
-    PkgText.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
-    PkgText.resize(1000,1024);
-    addWidget(&PkgText);
-    connect(&PkgText, SIGNAL(textChanged()), SLOT(slotFileChanged()));
 }
 
 BOX_PKG::~BOX_PKG()

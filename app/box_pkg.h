@@ -4,6 +4,7 @@
 #include <QSplitter>
 #include <QTreeWidget>
 #include <QTextEdit>
+#include <QAction>
 
 #define FILE_STATE_UNCHANGED   0
 #define FILE_STATE_CHANGED     1
@@ -12,6 +13,8 @@ class BOX_PKG :  public QSplitter
 {
     Q_OBJECT
   private:
+    QAction       act_head;
+    QAction       act_body;
     QTreeWidget   PkgTree;
     QTextEdit     PkgText;
     QString       FileName;
