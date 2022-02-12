@@ -33,7 +33,7 @@ BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
 
     //QSplitter* pBoxSplitter = new QSplitter(this);
     //resize(1500, 1024);
-
+    setFixedSize(1280, 768);
 
     setOrientation(Qt::Horizontal);
     //setSizes(QList<int>({200, 1200}));
