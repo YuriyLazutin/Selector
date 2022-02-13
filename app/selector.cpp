@@ -547,7 +547,7 @@ void Selector::slotNewBOX_SQL()
   p_sub_wnd->setAttribute(Qt::WA_DeleteOnClose);
   p_sub_wnd->setWindowTitle("New SQL Document");
   p_sub_wnd->setWindowIcon(QIcon(":/icons/new-sql.png"));
-
+  p_sub_wnd->setGeometry(50, 50, 1280, 768);
   connect(p_form, SIGNAL(fileWasChanged()), SLOT(slotFileWasChanged()));
   //connect(p_form, SIGNAL(changeMainTitle(const QString&)), SLOT(slotChangeMainTitle(const QString&))); // ???
   p_sub_wnd->show();
@@ -561,6 +561,7 @@ void Selector::slotOpenBOX_SQL()
   p_sub_wnd->setWindowTitle("Open SQL Document");
   p_sub_wnd->setWindowIcon(QIcon(":/icons/new-sql.png"));
   p_form->slotFileLoad();
+  p_sub_wnd->setGeometry(50, 50, 1280, 768);
   connect(p_form, SIGNAL(fileWasChanged()), SLOT(slotFileWasChanged()));
   //connect(p_form, SIGNAL(changeWindowTitle(const QString&)), SLOT(slotChangeWindowTitle(const QString&)));
   p_sub_wnd->show();
@@ -666,7 +667,7 @@ void Selector::slotNewBOX_PKG()
   p_sub_wnd->setAttribute(Qt::WA_DeleteOnClose);
   p_sub_wnd->setWindowTitle("New package");
   p_sub_wnd->setWindowIcon(QIcon(":/icons/new-plsql.png"));
-
+  p_sub_wnd->setGeometry(50, 50, 1280, 768);
   connect(p_form, SIGNAL(fileWasChanged()), SLOT(slotFileWasChanged()));
   //connect(p_form, SIGNAL(changeMainTitle(const QString&)), SLOT(slotChangeMainTitle(const QString&))); // ???
   p_sub_wnd->show();
@@ -692,6 +693,7 @@ void Selector::slotOpenBOX_PKG()
   p_sub_wnd->setAttribute(Qt::WA_DeleteOnClose);
   p_sub_wnd->setWindowTitle("Open package");
   p_sub_wnd->setWindowIcon(QIcon(":/icons/new-plsql.png"));
+  p_sub_wnd->setGeometry(50, 50, 1280, 768);
   p_form->slotFileLoad();
   connect(p_form, SIGNAL(fileWasChanged()), SLOT(slotFileWasChanged()));
   //connect(p_form, SIGNAL(changeWindowTitle(const QString&)), SLOT(slotChangeWindowTitle(const QString&)));

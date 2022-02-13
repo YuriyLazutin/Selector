@@ -47,7 +47,6 @@ BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
     PkgTree.setHeaderLabel("Package contents");
     PkgTree.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
     PkgTree.headerItem()->setHidden(true);
-    PkgTree.resize(280,739); //739 = 768-24(toolbar)-5(margin)
 
     // Add fake items into pkg tree
     QTreeWidgetItem* pItem;
@@ -76,13 +75,11 @@ BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
     pVLayout->addWidget(&PkgTree);
     pRightWidget->setLayout(pVLayout);
 
-    setFixedSize(1280, 768);
     setOrientation(Qt::Horizontal);
 
     addWidget(pRightWidget);
 
     PkgText.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
-    PkgText.resize(1000,768);
     addWidget(&PkgText);
 
     connect(&PkgText, SIGNAL(textChanged()), SLOT(slotFileChanged()));
