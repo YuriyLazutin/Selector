@@ -173,3 +173,10 @@ void BOX_PKG::slotPkgCompile()
 {
   QMessageBox::information(0, "Message", "Package should be compiled, but \"Feature Not implemented!\" :(");
 }
+
+#ifndef QT_NO_DEBUG
+void BOX_PKG::status()
+{
+  // This procedure will print current object status
+}
+#endif
