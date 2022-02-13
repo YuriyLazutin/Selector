@@ -5,6 +5,7 @@
 
 BOX_SQL::BOX_SQL(QWidget* p_Parent /*= 0*/) : QTextEdit(p_Parent)
 {
+  setObjectName(QString::fromUtf8("box_sql"));
   FileState = FILE_STATE_UNCHANGED;
   connect(this, SIGNAL(textChanged()), SLOT(slotFileChanged()));
 }

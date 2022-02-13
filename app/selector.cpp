@@ -46,10 +46,13 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
     setCentralWidget(&MDIArea);
     //p_SigMapper = new QSignalMapper(this);
     //connect(p_SigMapper, SIGNAL(mapped(QWidget*)), this, SLOT(slotSetActiveSubWindow(QWidget*)));
+    connect(&MDIArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), SLOT(slotSetActiveSubWindow(QMdiSubWindow*)));
 
     CreateStatusBar();
 
     QMetaObject::connectSlotsByName(this);
+
+    dirty_files_cnt = 0;
 }
 
 
@@ -512,6 +515,7 @@ void Selector::CreateStatusBar()
 
 void Selector::slotFileWasChanged()
 {
+  dirty_files_cnt++;
   act_file.save->setEnabled(true);
   act_file.save_as->setEnabled(true);
   act_file.save_all->setEnabled(true);
@@ -519,10 +523,12 @@ void Selector::slotFileWasChanged()
   act_file.close->setEnabled(true);
   act_file.close_all->setEnabled(true);
   act_file.print->setEnabled(true);
+  act_sesn.exe->setEnabled(true);
 }
 
 void Selector::slotFileWasUnChanged()
 {
+  dirty_files_cnt--;
   act_file.save->setEnabled(false);
   act_file.save_as->setEnabled(false);
   act_file.save_all->setEnabled(false);
@@ -530,6 +536,7 @@ void Selector::slotFileWasUnChanged()
   act_file.close->setEnabled(false);
   act_file.close_all->setEnabled(false);
   act_file.print->setEnabled(false);
+  act_sesn.exe->setEnabled(false);
 }
 
 void Selector::slotNewBOX_SQL()
@@ -592,14 +599,64 @@ void Selector::slotFileSaveAll()
 //  qobject_cast<BOX_SQL*>(sender())->setWindowTitle(new_title);
 //}
 
-/*
-void Selector::slotSetActiveSubWindow(QWidget* p_form)
+// This function is called when you:
+// 1) Create new subwindow
+// 2) Activate second subwindow
+// 3) Close all subwindows
+void Selector::slotSetActiveSubWindow(QMdiSubWindow* p_form)
 {
+  if (p_form) // Sub window activated
+  {
+    bool is_changed, is_not_empty;
+    QString oname = p_form->widget()->objectName();
+    if (oname == "box_sql")
+    {
+      BOX_SQL* p_box = qobject_cast<BOX_SQL*>(p_form->widget());
+      is_changed = p_box->isFileChanged();
+      is_not_empty = !p_box->toPlainText().isEmpty();
+    }
+    else if (oname == "box_pkg")
+    {
+      BOX_PKG* p_box = qobject_cast<BOX_PKG*>(p_form->widget());
+      is_changed = p_box->isFileChanged();
+      is_not_empty = !p_box->isFileEmpty();
+    }
+
+    // enable if file was changed
+    act_file.save->setEnabled(is_changed);
+
+    // enable if files more than 1
+    act_file.save_as->setEnabled(true);
+    act_file.email->setEnabled(true);
+    act_file.close->setEnabled(true);
+    act_file.close_all->setEnabled(true);
+    act_file.print->setEnabled(true);
+
+    // enable if one of files is dirty
+    if (dirty_files_cnt > 0)
+      act_file.save_all->setEnabled(true);
+    else
+      act_file.save_all->setEnabled(false);
+
+    // enable if file is not empty
+    act_sesn.exe->setEnabled(is_not_empty);
+  }
+  else // All sub windows deactivated
+  {
+    dirty_files_cnt = 0;
+    act_file.save->setEnabled(false);
+    act_file.save_as->setEnabled(false);
+    act_file.save_all->setEnabled(false);
+    act_file.email->setEnabled(false);
+    act_file.close->setEnabled(false);
+    act_file.close_all->setEnabled(false);
+    act_file.print->setEnabled(false);
+    act_sesn.exe->setEnabled(false);
+  }
 //  if (p_form)
 //    MDIArea.setActiveSubWindow(qobject_cast<QMdiSubWindow*>(p_form));
 
 }
-*/
 
 
 void Selector::slotNewBOX_PKG()

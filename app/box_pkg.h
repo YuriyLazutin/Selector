@@ -25,6 +25,7 @@ class BOX_PKG :  public QSplitter
     explicit BOX_PKG(QSplitter *parent = nullptr);
              ~BOX_PKG();
     bool isFileChanged();
+    bool isFileEmpty();
 
   signals:
     void changeWindowTitle(const QString&);

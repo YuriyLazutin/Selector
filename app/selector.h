@@ -83,6 +83,8 @@ class Selector : public QMainWindow
     void CreateStatusBar();
     // QStatusBar statusbar;
 
+    unsigned int dirty_files_cnt;
+
   public:
     Selector(QWidget *parent = nullptr);
     ~Selector();
@@ -105,6 +107,6 @@ class Selector : public QMainWindow
       void slotNewBOX_PKGSPC();
       void slotOpenBOX_PKG();
 //      void slotChangeWindowTitle(const QString&);
-//      void slotSetActiveSubWindow(QWidget*);
+      void slotSetActiveSubWindow(QMdiSubWindow*);
 };
 #endif // SELECTOR_H

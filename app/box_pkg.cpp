@@ -8,6 +8,7 @@
 
 BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
 {
+  setObjectName(QString::fromUtf8("box_pkg"));
     FileState = FILE_STATE_UNCHANGED;
 
     // Head button
@@ -111,6 +112,12 @@ bool BOX_PKG::isFileChanged()
 {
   return FileState == FILE_STATE_UNCHANGED ? false : true;
 }
+
+bool BOX_PKG::isFileEmpty()
+{
+  return PkgText.toPlainText().isEmpty();
+}
+
 void BOX_PKG::slotFileChanged()
 {
   if (!isFileChanged())
