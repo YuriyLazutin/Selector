@@ -347,7 +347,7 @@ void Selector::CreateMenu()
       menu_session.addAction(act_sesn.loff);                             // Session->Log off
       menu_session.addSeparator();                                       // Session->-------
       menu_session.addAction(act_sesn.exe);                              // Session->Execute
-      connect(act_sesn.exe, SIGNAL(triggered()), SLOT(slotNoImpl()));
+      connect(act_sesn.exe, SIGNAL(triggered()), SLOT(slotExecute()));
       menu_session.addAction(act_sesn.brk);                              // Session->Break
       connect(act_sesn.brk, SIGNAL(triggered()), SLOT(slotNoImpl()));
       menu_session.addAction(act_sesn.kll);                              // Session->Kill
@@ -696,4 +696,23 @@ void Selector::slotOpenBOX_PKG()
   connect(p_form, SIGNAL(fileWasChanged()), SLOT(slotFileWasChanged()));
   //connect(p_form, SIGNAL(changeWindowTitle(const QString&)), SLOT(slotChangeWindowTitle(const QString&)));
   p_sub_wnd->show();
+}
+
+void Selector::slotExecute()
+{
+  QMdiSubWindow* p_sub_wnd = MDIArea.activeSubWindow();
+  if (p_sub_wnd)
+  {
+    QString oname = p_sub_wnd->widget()->objectName();
+    if (oname == "box_sql")
+    {
+      BOX_SQL* p_box = qobject_cast<BOX_SQL*>(p_sub_wnd->widget());
+      p_box->slotSQLExecute();
+    }
+    else if (oname == "box_pkg")
+    {
+      BOX_PKG* p_box = qobject_cast<BOX_PKG*>(p_sub_wnd->widget());
+      p_box->slotPkgCompile();
+    }
+  }
 }

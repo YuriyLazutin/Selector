@@ -108,5 +108,6 @@ class Selector : public QMainWindow
       void slotOpenBOX_PKG();
 //      void slotChangeWindowTitle(const QString&);
       void slotSetActiveSubWindow(QMdiSubWindow*);
+      void slotExecute();
 };
 #endif // SELECTOR_H
