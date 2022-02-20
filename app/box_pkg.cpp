@@ -173,5 +173,7 @@ void BOX_PKG::slotPkgCompile()
 void BOX_PKG::status()
 {
   // This procedure will print current object status
+  QSize szHint = sizeHint();
+  fprintf(stdout, "BOX_PKG.sizeHint(): %d %d", szHint.width(), szHint.height() );
 }
 #endif

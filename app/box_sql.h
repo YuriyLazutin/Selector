@@ -24,6 +24,10 @@ class BOX_SQL : public QTextEdit
     ~BOX_SQL();
     bool isFileChanged();
 
+#ifndef QT_NO_DEBUG
+    void status();
+#endif
+
   signals:
     void changeWindowTitle(const QString&);
     void fileWasChanged();

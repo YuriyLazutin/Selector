@@ -87,3 +87,12 @@ void BOX_SQL::slotSQLExecute()
 {
   QMessageBox::information(0, "Message", "SQL should be executed, but \"Feature Not implemented!\" :(");
 }
+
+#ifndef QT_NO_DEBUG
+void BOX_SQL::status()
+{
+  // This procedure will print current object status
+  QSize szHint = sizeHint();
+  fprintf(stdout, "BOX_PKG.sizeHint(): %d %d", szHint.width(), szHint.height() );
+}
+#endif
