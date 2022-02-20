@@ -568,9 +568,21 @@ void Selector::slotFileSave()
   QMdiSubWindow* p_sub_wnd = MDIArea.activeSubWindow();
   if (p_sub_wnd)
   {
-    BOX_SQL* p_form = qobject_cast<BOX_SQL*>(p_sub_wnd->widget());
-    if (p_form)
-      p_form->slotFileSave();
+    QString oname = p_sub_wnd->widget()->objectName();
+    if (oname == "box_sql")
+    {
+      BOX_SQL* p_box = qobject_cast<BOX_SQL*>(p_sub_wnd->widget());
+      p_box->slotFileSave();
+    }
+    else if (oname == "box_pkg")
+    {
+      BOX_PKG* p_box = qobject_cast<BOX_PKG*>(p_sub_wnd->widget());
+      p_box->slotFileSave();
+    }
+
+    act_file.save->setEnabled(false);
+    if (--dirty_files_cnt == 0)
+      act_file.save_all->setEnabled(false);
   }
 }
 
@@ -587,7 +599,34 @@ void Selector::slotFileSaveAs()
 
 void Selector::slotFileSaveAll()
 {
-  QMessageBox::information(0, "Message", "Feature Not implemented!");
+  QList<QMdiSubWindow *> sub_wnd_list = MDIArea.subWindowList();
+  QMdiSubWindow* p_sub_wnd;
+  QString oname;
+
+  for (int i = 0; i < sub_wnd_list.size(); i++)
+  {
+    p_sub_wnd = sub_wnd_list.at(i);
+    if (p_sub_wnd)
+    {
+      oname = p_sub_wnd->widget()->objectName();
+      if (oname == "box_sql")
+      {
+        BOX_SQL* p_box = qobject_cast<BOX_SQL*>(p_sub_wnd->widget());
+        if (p_box->isFileChanged())
+          p_box->slotFileSave();
+      }
+      else if (oname == "box_pkg")
+      {
+        BOX_PKG* p_box = qobject_cast<BOX_PKG*>(p_sub_wnd->widget());
+        if (p_box->isFileChanged())
+          p_box->slotFileSave();
+      }
+
+      act_file.save->setEnabled(false);
+      dirty_files_cnt = 0;
+      act_file.save_all->setEnabled(false);
+    }
+  }
 }
 
 //void Selector::slotChangeWindowTitle(const QString& new_title)

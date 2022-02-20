@@ -69,6 +69,7 @@ void BOX_SQL::slotFileSave()
     f.close();
     //emit changeWindowTitle(FileName);
   }
+  SetFileState(FILE_STATE_UNCHANGED);
 }
 
 void BOX_SQL::slotFileSaveAs()

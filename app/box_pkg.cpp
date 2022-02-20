@@ -150,6 +150,7 @@ void BOX_PKG::slotFileSave()
     f.close();
     //emit changeWindowTitle(FileName);
   }
+  SetFileState(FILE_STATE_UNCHANGED);
 }
 
 void BOX_PKG::slotFileSaveAs()
