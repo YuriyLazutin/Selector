@@ -1,5 +1,4 @@
 #include "actions.h"
-#include <QApplication>
 
 file_actions::file_actions()
 {

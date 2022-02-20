@@ -5,6 +5,12 @@
 #include <QTreeWidget>
 #include <QTextEdit>
 #include <QAction>
+#include <QFileDialog>
+#include <QTextStream>
+#include <QMessageBox>
+#include <QApplication>
+#include <QToolBar>
+#include <QVBoxLayout>
 
 #define FILE_STATE_UNCHANGED   0
 #define FILE_STATE_CHANGED     1

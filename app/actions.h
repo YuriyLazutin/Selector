@@ -2,6 +2,7 @@
 #define ACTIONS_H
 
 #include <QAction>
+#include <QApplication>
 
 class file_actions
 {

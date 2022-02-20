@@ -1,7 +1,4 @@
 #include "box_sql.h"
-#include <QFileDialog>
-#include <QTextStream>
-#include <QMessageBox>
 
 BOX_SQL::BOX_SQL(QWidget* p_Parent /*= 0*/) : QTextEdit(p_Parent)
 {

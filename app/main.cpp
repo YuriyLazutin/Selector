@@ -1,4 +1,3 @@
-#include <QApplication>
 #include "selector.h"
 #include <getopt.h> // getopt_long, no_argument, required_argument, optarg, optind
 

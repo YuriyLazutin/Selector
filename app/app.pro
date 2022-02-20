@@ -42,7 +42,7 @@ RESOURCES += \
     icons.qrc
 
 # Application information (properties)
-VERSION = 2022.02.13
+VERSION = 2022.02.20
 QMAKE_TARGET_COMPANY = "Country Tech"
 QMAKE_TARGET_PRODUCT = "Selector"
 QMAKE_TARGET_DESCRIPTION = "Application for database development"

@@ -1,10 +1,4 @@
 #include "box_pkg.h"
-#include <QFileDialog>
-#include <QTextStream>
-#include <QMessageBox>
-#include <QApplication>
-#include <QToolBar>
-#include <QVBoxLayout>
 
 BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
 {

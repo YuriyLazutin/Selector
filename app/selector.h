@@ -1,23 +1,7 @@
 #ifndef SELECTOR_H
 #define SELECTOR_H
 
-#include <QMainWindow>
-//#include <QMenuBar>
-#include <QMenu>
-#include <QToolBar>
-#include <QStatusBar>
-//#include <QtCore/QVariant>
-//#include <QtWidgets/QAction>
-
-//#include <QtWidgets/QMainWindow>
-//#include <QtWidgets/QToolButton>
-//#include <QtWidgets/QWidget>
-#include <QMessageBox>
-#include <QTextEdit>
-#include <QDockWidget>
-#include <QLabel>
-#include <QMdiArea>
-#include <QSignalMapper>
+#include <QtWidgets>
 #include "actions.h"
 #include "browser.h"
 

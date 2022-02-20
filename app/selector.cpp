@@ -1,10 +1,5 @@
 #include "selector.h"
 #include "box_sql.h"
-#include <QApplication>
-#include <QMenuBar>
-#include <QToolBox>
-#include <QBrush>
-#include <QMdiSubWindow>
 #include "box_pkg.h"
 
 Selector::Selector(QWidget *parent) : QMainWindow(parent)

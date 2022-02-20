@@ -2,6 +2,9 @@
 #define BOX_SQL_H
 
 #include <QTextEdit>
+#include <QFileDialog>
+#include <QTextStream>
+#include <QMessageBox>
 
 #define FILE_STATE_UNCHANGED   0
 #define FILE_STATE_CHANGED     1
