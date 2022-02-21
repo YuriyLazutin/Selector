@@ -78,7 +78,7 @@ Browser::Browser(QWidget *parent) : QWidget(parent)
 
   // Populate Filter
   Filter.setObjectName(QString::fromUtf8("browser_filterbox"));
-  Filter.setStyleSheet(QString::fromUtf8("background-color: rgb(183, 199, 206);"));
+  //Filter.setStyleSheet(QString::fromUtf8("background-color: rgb(183, 199, 206);"));
   Filter.addItem("My objects");
   Filter.addItem("My invalid objects");
   Filter.addItem("All objects");
@@ -90,7 +90,7 @@ Browser::Browser(QWidget *parent) : QWidget(parent)
   // Populate Folders Tree
   Tree.setObjectName(QString::fromUtf8("browser_folders_tree"));
   Tree.setHeaderLabel("DB Objects");
-  Tree.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
+  //Tree.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
   Tree.headerItem()->setHidden(true);
   QTreeWidgetItem* pItem = new QTreeWidgetItem();
   pItem->setText(0, "Resent objects");

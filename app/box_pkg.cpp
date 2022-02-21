@@ -29,7 +29,7 @@ BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
 
     QToolBar* pToolBar = new QToolBar;
     pToolBar->setObjectName(QString::fromUtf8("box_pkg_toolbar"));
-    pToolBar->setStyleSheet(QString::fromUtf8("background-color: rgb(183, 199, 206);"));
+    //pToolBar->setStyleSheet(QString::fromUtf8("background-color: rgb(183, 199, 206);"));
     pToolBar->setWindowTitle("Switch package parts");
     pToolBar->setIconSize(QSize(24, 24));
     //pToolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
@@ -39,7 +39,7 @@ BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
     // Create tree
     PkgTree.setObjectName(QString::fromUtf8("box_pkg_tree_widget"));
     PkgTree.setHeaderLabel("Package contents");
-    PkgTree.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
+    //PkgTree.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
     PkgTree.headerItem()->setHidden(true);
 
     // Add fake items into pkg tree
@@ -73,7 +73,7 @@ BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
 
     addWidget(pRightWidget);
 
-    PkgText.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
+    //PkgText.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
     addWidget(&PkgText);
 
     connect(&PkgText, SIGNAL(textChanged()), SLOT(slotFileChanged()));

@@ -14,7 +14,7 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
     szPolicy.setVerticalStretch(0);
     szPolicy.setHeightForWidth(sizePolicy().hasHeightForWidth());
     setSizePolicy(szPolicy);
-    setStyleSheet(QString::fromUtf8("background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:1.5, fx:0.5, fy:0.5, stop:0 rgba(190, 200, 210, 255), stop:1 rgba(160, 200, 190, 223));"));
+    //setStyleSheet(QString::fromUtf8("background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:1.5, fx:0.5, fy:0.5, stop:0 rgba(190, 200, 210, 255), stop:1 rgba(160, 200, 190, 223));"));
 
     resize(800, 600);
 
@@ -94,7 +94,7 @@ void Selector::CreateToolBars()
 {
   // Create "Main operations" Toolbar
   toolBarMain.setObjectName(QString::fromUtf8("toolBarMain"));
-  toolBarMain.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
+  //toolBarMain.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
   toolBarMain.setWindowTitle("Main operations");
   toolBarMain.setIconSize(QSize(32, 32));
   toolBarMain.addAction(act_sesn.lon);
@@ -115,7 +115,7 @@ void Selector::CreateToolBars()
 
   // Create "DML operations" Toolbar
   toolBarDML.setObjectName(QString::fromUtf8("toolBarDML"));
-  toolBarDML.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
+  //toolBarDML.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
   toolBarDML.setWindowTitle("DML operations");
   toolBarDML.setIconSize(QSize(32, 32));
   toolBarDML.addAction(act_trns.edt_rec);
@@ -137,7 +137,7 @@ void Selector::CreateMenu()
   QAction* p_menu_action;
 
   p_menu_bar->setObjectName(QString::fromUtf8("menubar"));
-  p_menu_bar->setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
+  //p_menu_bar->setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
     // File
     menu_file.setObjectName(QString::fromUtf8("menu_file"));
     menu_file.setTitle(QApplication::translate("Selector", "&File", nullptr));
@@ -504,7 +504,7 @@ void Selector::CreateStatusBar()
   // statusbar = new QStatusBar(MainWindow);
   QStatusBar* p_status_bar = statusBar();
   p_status_bar->setObjectName(QString::fromUtf8("statusbar"));
-  p_status_bar->setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
+  //p_status_bar->setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
   //setStatusBar(&statusbar);
 }
 

@@ -1,4 +1,41 @@
-/* Делает тёмно зелёным текст заголовка у виджета QDocWidget*/
-QDockWidget {
+*
+{
+  background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:1.5, fx:0.5, fy:0.5, stop:0 rgba(190, 200, 210, 255), stop:1 rgba(160, 200, 190, 223));
+}
+
+ QToolBar#toolBarMain
+,QToolBar#toolBarMain *
+,QToolBar#toolBarDML
+,QToolBar#toolBarDML *
+,QDockWidget#bottomDock
+,QDockWidget#bottomDock *
+,QMenuBar
+,QStatusBar
+{
+  background-color: rgb(168, 184, 191);
+}
+
+QMdiSubWindow
+{
+  background-color: rgb(163, 179, 186);
+}
+
+QDockWidget
+{
   color: rgb(0, 50, 0);
+}
+
+QComboBox
+{
+  background-color: rgb(183, 199, 206);
+}
+
+QTreeWidget
+{
+  background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:3.5, fx:0.5, fy:0.5, stop:0 rgb(223, 239, 246), stop:1 rgb(123, 139, 146));
+}
+
+QTextEdit
+{
+  background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:1.5, fx:0.5, fy:0.5, stop:0 rgb(223, 239, 246), stop:1 rgb(173, 189, 196));
 }
