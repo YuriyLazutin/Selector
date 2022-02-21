@@ -9,6 +9,23 @@ int main(int argc, char** argv)
 {
     program_name = argv[0];
     QApplication a(argc, argv);
+
+    // Set Style Sheet
+    //QFile css_file(":/styles/skins/default.qss"); // Load from resource
+    QFile css_file("skins/default.qss"); // Load from external file
+    if (css_file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+      QString css = css_file.readAll();
+      a.setStyleSheet(css);
+#ifndef QT_NO_DEBUG
+      css = a.styleSheet();
+      qDebug() << css << endl;
+#endif
+    }
+    else
+      qWarning() << "Warning! Can't open style/default.qss" << endl;;
+    // end of: Set Style Sheet
+
     Selector w;
 
     int next_option;

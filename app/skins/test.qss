@@ -1,0 +1,7 @@
+/* Делает синим текст заголовка у виджета QDocWidget*/
+QDockWidget { color: blue; background-color: red; }
+
+Selector {
+  color: green;
+  background-color: red;
+}

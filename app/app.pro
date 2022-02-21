@@ -39,10 +39,11 @@ DISTFILES += \
     readme.text
 
 RESOURCES += \
-    icons.qrc
+    icons.qrc \
+    skins.qrc
 
 # Application information (properties)
-VERSION = 2022.02.20
+VERSION = 2022.02.21
 QMAKE_TARGET_COMPANY = "Country Tech"
 QMAKE_TARGET_PRODUCT = "Selector"
 QMAKE_TARGET_DESCRIPTION = "Application for database development"

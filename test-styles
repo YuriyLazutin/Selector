@@ -1,0 +1,4 @@
+#!/bin/bash
+
+#./app --stylesheet skins/default.qss
+./app --stylesheet skins/test.qss
