@@ -58,6 +58,13 @@ QTextEdit
   border-radius: 10px;
 }
 
+BOX_PKG QTextEdit#box_pkg_text_edit
+{
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
  QToolTip
 ,QToolBar#toolBarMain QToolTip
 ,QToolBar#toolBarDML QToolTip
@@ -96,4 +103,10 @@ QScrollBar::handle
 {
   background: rgb(148, 164, 171);
   min-width: 20px;
+}
+
+ QToolBar#toolBarMain QToolButton
+,QToolBar#toolBarDML QToolButton
+{
+  padding: 5;
 }

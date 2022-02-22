@@ -63,9 +63,12 @@ BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
     //Layout setup
     QWidget* pRightWidget = new QWidget(this);
     QVBoxLayout* pVLayout = new QVBoxLayout(pRightWidget);
-    pVLayout->setMargin(1);
+    pVLayout->setObjectName(QString::fromUtf8("box_pkg_left_layout"));
+    pVLayout->setContentsMargins(5, 5, 0, 5);
+    //pVLayout->setMargin(5);
     pVLayout->setSpacing(5);
     pVLayout->addWidget(pToolBar);
+    pVLayout->setAlignment(pToolBar, Qt::AlignHCenter);
     pVLayout->addWidget(&PkgTree);
     pRightWidget->setLayout(pVLayout);
 
@@ -74,6 +77,7 @@ BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
     addWidget(pRightWidget);
 
     //PkgText.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
+    PkgText.setObjectName(QString::fromUtf8("box_pkg_text_edit"));
     addWidget(&PkgText);
 
     connect(&PkgText, SIGNAL(textChanged()), SLOT(slotFileChanged()));

@@ -97,6 +97,7 @@ void Selector::CreateToolBars()
   //toolBarMain.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
   toolBarMain.setWindowTitle("Main operations");
   toolBarMain.setIconSize(QSize(32, 32));
+  toolBarMain.layout()->setSpacing(5);
   toolBarMain.addAction(act_sesn.lon);
   toolBarMain.addSeparator();
   toolBarMain.addAction(menu_file_new.menuAction());
@@ -118,6 +119,7 @@ void Selector::CreateToolBars()
   //toolBarDML.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
   toolBarDML.setWindowTitle("DML operations");
   toolBarDML.setIconSize(QSize(32, 32));
+  toolBarDML.layout()->setSpacing(5);
   toolBarDML.addAction(act_trns.edt_rec);
   toolBarDML.addAction(act_trns.ins_rec);
   toolBarDML.addAction(act_trns.del_rec);
