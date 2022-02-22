@@ -21,6 +21,11 @@ QMdiSubWindow
   background-color: rgb(163, 179, 186);
 }
 
+QMdiSubWindow::title
+{
+  background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgb(98, 134, 141), stop:0.5 rgb(153, 169, 176), stop:1 rgb(98, 134, 141));
+}
+
 QDockWidget
 {
   color: rgb(0, 50, 0);
