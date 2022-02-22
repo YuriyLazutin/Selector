@@ -78,8 +78,8 @@ BOX_PKG QTextEdit#box_pkg_text_edit
 
 QMenuBar
 {
-    background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgb(143, 169, 166), stop:0.5 rgb(153, 169, 176), stop:1 rgb(143, 169, 166));
-    spacing: 10px; /* spacing between menu bar items */
+  background-color: rgb(168, 184, 191);
+  spacing: 10px; /* spacing between menu bar items */
 }
 
  QMenuBar::item:selected
@@ -87,6 +87,12 @@ QMenuBar
 {
   color: white;
   background-color: rgb(0, 50, 0);
+}
+
+ QMenuBar::item:disabled
+,QMenu::item:disabled
+{
+  color: rgb(80, 80, 80);
 }
 
 QMenu::separator
@@ -103,10 +109,4 @@ QScrollBar::handle
 {
   background: rgb(148, 164, 171);
   min-width: 20px;
-}
-
- QToolBar#toolBarMain QToolButton
-,QToolBar#toolBarDML QToolButton
-{
-  padding: 5;
 }
