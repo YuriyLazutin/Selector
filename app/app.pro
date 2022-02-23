@@ -44,9 +44,9 @@ RESOURCES += \
     skins.qrc
 
 TRANSLATIONS += \
-    i18n/selector_de.ts \
-    i18n/selector_fr.ts \
-    i18n/selector_ru.ts
+    i18n/selector_de_DE.ts \
+    i18n/selector_fr_FR.ts \
+    i18n/selector_ru_RU.ts
 
 # Application information (properties)
 VERSION = 2022.02.23

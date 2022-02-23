@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>i18n/selector_de.qm</file>
-        <file>i18n/selector_fr.qm</file>
-        <file>i18n/selector_ru.qm</file>
+        <file>i18n/selector_de_DE.qm</file>
+        <file>i18n/selector_fr_FR.qm</file>
+        <file>i18n/selector_ru_RU.qm</file>
     </qresource>
 </RCC>

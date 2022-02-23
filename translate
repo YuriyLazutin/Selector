@@ -1,3 +1,3 @@
 #!/bin/bash
 
-lupdate app/app.pro -ts app/i18n/selector_fr.ts app/i18n/selector_de.ts app/i18n/selector_ru.ts 
+lupdate app/app.pro -ts app/i18n/selector_fr_FR.ts app/i18n/selector_de_DE.ts app/i18n/selector_ru_RU.ts 
