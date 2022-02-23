@@ -39,11 +39,17 @@ DISTFILES += \
     readme.text
 
 RESOURCES += \
+    i18n.qrc \
     icons.qrc \
     skins.qrc
 
+TRANSLATIONS += \
+    i18n/selector_de.ts \
+    i18n/selector_fr.ts \
+    i18n/selector_ru.ts
+
 # Application information (properties)
-VERSION = 2022.02.21
+VERSION = 2022.02.23
 QMAKE_TARGET_COMPANY = "Country Tech"
 QMAKE_TARGET_PRODUCT = "Selector"
 QMAKE_TARGET_DESCRIPTION = "Application for database development"

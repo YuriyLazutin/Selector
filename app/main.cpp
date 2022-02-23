@@ -10,6 +10,12 @@ int main(int argc, char** argv)
     program_name = argv[0];
     QApplication a(argc, argv);
 
+    QTranslator translator;
+    QString trans = QString(":/i18n/selector_") + QLocale::system().name() + ".qm";
+    qDebug() << trans;
+    translator.load(trans);
+    a.installTranslator(&translator);
+
     // Set Style Sheet
     //QFile css_file(":/styles/skins/default.qss"); // Load from resource
     QFile css_file("skins/default.qss"); // Load from external file
@@ -23,7 +29,7 @@ int main(int argc, char** argv)
 #endif
     }
     else
-      qWarning() << "Warning! Can't open style/default.qss" << endl;;
+      qWarning() << QApplication::translate("Selector", "Warning! Can't open style/default.qss", nullptr) << endl;;
     // end of: Set Style Sheet
 
     Selector w;
