@@ -69,6 +69,8 @@ class Selector : public QMainWindow
 
     unsigned int dirty_files_cnt;
 
+    void translateGUI();
+
   public:
     Selector(QWidget *parent = nullptr);
     ~Selector();
