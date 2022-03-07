@@ -29,7 +29,7 @@ int main(int argc, char** argv)
 #endif
     }
     else
-      qWarning() << QApplication::translate("Selector", "Warning! Can't open style/default.qss", nullptr) << endl;;
+      qWarning() << QCoreApplication::translate("Selector", "Warning! Can't open style/default.qss", nullptr) << endl;;
     // end of: Set Style Sheet
 
     Selector w;

@@ -1,6 +1,7 @@
 #ifndef BOX_SQL_H
 #define BOX_SQL_H
 
+#include <QApplication>
 #include <QTextEdit>
 #include <QFileDialog>
 #include <QTextStream>

@@ -7,10 +7,10 @@ BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
 
     // Head button
     act_head.setObjectName(QString::fromUtf8("box_pkg_action_head"));
-    act_head.setText(QApplication::translate("Selector", "Head", nullptr));
-    act_head.setToolTip("Switch to package head");
-    act_head.setStatusTip("Switch to package head");
-    act_head.setWhatsThis("Switch to package head");
+    act_head.setText(QCoreApplication::translate("Selector", "Head", nullptr));
+    act_head.setToolTip(QCoreApplication::translate("Selector", "Switch to package head", nullptr));
+    act_head.setStatusTip(QCoreApplication::translate("Selector", "Switch to package head", nullptr));
+    act_head.setWhatsThis(QCoreApplication::translate("Selector", "Switch to package head", nullptr));
     act_head.setIcon(QPixmap(":/icons/pkg_head.png"));
     act_head.setCheckable(true);
     act_head.setChecked(true);
@@ -18,10 +18,10 @@ BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
 
     // Body button
     act_body.setObjectName(QString::fromUtf8("box_pkg_action_body"));
-    act_body.setText(QApplication::translate("Selector", "Body", nullptr));
-    act_body.setToolTip("Switch to package body");
-    act_body.setStatusTip("Switch to package body");
-    act_body.setWhatsThis("Switch to package body");
+    act_body.setText(QCoreApplication::translate("Selector", "Body", nullptr));
+    act_body.setToolTip(QCoreApplication::translate("Selector", "Switch to package body", nullptr));
+    act_body.setStatusTip(QCoreApplication::translate("Selector", "Switch to package body", nullptr));
+    act_body.setWhatsThis(QCoreApplication::translate("Selector", "Switch to package body", nullptr));
     act_body.setIcon(QPixmap(":/icons/pkg_body.png"));
     act_body.setCheckable(true);
     act_body.setChecked(false);
@@ -30,7 +30,7 @@ BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
     QToolBar* pToolBar = new QToolBar;
     pToolBar->setObjectName(QString::fromUtf8("box_pkg_toolbar"));
     //pToolBar->setStyleSheet(QString::fromUtf8("background-color: rgb(183, 199, 206);"));
-    pToolBar->setWindowTitle("Switch package parts");
+    pToolBar->setWindowTitle(QCoreApplication::translate("Selector", "Switch package parts", nullptr));
     pToolBar->setIconSize(QSize(24, 24));
     //pToolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     pToolBar->addAction(&act_head);
@@ -38,7 +38,7 @@ BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
 
     // Create tree
     PkgTree.setObjectName(QString::fromUtf8("box_pkg_tree_widget"));
-    PkgTree.setHeaderLabel("Package contents");
+    PkgTree.setHeaderLabel(QCoreApplication::translate("Selector", "Package contents", nullptr));
     //PkgTree.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
     PkgTree.headerItem()->setHidden(true);
 
@@ -170,7 +170,7 @@ void BOX_PKG::slotFileSaveAs()
 
 void BOX_PKG::slotPkgCompile()
 {
-  QMessageBox::information(0, "Message", "Package should be compiled, but \"Feature Not implemented!\" :(");
+  QMessageBox::information(0, "Message", QCoreApplication::translate("Selector", "Package should be compiled, but \"Feature Not implemented!\" :(", nullptr));
 }
 
 #ifndef QT_NO_DEBUG

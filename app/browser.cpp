@@ -7,67 +7,67 @@ Browser::Browser(QWidget *parent) : QWidget(parent)
   // Refresh data
   refresh = new QAction;
   refresh->setObjectName(QString::fromUtf8("action_browser_refresh"));
-  refresh->setText(QApplication::translate("Selector", "Refresh Data", nullptr));
-  refresh->setToolTip("Refresh data");
-  refresh->setStatusTip("Refresh data");
-  refresh->setWhatsThis("Refresh data");
+  refresh->setText(QCoreApplication::translate("Selector", "Refresh Data", nullptr));
+  refresh->setToolTip(QCoreApplication::translate("Selector", "Refresh data", nullptr));
+  refresh->setStatusTip(QCoreApplication::translate("Selector", "Refresh data", nullptr));
+  refresh->setWhatsThis(QCoreApplication::translate("Selector", "Refresh data", nullptr));
   refresh->setIcon(QPixmap(":/icons/refresh.png"));
   //refresh->setEnabled(false);
 
   // Expand all
   expand_all = new QAction;
   expand_all->setObjectName(QString::fromUtf8("action_browser_expand_all"));
-  expand_all->setText(QApplication::translate("Selector", "Expand All", nullptr));
-  expand_all->setToolTip("Expand all folders in browser");
-  expand_all->setStatusTip("Expand all folders in browser");
-  expand_all->setWhatsThis("Expand all folders in browser");
+  expand_all->setText(QCoreApplication::translate("Selector", "Expand All", nullptr));
+  expand_all->setToolTip(QCoreApplication::translate("Selector", "Expand all folders in browser", nullptr));
+  expand_all->setStatusTip(QCoreApplication::translate("Selector", "Expand all folders in browser", nullptr));
+  expand_all->setWhatsThis(QCoreApplication::translate("Selector", "Expand all folders in browser", nullptr));
   expand_all->setIcon(QPixmap(":/icons/expand_all.png"));
   //expand_all->setEnabled(false);
 
   // Collapse all
   collapse_all = new QAction;
   collapse_all->setObjectName(QString::fromUtf8("action_browser_collapse_all"));
-  collapse_all->setText(QApplication::translate("Selector", "Collapse All", nullptr));
-  collapse_all->setToolTip("Collapse all folders in browser");
-  collapse_all->setStatusTip("Collapse all folders in browser");
-  collapse_all->setWhatsThis("Collapse all folders in browser");
+  collapse_all->setText(QCoreApplication::translate("Selector", "Collapse All", nullptr));
+  collapse_all->setToolTip(QCoreApplication::translate("Selector", "Collapse all folders in browser", nullptr));
+  collapse_all->setStatusTip(QCoreApplication::translate("Selector", "Collapse all folders in browser", nullptr));
+  collapse_all->setWhatsThis(QCoreApplication::translate("Selector", "Collapse all folders in browser", nullptr));
   collapse_all->setIcon(QPixmap(":/icons/collapse_all.png"));
   //collapse_all->setEnabled(false);
 
   // Find Database Objects...
   find_dbo = new QAction;
   find_dbo->setObjectName(QString::fromUtf8("action_browser_find_dbo"));
-  find_dbo->setText(QApplication::translate("Selector", "Find Database Objects...", nullptr));
-  find_dbo->setToolTip("Allow you to find database objects in database");
-  find_dbo->setStatusTip("Allow you to find database objects in database");
-  find_dbo->setWhatsThis("Allow you to find database objects in database");
+  find_dbo->setText(QCoreApplication::translate("Selector", "Find Database Objects...", nullptr));
+  find_dbo->setToolTip(QCoreApplication::translate("Selector", "Allow you to find database objects in database", nullptr));
+  find_dbo->setStatusTip(QCoreApplication::translate("Selector", "Allow you to find database objects in database", nullptr));
+  find_dbo->setWhatsThis(QCoreApplication::translate("Selector", "Allow you to find database objects in database", nullptr));
   find_dbo->setIcon(QPixmap(":/icons/find_dbo.png"));
   //find_dbo->setEnabled(false);
 
   // Filters
   filters = new QAction;
   filters->setObjectName(QString::fromUtf8("action_browser_filters"));
-  filters->setText(QApplication::translate("Selector", "Filters...", nullptr));
-  filters->setToolTip("Allow you to customize filter setups");
-  filters->setStatusTip("Allow you to customize filter setups");
-  filters->setWhatsThis("Allow you to customize filter setups");
+  filters->setText(QCoreApplication::translate("Selector", "Filters...", nullptr));
+  filters->setToolTip(QCoreApplication::translate("Selector", "Allow you to customize filter setups", nullptr));
+  filters->setStatusTip(QCoreApplication::translate("Selector", "Allow you to customize filter setups", nullptr));
+  filters->setWhatsThis(QCoreApplication::translate("Selector", "Allow you to customize filter setups", nullptr));
   filters->setIcon(QPixmap(":/icons/filter-settings.png"));
   //filters->setEnabled(false);
 
   // Folders
   folders = new QAction;
   folders->setObjectName(QString::fromUtf8("action_browser_folders"));
-  folders->setText(QApplication::translate("Selector", "Folders...", nullptr));
-  folders->setToolTip("Allow you to customize folders setups");
-  folders->setStatusTip("Allow you to customize folders setups");
-  folders->setWhatsThis("Allow you to customize folders setups");
+  folders->setText(QCoreApplication::translate("Selector", "Folders...", nullptr));
+  folders->setToolTip(QCoreApplication::translate("Selector", "Allow you to customize folders setups", nullptr));
+  folders->setStatusTip(QCoreApplication::translate("Selector", "Allow you to customize folders setups", nullptr));
+  folders->setWhatsThis(QCoreApplication::translate("Selector", "Allow you to customize folders setups", nullptr));
   folders->setIcon(QPixmap(":/icons/folder_settings.png"));
   //folders->setEnabled(false);
 
   // Create ToolBar
   ToolBar.setObjectName(QString::fromUtf8("browser_toolbar"));
   //ToolBar.setStyleSheet(QString::fromUtf8("background-color: rgb(163, 179, 186);"));
-  ToolBar.setWindowTitle("Browser operations");
+  ToolBar.setWindowTitle(QCoreApplication::translate("Selector", "Browser operations", nullptr));
   ToolBar.setIconSize(QSize(24, 24));
   ToolBar.addAction(refresh);
   ToolBar.addAction(expand_all);
@@ -79,21 +79,21 @@ Browser::Browser(QWidget *parent) : QWidget(parent)
   // Populate Filter
   Filter.setObjectName(QString::fromUtf8("browser_filterbox"));
   //Filter.setStyleSheet(QString::fromUtf8("background-color: rgb(183, 199, 206);"));
-  Filter.addItem("My objects");
-  Filter.addItem("My invalid objects");
-  Filter.addItem("All objects");
-  Filter.addItem("All system objects");
-  Filter.addItem("All non-system objects");
-  Filter.addItem("All objects modified today");
+  Filter.addItem(QCoreApplication::translate("Selector", "My objects", nullptr));
+  Filter.addItem(QCoreApplication::translate("Selector", "My invalid objects", nullptr));
+  Filter.addItem(QCoreApplication::translate("Selector", "All objects", nullptr));
+  Filter.addItem(QCoreApplication::translate("Selector", "All system objects", nullptr));
+  Filter.addItem(QCoreApplication::translate("Selector", "All non-system objects", nullptr));
+  Filter.addItem(QCoreApplication::translate("Selector", "All objects modified today", nullptr));
   //Filter.setCurrentIndex(0);
 
   // Populate Folders Tree
   Tree.setObjectName(QString::fromUtf8("browser_folders_tree"));
-  Tree.setHeaderLabel("DB Objects");
+  Tree.setHeaderLabel(QCoreApplication::translate("Selector", "DB Objects", nullptr));
   //Tree.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
   Tree.headerItem()->setHidden(true);
   QTreeWidgetItem* pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Resent objects");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Resent objects", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
@@ -101,151 +101,151 @@ Browser::Browser(QWidget *parent) : QWidget(parent)
   //pItem->setHidden(true);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Recycle bin");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Recycle bin", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Functions");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Functions", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Procedures");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Procedures", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Packages");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Packages", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Package bodies");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Package bodies", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Types");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Types", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Type bodies");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Type bodies", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Triggers");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Triggers", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Java sources");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Java sources", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Jobs");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Jobs", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Queues");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Queues", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Queue tables");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Queue tables", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Libraries");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Libraries", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Directories");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Directories", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Tables");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Tables", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Views");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Views", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Materialized views");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Materialized views", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Sequences");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Sequences", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Users");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Users", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Profiles");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Profiles", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Roles");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Roles", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Synonyms");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Synonyms", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Database links");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Database links", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Tablespaces");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Tablespaces", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
-  pItem->setText(0, "Clusters");
+  pItem->setText(0, QCoreApplication::translate("Selector", "Clusters", nullptr));
   pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);

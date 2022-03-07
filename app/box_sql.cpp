@@ -85,7 +85,7 @@ void BOX_SQL::slotFileSaveAs()
 
 void BOX_SQL::slotSQLExecute()
 {
-  QMessageBox::information(0, "Message", "SQL should be executed, but \"Feature Not implemented!\" :(");
+  QMessageBox::information(0, "Message", QCoreApplication::translate("Selector", "SQL should be executed, but \"Feature Not implemented!\" :(", nullptr));
 }
 
 #ifndef QT_NO_DEBUG
