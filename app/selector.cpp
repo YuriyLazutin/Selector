@@ -783,5 +783,29 @@ void Selector::translateGUI(bool init)
     if (!init)
     {
       BrowserTree.translateGUI();
+
+      // Retranslate MDI sub-windows
+      QList<QMdiSubWindow *> sub_wnd_list = MDIArea.subWindowList();
+      QMdiSubWindow* p_sub_wnd;
+      QString oname;
+
+      for (int i = 0; i < sub_wnd_list.size(); i++)
+      {
+        p_sub_wnd = sub_wnd_list.at(i);
+        if (p_sub_wnd)
+        {
+          oname = p_sub_wnd->widget()->objectName();
+          if (oname == "box_sql")
+          {
+            BOX_SQL* p_box = qobject_cast<BOX_SQL*>(p_sub_wnd->widget());
+            p_box->translateGUI();
+          }
+          else if (oname == "box_pkg")
+          {
+            BOX_PKG* p_box = qobject_cast<BOX_PKG*>(p_sub_wnd->widget());
+            p_box->translateGUI();
+          }
+        }
+      } // End of "Retranslate MDI sub-windows"
     }
 }

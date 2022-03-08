@@ -7,10 +7,6 @@ BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
 
     // Head button
     act_head.setObjectName(QString::fromUtf8("box_pkg_action_head"));
-    act_head.setText(QCoreApplication::translate("Selector", "Head", nullptr));
-    act_head.setToolTip(QCoreApplication::translate("Selector", "Switch to package head", nullptr));
-    act_head.setStatusTip(QCoreApplication::translate("Selector", "Switch to package head", nullptr));
-    act_head.setWhatsThis(QCoreApplication::translate("Selector", "Switch to package head", nullptr));
     act_head.setIcon(QPixmap(":/icons/pkg_head.png"));
     act_head.setCheckable(true);
     act_head.setChecked(true);
@@ -18,27 +14,20 @@ BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
 
     // Body button
     act_body.setObjectName(QString::fromUtf8("box_pkg_action_body"));
-    act_body.setText(QCoreApplication::translate("Selector", "Body", nullptr));
-    act_body.setToolTip(QCoreApplication::translate("Selector", "Switch to package body", nullptr));
-    act_body.setStatusTip(QCoreApplication::translate("Selector", "Switch to package body", nullptr));
-    act_body.setWhatsThis(QCoreApplication::translate("Selector", "Switch to package body", nullptr));
     act_body.setIcon(QPixmap(":/icons/pkg_body.png"));
     act_body.setCheckable(true);
     act_body.setChecked(false);
     //act_body.setEnabled(false);
 
-    QToolBar* pToolBar = new QToolBar;
-    pToolBar->setObjectName(QString::fromUtf8("box_pkg_toolbar"));
+    ToolBar.setObjectName(QString::fromUtf8("box_pkg_toolbar"));
     //pToolBar->setStyleSheet(QString::fromUtf8("background-color: rgb(183, 199, 206);"));
-    pToolBar->setWindowTitle(QCoreApplication::translate("Selector", "Switch package parts", nullptr));
-    pToolBar->setIconSize(QSize(24, 24));
+    ToolBar.setIconSize(QSize(24, 24));
     //pToolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    pToolBar->addAction(&act_head);
-    pToolBar->addAction(&act_body);
+    ToolBar.addAction(&act_head);
+    ToolBar.addAction(&act_body);
 
     // Create tree
     PkgTree.setObjectName(QString::fromUtf8("box_pkg_tree_widget"));
-    PkgTree.setHeaderLabel(QCoreApplication::translate("Selector", "Package contents", nullptr));
     //PkgTree.setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
     PkgTree.headerItem()->setHidden(true);
 
@@ -67,8 +56,8 @@ BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
     pVLayout->setContentsMargins(5, 5, 0, 5);
     //pVLayout->setMargin(5);
     pVLayout->setSpacing(5);
-    pVLayout->addWidget(pToolBar);
-    pVLayout->setAlignment(pToolBar, Qt::AlignHCenter);
+    pVLayout->addWidget(&ToolBar);
+    pVLayout->setAlignment(&ToolBar, Qt::AlignHCenter);
     pVLayout->addWidget(&PkgTree);
     pRightWidget->setLayout(pVLayout);
 
@@ -80,6 +69,7 @@ BOX_PKG::BOX_PKG(QSplitter *parent) : QSplitter(parent)
     PkgText.setObjectName(QString::fromUtf8("box_pkg_text_edit"));
     addWidget(&PkgText);
 
+    translateGUI(true);
     connect(&PkgText, SIGNAL(textChanged()), SLOT(slotFileChanged()));
 
     //setSizes(QList<int>({200, 1200}));
@@ -181,3 +171,22 @@ void BOX_PKG::status()
   fprintf(stdout, "BOX_PKG.sizeHint(): %d %d", szHint.width(), szHint.height() );
 }
 #endif
+
+void BOX_PKG::translateGUI(bool init)
+{
+  act_head.setText(QCoreApplication::translate("Selector", "Head", "Action title"));
+  #ifndef QT_NO_TOOLTIP
+  act_head.setToolTip(QCoreApplication::translate("Selector", "Switch to package head", "Tool Tip item"));
+  #endif // QT_NO_TOOLTIP
+  act_head.setStatusTip(QCoreApplication::translate("Selector", "Switch to package head", "Status Tip item"));
+  act_head.setWhatsThis(QCoreApplication::translate("Selector", "Switch to package head", "Whats This item"));
+  act_body.setText(QCoreApplication::translate("Selector", "Body", "Action title"));
+  #ifndef QT_NO_TOOLTIP
+  act_body.setToolTip(QCoreApplication::translate("Selector", "Switch to package body", "Tool Tip item"));
+  #endif // QT_NO_TOOLTIP
+  act_body.setStatusTip(QCoreApplication::translate("Selector", "Switch to package body", "Status Tip item"));
+  act_body.setWhatsThis(QCoreApplication::translate("Selector", "Switch to package body", "Whats This item"));
+
+  ToolBar.setWindowTitle(QCoreApplication::translate("Selector", "Switch package parts", "ToolBar title"));
+  PkgTree.setHeaderLabel(QCoreApplication::translate("Selector", "Package contents", "Tree header label"));
+}

@@ -6,6 +6,7 @@ BOX_SQL::BOX_SQL(QWidget* p_Parent /*= 0*/) : QTextEdit(p_Parent)
   FileState = FILE_STATE_UNCHANGED;
   setViewportMargins(10, 10, 10, 10);
   //setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
+  translateGUI(true);
   connect(this, SIGNAL(textChanged()), SLOT(slotFileChanged()));
 }
 
@@ -96,3 +97,7 @@ void BOX_SQL::status()
   fprintf(stdout, "BOX_PKG.sizeHint(): %d %d", szHint.width(), szHint.height() );
 }
 #endif
+
+void BOX_SQL::translateGUI(bool init)
+{
+}

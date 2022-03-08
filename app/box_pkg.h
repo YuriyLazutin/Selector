@@ -19,6 +19,7 @@ class BOX_PKG :  public QSplitter
 {
     Q_OBJECT
   private:
+    QToolBar      ToolBar;
     QAction       act_head;
     QAction       act_body;
     QTreeWidget   PkgTree;
@@ -32,6 +33,7 @@ class BOX_PKG :  public QSplitter
              ~BOX_PKG();
     bool isFileChanged();
     bool isFileEmpty();
+    void translateGUI(bool init = false);
 
 #ifndef QT_NO_DEBUG
     void status();
