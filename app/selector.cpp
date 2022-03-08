@@ -43,7 +43,7 @@ Selector::Selector(QWidget *parent) : QMainWindow(parent)
     connect(&MDIArea, SIGNAL(subWindowActivated(QMdiSubWindow*)), SLOT(slotSetActiveSubWindow(QMdiSubWindow*)));
 
     CreateStatusBar();
-    translateGUI();
+    translateGUI(true);
     QMetaObject::connectSlotsByName(this);
 
     dirty_files_cnt = 0;
@@ -715,7 +715,7 @@ void Selector::slotExecute()
   }
 }
 
-void Selector::translateGUI()
+void Selector::translateGUI(bool init)
 {
   // Declare
   QAction* p_menu_action;
@@ -779,4 +779,9 @@ void Selector::translateGUI()
     menu_reps_user.setTitle(QCoreApplication::translate("Selector", "User", nullptr));
     menu_window.setTitle(QCoreApplication::translate("Selector", "&Window", nullptr));
     menu_help.setTitle(QCoreApplication::translate("Selector", "&Help", nullptr));
+
+    if (!init)
+    {
+      BrowserTree.translateGUI();
+    }
 }

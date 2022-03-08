@@ -24,6 +24,7 @@ class Browser : public QWidget
   public:
     explicit Browser(QWidget *parent = nullptr);
              ~Browser();
+    void translateGUI(bool init = false);
 
   signals:
 
