@@ -486,7 +486,6 @@ void Selector::slotFileWasUnChanged()
 {
   dirty_files_cnt--;
   act_file.save->setEnabled(false);
-  act_file.save_as->setEnabled(false);
   act_file.save_all->setEnabled(false);
   act_file.email->setEnabled(false);
   act_file.close->setEnabled(false);
@@ -548,12 +547,14 @@ void Selector::slotFileSave()
     if (oname == "box_sql")
     {
       BOX_SQL* p_box = qobject_cast<BOX_SQL*>(p_sub_wnd->widget());
-      p_box->slotFileSave();
+      if (p_box)
+        p_box->slotFileSave();
     }
     else if (oname == "box_pkg")
     {
       BOX_PKG* p_box = qobject_cast<BOX_PKG*>(p_sub_wnd->widget());
-      p_box->slotFileSave();
+      if (p_box)
+        p_box->slotFileSave();
     }
 
     act_file.save->setEnabled(false);
@@ -567,9 +568,23 @@ void Selector::slotFileSaveAs()
   QMdiSubWindow* p_sub_wnd = MDIArea.activeSubWindow();
   if (p_sub_wnd)
   {
-    BOX_SQL* p_form = qobject_cast<BOX_SQL*>(p_sub_wnd->widget());
-    if (p_form)
-      p_form->slotFileSaveAs();
+    QString oname = p_sub_wnd->widget()->objectName();
+    if (oname == "box_sql")
+    {
+      BOX_SQL* p_box = qobject_cast<BOX_SQL*>(p_sub_wnd->widget());
+      if (p_box)
+        p_box->slotFileSaveAs();
+    }
+    else if (oname == "box_pkg")
+    {
+      BOX_PKG* p_box = qobject_cast<BOX_PKG*>(p_sub_wnd->widget());
+      if (p_box)
+        p_box->slotFileSaveAs();
+    }
+    act_file.save->setEnabled(false);
+    if (--dirty_files_cnt == 0)
+      act_file.save_all->setEnabled(false);
+
   }
 }
 
