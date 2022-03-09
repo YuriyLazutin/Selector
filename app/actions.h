@@ -61,6 +61,7 @@ class file_actions
 
     file_actions();
     ~file_actions();
+    void translateGUI(bool init = false);
 };
 
 class edit_actions
@@ -118,6 +119,7 @@ class edit_actions
 
     edit_actions();
     ~edit_actions();
+    void translateGUI(bool init = false);
 };
 
 class session_actions
@@ -134,6 +136,7 @@ class session_actions
 
     session_actions();
     ~session_actions();
+    void translateGUI(bool init = false);
 };
 
 class debug_actions
@@ -151,6 +154,7 @@ class debug_actions
 
     debug_actions();
     ~debug_actions();
+    void translateGUI(bool init = false);
 };
 
 class tools_actions
@@ -189,6 +193,7 @@ class tools_actions
 
     tools_actions();
     ~tools_actions();
+    void translateGUI(bool init = false);
 };
 
 class report_actions
@@ -221,6 +226,7 @@ class report_actions
 
     report_actions();
     ~report_actions();
+    void translateGUI(bool init = false);
 };
 
 class window_actions
@@ -233,6 +239,7 @@ class window_actions
 
     window_actions();
     ~window_actions();
+    void translateGUI(bool init = false);
 };
 
 class help_actions
@@ -245,6 +252,7 @@ class help_actions
 
     help_actions();
     ~help_actions();
+    void translateGUI(bool init = false);
 };
 
 class transaction_actions
@@ -261,6 +269,7 @@ class transaction_actions
 
     transaction_actions();
     ~transaction_actions();
+    void translateGUI(bool init = false);
 };
 
 #endif // ACTIONS_H

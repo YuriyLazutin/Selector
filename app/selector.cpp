@@ -780,32 +780,44 @@ void Selector::translateGUI(bool init)
     menu_window.setTitle(QCoreApplication::translate("Selector", "&Window", nullptr));
     menu_help.setTitle(QCoreApplication::translate("Selector", "&Help", nullptr));
 
-    if (!init)
+  if (!init)
+  {
+    // Actons
+    act_file.translateGUI();
+    act_edit.translateGUI();
+    act_sesn.translateGUI();
+    act_debg.translateGUI();
+    act_tols.translateGUI();
+    act_rpt.translateGUI();
+    act_wnd.translateGUI();
+    act_hlp.translateGUI();
+    act_trns.translateGUI();
+
+    // Docks
+    BrowserTree.translateGUI();
+
+    // Retranslate MDI sub-windows
+    QList<QMdiSubWindow *> sub_wnd_list = MDIArea.subWindowList();
+    QMdiSubWindow* p_sub_wnd;
+    QString oname;
+
+    for (int i = 0; i < sub_wnd_list.size(); i++)
     {
-      BrowserTree.translateGUI();
-
-      // Retranslate MDI sub-windows
-      QList<QMdiSubWindow *> sub_wnd_list = MDIArea.subWindowList();
-      QMdiSubWindow* p_sub_wnd;
-      QString oname;
-
-      for (int i = 0; i < sub_wnd_list.size(); i++)
+      p_sub_wnd = sub_wnd_list.at(i);
+      if (p_sub_wnd)
       {
-        p_sub_wnd = sub_wnd_list.at(i);
-        if (p_sub_wnd)
+        oname = p_sub_wnd->widget()->objectName();
+        if (oname == "box_sql")
         {
-          oname = p_sub_wnd->widget()->objectName();
-          if (oname == "box_sql")
-          {
-            BOX_SQL* p_box = qobject_cast<BOX_SQL*>(p_sub_wnd->widget());
-            p_box->translateGUI();
-          }
-          else if (oname == "box_pkg")
-          {
-            BOX_PKG* p_box = qobject_cast<BOX_PKG*>(p_sub_wnd->widget());
-            p_box->translateGUI();
-          }
+          BOX_SQL* p_box = qobject_cast<BOX_SQL*>(p_sub_wnd->widget());
+          p_box->translateGUI();
         }
-      } // End of "Retranslate MDI sub-windows"
-    }
+        else if (oname == "box_pkg")
+        {
+          BOX_PKG* p_box = qobject_cast<BOX_PKG*>(p_sub_wnd->widget());
+          p_box->translateGUI();
+        }
+      }
+    } // End of "Retranslate MDI sub-windows"
+  } // End of if (!init)
 }
