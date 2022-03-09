@@ -33,6 +33,8 @@ void BOX_SQL::slotFileChanged()
 {
   if (!isFileChanged())
     SetFileState(FILE_STATE_CHANGED);
+
+  toPlainText().isEmpty() ? emit fileEmpty() : emit fileNotEmpty();
 }
 
 void BOX_SQL::slotFileLoad()
@@ -51,6 +53,8 @@ void BOX_SQL::slotFileLoad()
     FileName = s;
     SetFileState(FILE_STATE_UNCHANGED);
     setWindowTitle(FileName);
+
+    toPlainText().isEmpty() ? emit fileEmpty() : emit fileNotEmpty();
     //emit changeWindowTitle(FileName);
   }
 }

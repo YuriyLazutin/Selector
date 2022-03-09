@@ -34,6 +34,8 @@ class BOX_SQL : public QTextEdit
     void changeWindowTitle(const QString&);
     void fileWasChanged();
     void fileWasUnChanged();
+    void fileEmpty();
+    void fileNotEmpty();
 
   public slots:
     void slotFileChanged();

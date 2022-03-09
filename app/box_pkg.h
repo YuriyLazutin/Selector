@@ -43,6 +43,8 @@ class BOX_PKG :  public QSplitter
     void changeWindowTitle(const QString&);
     void fileWasChanged();
     void fileWasUnChanged();
+    void fileEmpty();
+    void fileNotEmpty();
 
   public slots:
     void slotFileChanged();

@@ -107,6 +107,8 @@ void BOX_PKG::slotFileChanged()
 {
   if (!isFileChanged())
     SetFileState(FILE_STATE_CHANGED);
+
+  isFileEmpty() ? emit fileEmpty() : emit fileNotEmpty();
 }
 
 void BOX_PKG::slotFileLoad()
@@ -127,6 +129,8 @@ void BOX_PKG::slotFileLoad()
     setWindowTitle(FileName);
     //emit changeWindowTitle(FileName);
   }
+
+  isFileEmpty() ? emit fileEmpty() : emit fileNotEmpty();
 }
 
 void BOX_PKG::slotFileSave()
