@@ -39,7 +39,14 @@ void BOX_SQL::slotFileChanged()
 
 void BOX_SQL::slotFileLoad()
 {
-  QString s = QFileDialog::getOpenFileName();
+  QString s = QFileDialog::getOpenFileName(
+                 this
+                ,QCoreApplication::translate("Selector->Box SQL", "Open SQL script", "Open file dialog title")
+                ,nullptr
+                ,QCoreApplication::translate("Selector->Box SQL", "SQL scripts (*.sql);;Data definitions (*.ddl);;Data modifications (*.dml);;All supported types (*.sql *.ddl *.dml);;All files (*)", "Open file dialog (file types)")
+                ,nullptr
+                ,QFileDialog::DontUseNativeDialog
+              );
   if (s.isEmpty())
     return;
 
@@ -79,10 +86,21 @@ void BOX_SQL::slotFileSave()
 
 void BOX_SQL::slotFileSaveAs()
 {
-  QString s = QFileDialog::getSaveFileName(0, FileName);
+  QString strExt;
+  QString s = QFileDialog::getSaveFileName(
+                 this
+                ,QCoreApplication::translate("Selector->Box SQL", "Save SQL script", "Save file dialog title")
+                ,FileName
+                ,QCoreApplication::translate("Selector->Box SQL", "SQL script (*.sql);;Data definition (*.ddl);;Data modification (*.dml);;Any type (*)", "Save file dialog (file types)")
+                ,&strExt
+                ,QFileDialog::DontUseNativeDialog
+              );
   if (!s.isEmpty())
   {
     FileName = s;
+    // Replace the extension if it was changed
+    // if (strExt.contains("sql")) { save as sql }
+
     setWindowTitle(FileName);
     slotFileSave();
   }

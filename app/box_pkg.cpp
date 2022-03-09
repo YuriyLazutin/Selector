@@ -113,7 +113,15 @@ void BOX_PKG::slotFileChanged()
 
 void BOX_PKG::slotFileLoad()
 {
-  QString s = QFileDialog::getOpenFileName();
+  QString s = QFileDialog::getOpenFileName(
+                 this
+                ,QCoreApplication::translate("Selector->Box PL/SQL", "Open package", "Open file dialog title")
+                ,nullptr
+                ,QCoreApplication::translate("Selector->Box PL/SQL", "Package (*.pck);;Package specification (*.spc);;Package body (*.bdy);;All supported (*.pck *.spc *.bdy);;All files (*)", "Open file dialog (file types)")
+                ,nullptr
+                ,QFileDialog::DontUseNativeDialog
+              );
+
   if (s.isEmpty())
     return;
 
@@ -153,10 +161,21 @@ void BOX_PKG::slotFileSave()
 
 void BOX_PKG::slotFileSaveAs()
 {
-  QString s = QFileDialog::getSaveFileName(0, FileName);
+  QString strExt;
+  QString s = QFileDialog::getSaveFileName(
+                this
+               ,QCoreApplication::translate("Selector->Box PL/SQL", "Save package", "Save file dialog title")
+               ,FileName
+               ,QCoreApplication::translate("Selector->Box PL/SQL", "Package (*.pck);;Package specification (*.spc);;Package body (*.bdy);;Any type (*)", "Save file dialog (file types)")
+               ,&strExt
+                ,QFileDialog::DontUseNativeDialog
+              );
   if (!s.isEmpty())
   {
     FileName = s;
+    // Replace the extension if it was changed
+    // if (strExt.contains("sql")) { save as sql }
+
     setWindowTitle(FileName);
     slotFileSave();
   }
