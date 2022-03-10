@@ -57,32 +57,32 @@ Selector::~Selector()
 void Selector::CreateDocks()
 {
   // Create "Find panel"
-  bottomDock.setObjectName(QString::fromUtf8("bottomDock"));
-  bottomDock.setAllowedAreas(Qt::BottomDockWidgetArea | Qt::TopDockWidgetArea);
+  findPanel.setObjectName(QString::fromUtf8("findPanel"));
+  findPanel.setAllowedAreas(Qt::BottomDockWidgetArea | Qt::TopDockWidgetArea);
   //(bottomDock.titleBarWidget())->hide();
   //(bottomDock.titleBarWidget())->setVisible(true);
   //action_edit_search_bar = bottomDock.toggleViewAction();
-  bottomDock.setWidget(&bottomDockLabel);
+  findPanel.setWidget(&findPanelLabel);
   //bottomDock.setWidget(&findTemplate);
-  addDockWidget(Qt::BottomDockWidgetArea, &bottomDock);
+  addDockWidget(Qt::BottomDockWidgetArea, &findPanel);
 
   // Create "Browser"
-  leftDockBrowser.setObjectName(QString::fromUtf8("leftDockBrowser"));
-  leftDockBrowser.setWidget(&BrowserTree);
-  addDockWidget(Qt::LeftDockWidgetArea, &leftDockBrowser);
+  dbBrowser.setObjectName(QString::fromUtf8("dbBrowser"));
+  dbBrowser.setWidget(&BrowserTree);
+  addDockWidget(Qt::LeftDockWidgetArea, &dbBrowser);
 
   // Create "Window List"
-  DockWindowList.setObjectName(QString::fromUtf8("DockWindowList"));
+  windowList.setObjectName(QString::fromUtf8("WindowList"));
   QToolBox*     p_window_list;
-  p_window_list = new QToolBox(&DockWindowList);
+  p_window_list = new QToolBox(&windowList);
   p_window_list->addItem(new QLabel(p_window_list), QPixmap(":/icons/new-plsql.png"), "Slot for file 1");
   p_window_list->addItem(new QLabel(p_window_list), QPixmap(":/icons/new-plsql.png"), "Slot for file 2");
   p_window_list->addItem(new QLabel(p_window_list), QPixmap(":/icons/new-plsql.png"), "Slot for file 3");
   p_window_list->addItem(new QLabel(p_window_list), QPixmap(":/icons/new-plsql.png"), "Slot for file 4");
   p_window_list->addItem(new QLabel(p_window_list), QPixmap(":/icons/new-plsql.png"), "Slot for file 5");
 
-  DockWindowList.setWidget(p_window_list);
-  addDockWidget(Qt::LeftDockWidgetArea, &DockWindowList);
+  windowList.setWidget(p_window_list);
+  addDockWidget(Qt::LeftDockWidgetArea, &windowList);
 }
 
 void Selector::CreateToolBars()
@@ -153,11 +153,11 @@ void Selector::CreateMenu()
           menu_file_new_prog_wnd.addAction(act_file.new_func);             // File->New->Program Window->Function
           menu_file_new_prog_wnd.addAction(act_file.new_jsrc);             // File->New->Program Window->Java source
           menu_file_new_prog_wnd.addAction(act_file.new_pkg);              // File->New->Program Window->Package
-          connect(act_file.new_pkg, SIGNAL(triggered()), SLOT(slotNewBOX_PKG()));
+          connect(act_file.new_pkg, SIGNAL(triggered()), SLOT(slotNewPkg()));
           menu_file_new_prog_wnd.addAction(act_file.new_pkgbdy);           // File->New->Program Window->Package body
-          connect(act_file.new_pkgbdy, SIGNAL(triggered()), SLOT(slotNewBOX_PKGBDY()));
+          connect(act_file.new_pkgbdy, SIGNAL(triggered()), SLOT(slotNewPkgBdy()));
           menu_file_new_prog_wnd.addAction(act_file.new_pkgspc);           // File->New->Program Window->Package Specification
-          connect(act_file.new_pkgspc, SIGNAL(triggered()), SLOT(slotNewBOX_PKGSPC()));
+          connect(act_file.new_pkgspc, SIGNAL(triggered()), SLOT(slotNewPkgSpc()));
           menu_file_new_prog_wnd.addAction(act_file.new_proc);             // File->New->Program Window->Procedure
           menu_file_new_prog_wnd.addAction(act_file.new_trg);              // File->New->Program Window->Trigger
           menu_file_new_prog_wnd.addAction(act_file.new_type);             // File->New->Program Window->Type
@@ -165,7 +165,7 @@ void Selector::CreateMenu()
           menu_file_new_prog_wnd.addAction(act_file.new_typespc);          // File->New->Program Window->Type Specification
         menu_file_new.addAction(act_file.new_test);                     // File->New->Test Window
         menu_file_new.addAction(act_file.new_sql);                      // File->New->SQL Window
-        connect(act_file.new_sql, SIGNAL(triggered()), SLOT(slotNewBOX_SQL()));
+        connect(act_file.new_sql, SIGNAL(triggered()), SLOT(slotNewSql()));
         menu_file_new.addAction(act_file.new_rpt);                      // File->New->Report Window
         connect(act_file.new_rpt, SIGNAL(triggered()), SLOT(slotNoImpl()));
         menu_file_new.addAction(act_file.new_cmd);                      // File->New->Command Window
@@ -195,10 +195,10 @@ void Selector::CreateMenu()
       //connect(p_menu_action, SIGNAL(triggered()), SLOT(slotNoImpl()));
       menu_file.addAction(p_menu_action);
         menu_file_open.addAction(act_file.open_prog);                   // File->Open->Program File
-        connect(act_file.open_prog, SIGNAL(triggered()), SLOT(slotOpenBOX_PKG()));
+        connect(act_file.open_prog, SIGNAL(triggered()), SLOT(slotOpenPkg()));
         menu_file_open.addAction(act_file.open_test);                   // File->Open->Test Script
         menu_file_open.addAction(act_file.open_sql);                    // File->Open->SQL Script
-        connect(act_file.open_sql, SIGNAL(triggered()), SLOT(slotOpenBOX_SQL()));
+        connect(act_file.open_sql, SIGNAL(triggered()), SLOT(slotOpenSql()));
         menu_file_open.addAction(act_file.open_rpt);                    // File->Open->Report File
         connect(act_file.open_rpt, SIGNAL(triggered()), SLOT(slotNoImpl()));
         menu_file_open.addAction(act_file.open_cmd);                    // File->Open->Command File
@@ -290,7 +290,7 @@ void Selector::CreateMenu()
       menu_edit.addAction(act_edit.find);                              // Edit->Find
       menu_edit.addAction(act_edit.repeat_find);                       // Edit->Repeat Last Find
       menu_edit.addAction(act_edit.replace);                           // Edit->Replace
-      menu_edit.addAction(bottomDock.toggleViewAction());              // Edit->Search Bar
+      menu_edit.addAction(findPanel.toggleViewAction());               // Edit->Search Bar
       menu_edit.addAction(act_edit.find_matches);                      // Edit->Find Matches
       menu_edit.addAction(act_edit.show_spec);                         // Edit->Show Special Characters
       menu_edit.addAction(act_edit.code_folding);                      // Edit->Code Folding
@@ -358,11 +358,11 @@ void Selector::CreateMenu()
         menu_tools_macro.addAction(act_tols.macro_play);                 // Tools->Macro->Playback
         menu_tools_macro.addAction(act_tols.macro_lib);                  // Tools->Macro->Library...
       menu_tools.addSeparator();                                         // Tools->-------
-      menu_tools.addAction(leftDockBrowser.toggleViewAction());          // Tools->Browser
+      menu_tools.addAction(dbBrowser.toggleViewAction());                // Tools->Browser
       menu_tools.addAction(act_tols.brodir);                             // Tools->Browser Folders...
       menu_tools.addAction(act_tols.brofil);                             // Tools->Browser Filters...
       menu_tools.addAction(act_tols.tmpl);                               // Tools->Template List
-      menu_tools.addAction(DockWindowList.toggleViewAction());           // Tools->Window List
+      menu_tools.addAction(windowList.toggleViewAction());               // Tools->Window List
       menu_tools.addAction(act_tols.tlbr);                               // Tools->Toolbar
       menu_tools.addSeparator();                                         // Tools->-------
       menu_tools.addAction(act_tols.expln);                              // Tools->Explain Plan
@@ -503,7 +503,7 @@ void Selector::slotFileNotEmpty()
   act_sesn.exe->setEnabled(true);
 }
 
-void Selector::slotNewBOX_SQL()
+void Selector::slotNewSql()
 {
   // BOX_SQL* p_form = new BOX_SQL(&MDIArea); Only QMdiSubWindows can be set as children of QMdiArea !!!
   BOX_SQL* p_form = new BOX_SQL();
@@ -520,7 +520,7 @@ void Selector::slotNewBOX_SQL()
   p_sub_wnd->show();
 }
 
-void Selector::slotOpenBOX_SQL()
+void Selector::slotOpenSql()
 {
   BOX_SQL* p_form = new BOX_SQL;
   QMdiSubWindow* p_sub_wnd = MDIArea.addSubWindow(p_form);
@@ -685,7 +685,7 @@ void Selector::slotSetActiveSubWindow(QMdiSubWindow* p_form)
 }
 
 
-void Selector::slotNewBOX_PKG()
+void Selector::slotNewPkg()
 {
   BOX_PKG* p_form = new BOX_PKG();
   QMdiSubWindow* p_sub_wnd = MDIArea.addSubWindow(p_form);
@@ -702,19 +702,19 @@ void Selector::slotNewBOX_PKG()
 }
 
 
-void Selector::slotNewBOX_PKGBDY()
+void Selector::slotNewPkgBdy()
 {
-  slotNewBOX_PKG();
+  slotNewPkg();
   // ToDo: Disable specification here...
 }
 
-void Selector::slotNewBOX_PKGSPC()
+void Selector::slotNewPkgSpc()
 {
-  slotNewBOX_PKG();
+  slotNewPkg();
   // ToDo: Disable body here...
 }
 
-void Selector::slotOpenBOX_PKG()
+void Selector::slotOpenPkg()
 {
   BOX_PKG* p_form = new BOX_PKG();
   QMdiSubWindow* p_sub_wnd = MDIArea.addSubWindow(p_form);
@@ -759,10 +759,10 @@ void Selector::translateGUI(bool init)
   setWindowTitle(QCoreApplication::translate("Selector", "Selector", nullptr));
 
   // Docks
-  bottomDock.setWindowTitle(QCoreApplication::translate("Selector", "&Search Bar", nullptr));
-  bottomDockLabel.setText(QCoreApplication::translate("Selector", "Test Label", nullptr));
-  leftDockBrowser.setWindowTitle(QCoreApplication::translate("Selector", "Browser", "Name of the left dock in main window"));
-  DockWindowList.setWindowTitle(QCoreApplication::translate("Selector", "Window List", "Name of the left dock in main window"));
+  findPanel.setWindowTitle(QCoreApplication::translate("Selector", "&Search Bar", nullptr));
+  findPanelLabel.setText(QCoreApplication::translate("Selector", "Test Label", nullptr));
+  dbBrowser.setWindowTitle(QCoreApplication::translate("Selector", "Browser", "Name of the left dock in main window"));
+  windowList.setWindowTitle(QCoreApplication::translate("Selector", "Window List", "Name of the left dock in main window"));
 
   // Toolbars
   toolBarMain.setWindowTitle(QCoreApplication::translate("Selector", "Main operations", "Tool bar name"));

@@ -10,7 +10,8 @@
 
 class Browser : public QWidget
 {
-    Q_OBJECT
+  Q_OBJECT
+
   private:
     QToolBar      ToolBar;
       QAction*      refresh;
@@ -21,13 +22,11 @@ class Browser : public QWidget
       QAction*      folders;
     QComboBox     Filter;
     QTreeWidget   Tree;
+
   public:
     explicit Browser(QWidget *parent = nullptr);
              ~Browser();
     void translateGUI(bool init = false);
-
-  signals:
-
 };
 
 #endif // BROWSER_H

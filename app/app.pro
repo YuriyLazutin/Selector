@@ -16,19 +16,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    actions.cpp \
-    box_pkg.cpp \
-    box_sql.cpp \
-    browser.cpp \
-    main.cpp \
-    selector.cpp
+  actions.cpp \
+  box_pkg.cpp \
+  box_sql.cpp \
+  browser.cpp \
+  main.cpp \
+  selector.cpp
 
 HEADERS += \
-    actions.h \
-    box_pkg.h \
-    box_sql.h \
-    browser.h \
-    selector.h
+  actions.h \
+  box_pkg.h \
+  box_sql.h \
+  browser.h \
+  selector.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -36,24 +36,23 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    readme.text
+  readme.text
 
 RESOURCES += \
-    i18n.qrc \
-    icons.qrc \
-    skins.qrc
+  i18n.qrc \
+  icons.qrc \
+  skins.qrc
 
 TRANSLATIONS += \
-    i18n/selector_de_DE.ts \
-    i18n/selector_fr_FR.ts \
-    i18n/selector_ru_RU.ts
+  i18n/selector_de_DE.ts \
+  i18n/selector_fr_FR.ts \
+  i18n/selector_ru_RU.ts
 
 # Application information (properties)
-VERSION = 2022.03.07
+VERSION = 2022.03.10
 QMAKE_TARGET_COMPANY = "Country Tech"
 QMAKE_TARGET_PRODUCT = "Selector"
 QMAKE_TARGET_DESCRIPTION = "Application for database development"
 QMAKE_TARGET_COPYRIGHT = "Yuriy Lazutin"
 win32: RC_ICONS = $$PWD/icons/selector.ico
 macx:ICON = $${PWD}/icons/selector.icns
-

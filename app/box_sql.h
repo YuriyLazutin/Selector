@@ -22,13 +22,13 @@ class BOX_SQL : public QTextEdit
 
   public:
     explicit BOX_SQL(QWidget* p_Parent = 0);
-    ~BOX_SQL();
+             ~BOX_SQL();
     bool isFileChanged();
     void translateGUI(bool init = false);
 
-#ifndef QT_NO_DEBUG
+    #ifndef QT_NO_DEBUG
     void status();
-#endif
+    #endif
 
   signals:
     void changeWindowTitle(const QString&);

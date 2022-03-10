@@ -7,8 +7,8 @@
 ,QToolBar#toolBarMain *
 ,QToolBar#toolBarDML
 ,QToolBar#toolBarDML *
-,QDockWidget#bottomDock
-,QDockWidget#bottomDock *
+,QDockWidget#findPanel
+,QDockWidget#findPanel *
 ,QStatusBar
 ,QMainWindow::separator:hover
 ,QSplitter::handle:hover
@@ -36,7 +36,7 @@ QDockWidget::title
   text-align: center;
 }
 
-QDockWidget#bottomDock::title
+QDockWidget#findPanel::title
 {
   text-align: left;
   background-color: rgb(168, 184, 191);
@@ -73,7 +73,7 @@ BOX_PKG QTextEdit#box_pkg_text_edit
  QToolTip
 ,QToolBar#toolBarMain QToolTip
 ,QToolBar#toolBarDML QToolTip
-,QDockWidget#bottomDock QToolTip
+,QDockWidget#findPanel QToolTip
 {
   background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.7, fx:0.5, fy:0.5, stop:0 rgb(223, 239, 246), stop:1 rgb(183, 199, 206));
   border: 1px solid rgb(0, 50, 0);

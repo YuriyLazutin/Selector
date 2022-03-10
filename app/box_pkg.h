@@ -15,9 +15,10 @@
 #define FILE_STATE_UNCHANGED   0
 #define FILE_STATE_CHANGED     1
 
-class BOX_PKG :  public QSplitter
+class BOX_PKG : public QSplitter
 {
-    Q_OBJECT
+  Q_OBJECT
+
   private:
     QToolBar      ToolBar;
     QAction       act_head;
@@ -26,6 +27,7 @@ class BOX_PKG :  public QSplitter
     QTextEdit     PkgText;
     QString       FileName;
     unsigned int  FileState;
+
     void SetFileState(const unsigned int NewState);
 
   public:
@@ -35,9 +37,9 @@ class BOX_PKG :  public QSplitter
     bool isFileEmpty();
     void translateGUI(bool init = false);
 
-#ifndef QT_NO_DEBUG
+    #ifndef QT_NO_DEBUG
     void status();
-#endif
+    #endif // QT_NO_DEBUG
 
   signals:
     void changeWindowTitle(const QString&);
