@@ -61,7 +61,7 @@ class Selector : public QMainWindow
     QDockWidget   windowList;
     QDockWidget   findPanel;
     QLabel        findPanelLabel;
-    QTextEdit     findTemplate;
+    QLineEdit     findTemplate;
     void CreateDocks();
 
     // Status bar

@@ -1,11 +1,11 @@
 #include "box_sql.h"
 
-BOX_SQL::BOX_SQL(QWidget* p_Parent /*= 0*/) : QTextEdit(p_Parent)
+BOX_SQL::BOX_SQL(QWidget* parent) : QTextEdit(parent)
 {
   setObjectName(QString::fromUtf8("box_sql"));
-  FileState = FILE_STATE_UNCHANGED;
+  FileState = UNCHANGED;
   setViewportMargins(10, 10, 10, 10);
-  //setStyleSheet(QString::fromUtf8("background-color: rgb(223, 239, 246);"));
+
   translateGUI(true);
   connect(this, SIGNAL(textChanged()), SLOT(slotFileChanged()));
 }
@@ -21,32 +21,38 @@ void BOX_SQL::SetFileState(const unsigned int NewState)
   FileState = NewState;
 
   if (OldState != NewState)
-    isFileChanged() ? emit fileWasChanged() : emit fileWasUnChanged();
+    FileState == CHANGED ? emit fileWasChanged() : emit fileWasUnChanged();
 }
 
 bool BOX_SQL::isFileChanged()
 {
-  return FileState == FILE_STATE_UNCHANGED ? false : true;
+  return FileState == UNCHANGED ? false : true;
+}
+
+bool BOX_SQL::isFileEmpty()
+{
+  return toPlainText().isEmpty();
 }
 
 void BOX_SQL::slotFileChanged()
 {
-  if (!isFileChanged())
-    SetFileState(FILE_STATE_CHANGED);
+  if (FileState == UNCHANGED)
+    SetFileState(CHANGED);
 
-  toPlainText().isEmpty() ? emit fileEmpty() : emit fileNotEmpty();
+  isFileEmpty() ? emit fileEmpty() : emit fileNotEmpty();
 }
 
 void BOX_SQL::slotFileLoad()
 {
   QString s = QFileDialog::getOpenFileName(
-                 this
-                ,QCoreApplication::translate("Selector->Box SQL", "Open SQL script", "Open file dialog title")
-                ,nullptr
-                ,QCoreApplication::translate("Selector->Box SQL", "SQL scripts (*.sql);;Data definitions (*.ddl);;Data modifications (*.dml);;All supported types (*.sql *.ddl *.dml);;All files (*)", "Open file dialog (file types)")
-                ,nullptr
-                ,QFileDialog::DontUseNativeDialog
-              );
+     this
+    ,QCoreApplication::translate("Selector->Box SQL", "Open SQL script", "Open file dialog title")
+    ,nullptr
+    ,QCoreApplication::translate("Selector->Box SQL", "SQL scripts (*.sql);;Data definitions (*.ddl);;Data modifications (*.dml);;All supported types (*.sql *.ddl *.dml);;All files (*)", "Open file dialog (file types)")
+    ,nullptr
+    ,QFileDialog::DontUseNativeDialog
+  );
+
   if (s.isEmpty())
     return;
 
@@ -56,14 +62,12 @@ void BOX_SQL::slotFileLoad()
     QTextStream stream(&f);
     setPlainText(stream.readAll());
     f.close();
-
+    SetFileState(UNCHANGED);
     FileName = s;
-    SetFileState(FILE_STATE_UNCHANGED);
     setWindowTitle(FileName);
-
-    toPlainText().isEmpty() ? emit fileEmpty() : emit fileNotEmpty();
-    //emit changeWindowTitle(FileName);
   }
+
+  isFileEmpty() ? emit fileEmpty() : emit fileNotEmpty();
 }
 
 void BOX_SQL::slotFileSave()
@@ -79,22 +83,22 @@ void BOX_SQL::slotFileSave()
   {
     QTextStream(&f) << toPlainText();
     f.close();
-    //emit changeWindowTitle(FileName);
+    SetFileState(UNCHANGED);
   }
-  SetFileState(FILE_STATE_UNCHANGED);
 }
 
 void BOX_SQL::slotFileSaveAs()
 {
   QString strExt;
   QString s = QFileDialog::getSaveFileName(
-                 this
-                ,QCoreApplication::translate("Selector->Box SQL", "Save SQL script", "Save file dialog title")
-                ,FileName
-                ,QCoreApplication::translate("Selector->Box SQL", "SQL script (*.sql);;Data definition (*.ddl);;Data modification (*.dml);;Any type (*)", "Save file dialog (file types)")
-                ,&strExt
-                ,QFileDialog::DontUseNativeDialog
-              );
+     this
+    ,QCoreApplication::translate("Selector->Box SQL", "Save SQL script", "Save file dialog title")
+    ,FileName
+    ,QCoreApplication::translate("Selector->Box SQL", "SQL script (*.sql);;Data definition (*.ddl);;Data modification (*.dml);;Any type (*)", "Save file dialog (file types)")
+    ,&strExt
+    ,QFileDialog::DontUseNativeDialog
+  );
+
   if (!s.isEmpty())
   {
     FileName = s;
@@ -108,18 +112,19 @@ void BOX_SQL::slotFileSaveAs()
 
 void BOX_SQL::slotSQLExecute()
 {
-  QMessageBox::information(0, "Message", QCoreApplication::translate("Selector", "SQL should be executed, but \"Feature Not implemented!\" :(", nullptr));
+  QMessageBox::information(0, "Message", QCoreApplication::translate("Selector->Box SQL", "SQL should be executed, but \"Feature not implemented!\" :(", nullptr));
 }
 
 #ifndef QT_NO_DEBUG
 void BOX_SQL::status()
 {
-  // This procedure will print current object status
+  // This procedure print current object status
   QSize szHint = sizeHint();
-  fprintf(stdout, "BOX_PKG.sizeHint(): %d %d", szHint.width(), szHint.height() );
+  fprintf(stdout, "BOX_SQL.sizeHint(): %d %d", szHint.width(), szHint.height() );
 }
 #endif
 
 void BOX_SQL::translateGUI(bool init)
 {
+
 }

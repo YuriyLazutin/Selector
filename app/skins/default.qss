@@ -16,6 +16,11 @@
   background-color: rgb(168, 184, 191);
 }
 
+QMdiArea
+{
+  qproperty-background: rgb(148, 167, 167);
+}
+
 QMdiSubWindow
 {
   background-color: rgb(163, 179, 186);

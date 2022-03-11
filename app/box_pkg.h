@@ -12,8 +12,8 @@
 #include <QToolBar>
 #include <QVBoxLayout>
 
-#define FILE_STATE_UNCHANGED   0
-#define FILE_STATE_CHANGED     1
+#define UNCHANGED   0
+#define CHANGED     1
 
 class BOX_PKG : public QSplitter
 {
@@ -42,7 +42,6 @@ class BOX_PKG : public QSplitter
     #endif // QT_NO_DEBUG
 
   signals:
-    void changeWindowTitle(const QString&);
     void fileWasChanged();
     void fileWasUnChanged();
     void fileEmpty();

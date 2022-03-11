@@ -7,8 +7,8 @@
 #include <QTextStream>
 #include <QMessageBox>
 
-#define FILE_STATE_UNCHANGED   0
-#define FILE_STATE_CHANGED     1
+#define UNCHANGED   0
+#define CHANGED     1
 
 class BOX_SQL : public QTextEdit
 {
@@ -21,9 +21,10 @@ class BOX_SQL : public QTextEdit
     void SetFileState(const unsigned int NewState);
 
   public:
-    explicit BOX_SQL(QWidget* p_Parent = 0);
+    explicit BOX_SQL(QWidget* parent = nullptr);
              ~BOX_SQL();
     bool isFileChanged();
+    bool isFileEmpty();
     void translateGUI(bool init = false);
 
     #ifndef QT_NO_DEBUG
@@ -31,7 +32,6 @@ class BOX_SQL : public QTextEdit
     #endif
 
   signals:
-    void changeWindowTitle(const QString&);
     void fileWasChanged();
     void fileWasUnChanged();
     void fileEmpty();
