@@ -1,0 +1,23 @@
+#!/bin/bash
+# This script initialize environment and start Selector
+
+# Author: Yuriy Lazutin
+# Site: https://github.com/YuriyLazutin
+# Creation: 2022-mar-12
+# Donates:
+#          https://www.paypal.com/paypalme/yuriylazutin
+#          https://www.patreon.com/yuriylazutin
+
+# Selector home directory
+export SELECTOR_HOME="/opt/Selector"
+# NLS language
+export NLS_LANG="AMERICAN_AMERICA.AL32UTF8"
+# Path to Instant Client
+export ORACLE_HOME="${SELECTOR_HOME}/lib"
+# Path to tnsnames.ora
+export TNS_ADMIN="${SELECTOR_HOME}/tns_admin"
+# Scale interface (uncomment if GUI is too small)
+#export QT_SCALE_FACTOR=1.2
+
+cd "${SELECTOR_HOME}"
+"${SELECTOR_HOME}/selector"

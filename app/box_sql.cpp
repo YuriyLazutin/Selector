@@ -42,7 +42,7 @@ void BOX_SQL::slotFileChanged()
   isFileEmpty() ? emit fileEmpty() : emit fileNotEmpty();
 }
 
-void BOX_SQL::slotFileLoad()
+bool BOX_SQL::slotFileLoad()
 {
   QString s = QFileDialog::getOpenFileName(
      this
@@ -54,7 +54,7 @@ void BOX_SQL::slotFileLoad()
   );
 
   if (s.isEmpty())
-    return;
+    return false;
 
   QFile f(s);
   if (f.open(QIODevice::ReadOnly))
@@ -68,6 +68,7 @@ void BOX_SQL::slotFileLoad()
   }
 
   isFileEmpty() ? emit fileEmpty() : emit fileNotEmpty();
+  return true;
 }
 
 void BOX_SQL::slotFileSave()

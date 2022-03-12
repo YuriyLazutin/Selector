@@ -60,7 +60,7 @@ int main(int argc, char** argv)
   // end of: Set Translator
 
   // Set Style Sheet
-  //QFile css_file(":/styles/skins/default.qss"); // Load from resource
+  //QFile css_file(":/skins/default.qss"); // Load from resource
   QFile css_file("skins/default.qss"); // Load from external file
   if (css_file.open(QIODevice::ReadOnly | QIODevice::Text))
   {

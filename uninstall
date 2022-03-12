@@ -1,0 +1,34 @@
+#!/bin/bash
+# This script uninstall Selector
+
+# Author: Yuriy Lazutin
+# Site: https://github.com/YuriyLazutin
+# Creation: 2022-mar-12
+# Donates:
+#          https://www.paypal.com/paypalme/yuriylazutin
+#          https://www.patreon.com/yuriylazutin
+
+SELECTOR_HOME="/opt/Selector"
+LBIN="/usr/local/bin"
+ICON_DIR="/usr/share/icons"
+LOUNCHER_DIR="/usr/share/applications"
+
+# Delete Selector home
+sudo rm -Rf "${SELECTOR_HOME}"
+
+# Delete icons
+sudo rm -f "${ICON_DIR}/hicolor/16x16/apps/selector.png"
+sudo rm -f "${ICON_DIR}/hicolor/32x32/apps/selector.png"
+sudo rm -f "${ICON_DIR}/hicolor/48x48/apps/selector.png"
+sudo rm -f "${ICON_DIR}/hicolor/64x64/apps/selector.png"
+sudo rm -f "${ICON_DIR}/hicolor/128x128/apps/selector.png"
+sudo rm -f "${ICON_DIR}/hicolor/256x256/apps/selector.png"
+
+# Update icon cash
+sudo gtk-update-icon-cache "${ICON_DIR}/hicolor"
+
+# remove louncher
+sudo rm -f "${LOUNCHER_DIR}/selector.desktop"
+sudo rm -f "${LBIN}/selector"
+
+echo -e "\033[1;32mSelector was removed successfully!.\033[0m"

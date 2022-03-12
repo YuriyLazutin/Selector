@@ -39,7 +39,7 @@ class BOX_SQL : public QTextEdit
 
   public slots:
     void slotFileChanged();
-    void slotFileLoad();
+    bool slotFileLoad();
     void slotFileSave();
     void slotFileSaveAs();
     void slotSQLExecute();

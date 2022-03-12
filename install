@@ -8,8 +8,10 @@
 #          https://www.paypal.com/paypalme/yuriylazutin
 #          https://www.patreon.com/yuriylazutin
 
-export SELECTOR_HOME="/opt/Selector"
-export LBIN="/usr/local/bin"
+SELECTOR_HOME="/opt/Selector"
+LBIN="/usr/local/bin"
+ICON_DIR="/usr/share/icons"
+LOUNCHER_DIR="/usr/share/applications"
 
 # Create
 #	.qmake.stash
@@ -25,18 +27,41 @@ make -f Makefile qmake_all
 # Create moc and object files
 make -j8
 
+# Create Selector home
 sudo mkdir -p "${SELECTOR_HOME}"
+sudo mkdir "${SELECTOR_HOME}/i18n"
+sudo mkdir "${SELECTOR_HOME}/lib"
+sudo mkdir "${SELECTOR_HOME}/skins"
+sudo mkdir "${SELECTOR_HOME}/tns_admin"
 
+# copy files
+find "./app/i18n" -name "*.qm" -type f -exec sudo cp {} "${SELECTOR_HOME}/i18n" \;
+sudo cp --recursive "./app/lib" "${SELECTOR_HOME}/lib"
+sudo cp --recursive "./app/skins" "${SELECTOR_HOME}/skins"
+sudo cp --recursive "./app/tns_admin" "${SELECTOR_HOME}/tns_admin"
+sudo cp "./app/selector" "${SELECTOR_HOME}"
+sudo cp "./app/selector.desktop" "${SELECTOR_HOME}"
+sudo cp "./app/start" "${SELECTOR_HOME}"
+sudo cp "./uninstall" "${SELECTOR_HOME}"
+
+# apply access rights
+sudo chown -R root:root "${SELECTOR_HOME}"
+sudo chmod ug=rwx,o=rx "${SELECTOR_HOME}"
 
 # To install application icons we need to put it in  /usr/share/icons/hicolor/RxR/apps, where R — icon size (16, 32, 48, 64, 128, 256)
 # or /usr/share/icons/hicolor/scalable/apps — for *.svg icons
-
-sudo cp ./app/icons/selector16x16.png /usr/share/icons/hicolor/16x16/apps/selector.png
-sudo cp ./app/icons/selector32x32.png /usr/share/icons/hicolor/32x32/apps/selector.png
-sudo cp ./app/icons/selector48x48.png /usr/share/icons/hicolor/48x48/apps/selector.png
-sudo cp ./app/icons/selector64x64.png /usr/share/icons/hicolor/64x64/apps/selector.png
-sudo cp ./app/icons/selector128x128.png /usr/share/icons/hicolor/128x128/apps/selector.png
-sudo cp ./app/icons/selector.png /usr/share/icons/hicolor/256x256/apps/selector.png
+sudo cp ./app/icons/selector16x16.png "${ICON_DIR}/hicolor/16x16/apps/selector.png"
+sudo cp ./app/icons/selector32x32.png "${ICON_DIR}/hicolor/32x32/apps/selector.png"
+sudo cp ./app/icons/selector48x48.png "${ICON_DIR}/hicolor/48x48/apps/selector.png"
+sudo cp ./app/icons/selector64x64.png "${ICON_DIR}/hicolor/64x64/apps/selector.png"
+sudo cp ./app/icons/selector128x128.png "${ICON_DIR}/hicolor/128x128/apps/selector.png"
+sudo cp ./app/icons/selector.png "${ICON_DIR}/hicolor/256x256/apps/selector.png"
 
 # Update icon cash
-sudo gtk-update-icon-cache /usr/share/icons/hicolor
+sudo gtk-update-icon-cache "${ICON_DIR}/hicolor"
+
+# Install louncher
+sudo ln -s "${SELECTOR_HOME}/selector.desktop" "${LOUNCHER_DIR}/selector.desktop"
+sudo ln -s "${SELECTOR_HOME}/start" "${LBIN}/selector"
+
+echo -e "\033[1;32mSelector was installed successfully!.\033[0m"

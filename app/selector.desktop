@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Selector
+Comment=Selector - database development tool
+Comment[de]=Selector - datenbank entwicklungstool
+Comment[fr]=Selector - outil de développement de base de données
+Comment[ru]=Selector - инструмент разработки баз данных
+Exec=selector %f
+Icon=selector
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Database
+Path=/opt/Selector

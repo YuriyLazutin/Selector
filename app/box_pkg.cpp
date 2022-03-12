@@ -99,7 +99,7 @@ void BOX_PKG::slotFileChanged()
   isFileEmpty() ? emit fileEmpty() : emit fileNotEmpty();
 }
 
-void BOX_PKG::slotFileLoad()
+bool BOX_PKG::slotFileLoad()
 {
   QString s = QFileDialog::getOpenFileName(
      this
@@ -111,7 +111,7 @@ void BOX_PKG::slotFileLoad()
   );
 
   if (s.isEmpty())
-    return;
+    return false;
 
   QFile f(s);
   if (f.open(QIODevice::ReadOnly))
@@ -125,6 +125,7 @@ void BOX_PKG::slotFileLoad()
   }
 
   isFileEmpty() ? emit fileEmpty() : emit fileNotEmpty();
+  return true;
 }
 
 void BOX_PKG::slotFileSave()

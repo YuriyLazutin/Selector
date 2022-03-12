@@ -504,17 +504,23 @@ void Selector::slotNewSql()
 void Selector::slotOpenSql()
 {
   BOX_SQL* p_form = new BOX_SQL();
-  QMdiSubWindow* p_sub_wnd = MDIArea.addSubWindow(p_form);
-  p_sub_wnd->setAttribute(Qt::WA_DeleteOnClose);
-  p_sub_wnd->setWindowTitle(QCoreApplication::translate("Selector", "Open SQL Document", nullptr));
-  p_sub_wnd->setWindowIcon(QIcon(":/icons/new-sql.png"));
-  p_form->slotFileLoad();
-  p_sub_wnd->setGeometry(50, 50, 1280, 768);
-  connect(p_form, SIGNAL(fileWasChanged()), SLOT(slotFileWasChanged()));
-  connect(p_form, SIGNAL(fileWasUnChanged()), SLOT(slotFileWasUnChanged()));
-  connect(p_form, SIGNAL(fileEmpty()), SLOT(slotFileEmpty()));
-  connect(p_form, SIGNAL(fileNotEmpty()), SLOT(slotFileNotEmpty()));
-  p_sub_wnd->show();
+  if (p_form->slotFileLoad())
+  {
+    QMdiSubWindow* p_sub_wnd = MDIArea.addSubWindow(p_form);
+    p_sub_wnd->setAttribute(Qt::WA_DeleteOnClose);
+    p_sub_wnd->setWindowTitle(QCoreApplication::translate("Selector", "Open SQL Document", nullptr));
+    p_sub_wnd->setWindowIcon(QIcon(":/icons/new-sql.png"));
+    p_sub_wnd->setGeometry(50, 50, 1280, 768);
+    connect(p_form, SIGNAL(fileWasChanged()), SLOT(slotFileWasChanged()));
+    connect(p_form, SIGNAL(fileWasUnChanged()), SLOT(slotFileWasUnChanged()));
+    connect(p_form, SIGNAL(fileEmpty()), SLOT(slotFileEmpty()));
+    connect(p_form, SIGNAL(fileNotEmpty()), SLOT(slotFileNotEmpty()));
+    p_sub_wnd->show();
+  }
+  else
+  {
+    delete p_form;
+  }
 }
 
 void Selector::slotFileSave()
@@ -633,7 +639,7 @@ void Selector::slotSetActiveSubWindow(QMdiSubWindow* p_form)
     act_file.close_all->setEnabled(true);
     act_file.print->setEnabled(true);
 
-    // enable if one of files is dirty
+    // enable if one of files is dirty (was changed)
     if (dirty_files_cnt > 0)
       act_file.save_all->setEnabled(true);
     else
@@ -654,11 +660,7 @@ void Selector::slotSetActiveSubWindow(QMdiSubWindow* p_form)
     act_file.print->setEnabled(false);
     act_sesn.exe->setEnabled(false);
   }
-//  if (p_form)
-//    MDIArea.setActiveSubWindow(qobject_cast<QMdiSubWindow*>(p_form));
-
 }
-
 
 void Selector::slotNewPkg()
 {
@@ -672,10 +674,8 @@ void Selector::slotNewPkg()
   connect(p_form, SIGNAL(fileWasUnChanged()), SLOT(slotFileWasUnChanged()));
   connect(p_form, SIGNAL(fileEmpty()), SLOT(slotFileEmpty()));
   connect(p_form, SIGNAL(fileNotEmpty()), SLOT(slotFileNotEmpty()));
-  //connect(p_form, SIGNAL(changeMainTitle(const QString&)), SLOT(slotChangeMainTitle(const QString&))); // ???
   p_sub_wnd->show();
 }
-
 
 void Selector::slotNewPkgBdy()
 {
@@ -692,18 +692,23 @@ void Selector::slotNewPkgSpc()
 void Selector::slotOpenPkg()
 {
   BOX_PKG* p_form = new BOX_PKG();
-  QMdiSubWindow* p_sub_wnd = MDIArea.addSubWindow(p_form);
-  p_sub_wnd->setAttribute(Qt::WA_DeleteOnClose);
-  p_sub_wnd->setWindowTitle(QCoreApplication::translate("Selector", "Open package", nullptr));
-  p_sub_wnd->setWindowIcon(QIcon(":/icons/new-plsql.png"));
-  p_sub_wnd->setGeometry(50, 50, 1280, 768);
-  p_form->slotFileLoad();
-  connect(p_form, SIGNAL(fileWasChanged()), SLOT(slotFileWasChanged()));
-  connect(p_form, SIGNAL(fileWasUnChanged()), SLOT(slotFileWasUnChanged()));
-  connect(p_form, SIGNAL(fileEmpty()), SLOT(slotFileEmpty()));
-  connect(p_form, SIGNAL(fileNotEmpty()), SLOT(slotFileNotEmpty()));
-  //connect(p_form, SIGNAL(changeWindowTitle(const QString&)), SLOT(slotChangeWindowTitle(const QString&)));
-  p_sub_wnd->show();
+  if (p_form->slotFileLoad())
+  {
+    QMdiSubWindow* p_sub_wnd = MDIArea.addSubWindow(p_form);
+    p_sub_wnd->setAttribute(Qt::WA_DeleteOnClose);
+    p_sub_wnd->setWindowTitle(QCoreApplication::translate("Selector", "Open package", nullptr));
+    p_sub_wnd->setWindowIcon(QIcon(":/icons/new-plsql.png"));
+    p_sub_wnd->setGeometry(50, 50, 1280, 768);
+    connect(p_form, SIGNAL(fileWasChanged()), SLOT(slotFileWasChanged()));
+    connect(p_form, SIGNAL(fileWasUnChanged()), SLOT(slotFileWasUnChanged()));
+    connect(p_form, SIGNAL(fileEmpty()), SLOT(slotFileEmpty()));
+    connect(p_form, SIGNAL(fileNotEmpty()), SLOT(slotFileNotEmpty()));
+    p_sub_wnd->show();
+  }
+  else
+  {
+    delete p_form;
+  }
 }
 
 void Selector::slotExecute()
@@ -731,11 +736,11 @@ void Selector::translateGUI(bool init)
   QAction* p_menu_action;
 
   // Main window
-  setWindowTitle(QCoreApplication::translate("Selector", "Selector", nullptr));
+  setWindowTitle(QCoreApplication::translate("Selector", "Selector", "Main window title"));
 
   // Docks
-  findPanel.setWindowTitle(QCoreApplication::translate("Selector", "&Search Bar", nullptr));
-  findPanelLabel.setText(QCoreApplication::translate("Selector", "Find this:", nullptr));
+  findPanel.setWindowTitle(QCoreApplication::translate("Selector", "&Search Bar", "Find panel title"));
+  findPanelLabel.setText(QCoreApplication::translate("Selector", "Find this:", "Find panel label"));
   dbBrowser.setWindowTitle(QCoreApplication::translate("Selector", "Browser", "Name of the left dock in main window"));
   windowList.setWindowTitle(QCoreApplication::translate("Selector", "Window List", "Name of the left dock in main window"));
 
@@ -744,51 +749,51 @@ void Selector::translateGUI(bool init)
   toolBarDML.setWindowTitle(QCoreApplication::translate("Selector", "DML operations", "Tool bar name"));
 
   // Menus
-  menu_file.setTitle(QCoreApplication::translate("Selector", "&File", nullptr));
+  menu_file.setTitle(QCoreApplication::translate("Selector", "&File", "Menu item"));
 
-    menu_file_new.setTitle(QCoreApplication::translate("Selector", "&New", nullptr));
-    p_menu_action = menu_file_new.menuAction();
-    #ifndef QT_NO_TOOLTIP
-    p_menu_action->setToolTip(QCoreApplication::translate("Selector", "New", nullptr));
-    #endif // QT_NO_TOOLTIP
-    p_menu_action->setStatusTip(QCoreApplication::translate("Selector", "Create a new program unit or database object", nullptr));
-    p_menu_action->setWhatsThis(QCoreApplication::translate("Selector", "Create a new program unit or database object", nullptr));
+  menu_file_new.setTitle(QCoreApplication::translate("Selector", "&New", "Menu item"));
+  p_menu_action = menu_file_new.menuAction();
+  #ifndef QT_NO_TOOLTIP
+  p_menu_action->setToolTip(QCoreApplication::translate("Selector", "New", "Tool Tip item"));
+  #endif // QT_NO_TOOLTIP
+  p_menu_action->setStatusTip(QCoreApplication::translate("Selector", "Create a new program unit or database object", "Status Tip item"));
+  p_menu_action->setWhatsThis(QCoreApplication::translate("Selector", "Create a new program unit or database object", "Whats This item"));
 
-    menu_file_new_prog_wnd.setTitle(QCoreApplication::translate("Selector", "&Program Window", nullptr));
-    p_menu_action = menu_file_new_prog_wnd.menuAction();
-    #ifndef QT_NO_TOOLTIP
-    p_menu_action->setToolTip(QCoreApplication::translate("Selector", "Create new PL/SQL program window", nullptr));
-    #endif // QT_NO_TOOLTIP
-    p_menu_action->setStatusTip(QCoreApplication::translate("Selector", "Create new PL/SQL program window", nullptr));
-    p_menu_action->setWhatsThis(QCoreApplication::translate("Selector", "Create new PL/SQL program window", nullptr));
+  menu_file_new_prog_wnd.setTitle(QCoreApplication::translate("Selector", "&Program Window", "Menu item"));
+  p_menu_action = menu_file_new_prog_wnd.menuAction();
+  #ifndef QT_NO_TOOLTIP
+  p_menu_action->setToolTip(QCoreApplication::translate("Selector", "Create new PL/SQL program window", "Tool Tip item"));
+  #endif // QT_NO_TOOLTIP
+  p_menu_action->setStatusTip(QCoreApplication::translate("Selector", "Create new PL/SQL program window", "Status Tip item"));
+  p_menu_action->setWhatsThis(QCoreApplication::translate("Selector", "Create new PL/SQL program window", "Whats This item"));
 
-    menu_file_open.setTitle(QCoreApplication::translate("Selector", "&Open", nullptr));
-    p_menu_action = menu_file_open.menuAction();
-    #ifndef QT_NO_TOOLTIP
-    p_menu_action->setToolTip(QCoreApplication::translate("Selector", "Open existing file", nullptr));
-    #endif // QT_NO_TOOLTIP
-    p_menu_action->setStatusTip(QCoreApplication::translate("Selector", "Open existing program file", nullptr));
-    p_menu_action->setWhatsThis(QCoreApplication::translate("Selector", "Open existing program file", nullptr));
+  menu_file_open.setTitle(QCoreApplication::translate("Selector", "&Open", "Menu item"));
+  p_menu_action = menu_file_open.menuAction();
+  #ifndef QT_NO_TOOLTIP
+  p_menu_action->setToolTip(QCoreApplication::translate("Selector", "Open existing file", "Tool Tip item"));
+  #endif // QT_NO_TOOLTIP
+  p_menu_action->setStatusTip(QCoreApplication::translate("Selector", "Open existing program file", "Status Tip item"));
+  p_menu_action->setWhatsThis(QCoreApplication::translate("Selector", "Open existing program file", "Whats This item"));
 
-    menu_file_reopen.setTitle(QCoreApplication::translate("Selector", "&Reopen", nullptr));
-    menu_edit.setTitle(QCoreApplication::translate("Selector", "&Edit", nullptr));
-    menu_edit_scpy.setTitle(QCoreApplication::translate("Selector", "Special Copy", nullptr));
-    menu_edit_selection.setTitle(QCoreApplication::translate("Selector", "&Selection", nullptr));
-    menu_edit_todo.setTitle(QCoreApplication::translate("Selector", "To-&Do Items", nullptr));
-    menu_edit_bookmark_goto.setTitle(QCoreApplication::translate("Selector", "Go to Boo&kmark", nullptr));
-    menu_session.setTitle(QCoreApplication::translate("Selector", "&Session", nullptr));
-    menu_debug.setTitle(QCoreApplication::translate("Selector", "&Debug", nullptr));
-    menu_tools.setTitle(QCoreApplication::translate("Selector", "&Tools", nullptr));
-    menu_tools_macro.setTitle(QCoreApplication::translate("Selector", "&Macro", nullptr));
-    menu_macro.setTitle(QCoreApplication::translate("Selector", "&Macro", nullptr));
-    menu_docs.setTitle(QCoreApplication::translate("Selector", "D&ocuments", nullptr));
-    menu_reps.setTitle(QCoreApplication::translate("Selector", "&Reports", nullptr));
-    menu_reps_dba.setTitle(QCoreApplication::translate("Selector", "DBA", nullptr));
-    menu_reps_objects.setTitle(QCoreApplication::translate("Selector", "Objects", nullptr));
-    menu_reps_plsql.setTitle(QCoreApplication::translate("Selector", "PL/SQL", nullptr));
-    menu_reps_user.setTitle(QCoreApplication::translate("Selector", "User", nullptr));
-    menu_window.setTitle(QCoreApplication::translate("Selector", "&Window", nullptr));
-    menu_help.setTitle(QCoreApplication::translate("Selector", "&Help", nullptr));
+  menu_file_reopen.setTitle(QCoreApplication::translate("Selector", "&Reopen", "Menu item"));
+  menu_edit.setTitle(QCoreApplication::translate("Selector", "&Edit", "Menu item"));
+  menu_edit_scpy.setTitle(QCoreApplication::translate("Selector", "Special Copy", "Menu item"));
+  menu_edit_selection.setTitle(QCoreApplication::translate("Selector", "&Selection", "Menu item"));
+  menu_edit_todo.setTitle(QCoreApplication::translate("Selector", "To-&Do Items", "Menu item"));
+  menu_edit_bookmark_goto.setTitle(QCoreApplication::translate("Selector", "Go to Boo&kmark", "Menu item"));
+  menu_session.setTitle(QCoreApplication::translate("Selector", "&Session", "Menu item"));
+  menu_debug.setTitle(QCoreApplication::translate("Selector", "&Debug", "Menu item"));
+  menu_tools.setTitle(QCoreApplication::translate("Selector", "&Tools", "Menu item"));
+  menu_tools_macro.setTitle(QCoreApplication::translate("Selector", "&Macro", "Menu item"));
+  menu_macro.setTitle(QCoreApplication::translate("Selector", "&Macro", "Menu item"));
+  menu_docs.setTitle(QCoreApplication::translate("Selector", "D&ocuments", "Menu item"));
+  menu_reps.setTitle(QCoreApplication::translate("Selector", "&Reports", "Menu item"));
+  menu_reps_dba.setTitle(QCoreApplication::translate("Selector", "DBA", "Menu item"));
+  menu_reps_objects.setTitle(QCoreApplication::translate("Selector", "Objects", "Menu item"));
+  menu_reps_plsql.setTitle(QCoreApplication::translate("Selector", "PL/SQL", "Menu item"));
+  menu_reps_user.setTitle(QCoreApplication::translate("Selector", "User", "Menu item"));
+  menu_window.setTitle(QCoreApplication::translate("Selector", "&Window", "Menu item"));
+  menu_help.setTitle(QCoreApplication::translate("Selector", "&Help", "Menu item"));
 
   if (!init)
   {
