@@ -36,9 +36,9 @@ sudo mkdir "${SELECTOR_HOME}/tns_admin"
 
 # copy files
 find "./app/i18n" -name "*.qm" -type f -exec sudo cp {} "${SELECTOR_HOME}/i18n" \;
-sudo cp --recursive "./app/lib" "${SELECTOR_HOME}/lib"
-sudo cp --recursive "./app/skins" "${SELECTOR_HOME}/skins"
-sudo cp --recursive "./app/tns_admin" "${SELECTOR_HOME}/tns_admin"
+sudo cp --recursive "./app/lib" "${SELECTOR_HOME}"
+sudo cp --recursive "./app/skins" "${SELECTOR_HOME}"
+sudo cp --recursive "./app/tns_admin" "${SELECTOR_HOME}"
 sudo cp "./app/selector" "${SELECTOR_HOME}"
 sudo cp "./app/selector.desktop" "${SELECTOR_HOME}"
 sudo cp "./app/start" "${SELECTOR_HOME}"
