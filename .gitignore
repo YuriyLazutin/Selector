@@ -21,6 +21,13 @@ selector.pro.user
 
 # Compiled Dynamic libraries
 *.so
+app/lib/libclntsh.so
+app/lib/libclntsh.so.11.1
+app/lib/libnnz11.so
+app/lib/libocci.so
+app/lib/libocci.so.11.1
+app/lib/libociei.so
+
 *.dylib
 *.dll
 
