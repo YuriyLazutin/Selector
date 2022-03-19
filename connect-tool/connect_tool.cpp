@@ -1,9 +1,9 @@
-#include "dialog.h"
+#include "connect_tool.h"
 
-Dialog::Dialog(QWidget *parent) : QDialog(parent)
+ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
 {
 
-    setObjectName(QString::fromUtf8("Dialog"));
+    setObjectName(QString::fromUtf8("ConnectTool"));
     setMinimumSize(QSize(300, 120));
     QSizePolicy szPolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     szPolicy.setHorizontalStretch(0);
@@ -14,6 +14,6 @@ Dialog::Dialog(QWidget *parent) : QDialog(parent)
 
 }
 
-Dialog::~Dialog()
+ConnectTool::~ConnectTool()
 {
 }

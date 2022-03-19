@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ctool</class>
+ <widget class="QDialog" name="ctool">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>640</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>300</width>
+    <height>120</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Connect to Database</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="handleWidth">
+      <number>5</number>
+     </property>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Database logon parameters:</string>
+      </property>
+      <layout class="QVBoxLayout" name="VLayout_groupBox">
+       <property name="spacing">
+        <number>10</number>
+       </property>
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
+        <number>10</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="lblSrvType">
+         <property name="text">
+          <string>Server Type:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="cmbbox_SrvType">
+         <property name="toolTip">
+          <string>Allow you to select server type</string>
+         </property>
+         <property name="statusTip">
+          <string>Allow you to select server type</string>
+         </property>
+         <property name="whatsThis">
+          <string>Allow you to select server type</string>
+         </property>
+         <property name="currentText">
+          <string>Oracle</string>
+         </property>
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <item>
+          <property name="text">
+           <string extracomment="One of server types">Oracle</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string extracomment="One of server types">Postgre</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string extracomment="One of server types">MySQL</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblDatabase">
+         <property name="text">
+          <string>Database:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="cmbbox_Database">
+         <property name="toolTip">
+          <string>Allow you to select database, SID and so on</string>
+         </property>
+         <property name="statusTip">
+          <string>Allow you to select database, SID and so on</string>
+         </property>
+         <property name="whatsThis">
+          <string>Allow you to select database, SID and so on</string>
+         </property>
+         <property name="editable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblUsername">
+         <property name="text">
+          <string>Username:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="leUsername">
+         <property name="toolTip">
+          <string>This username will be used to connect with database</string>
+         </property>
+         <property name="statusTip">
+          <string>This username will be used to connect with database</string>
+         </property>
+         <property name="whatsThis">
+          <string>This username will be used to connect with database</string>
+         </property>
+         <property name="maxLength">
+          <number>32</number>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblPassword">
+         <property name="text">
+          <string>Password:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lePassword">
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblConnAs">
+         <property name="text">
+          <string>Connect as:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="cmbbox_ConnAs">
+         <property name="toolTip">
+          <string>Set the connection mode</string>
+         </property>
+         <property name="statusTip">
+          <string>Set the connection mode</string>
+         </property>
+         <property name="whatsThis">
+          <string>Set the connection mode</string>
+         </property>
+         <property name="currentText">
+          <string>Normal</string>
+         </property>
+         <item>
+          <property name="text">
+           <string notr="true">Normal</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">SYSDBA</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">SYSOPER</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QTreeWidget" name="twLogonHist">
+      <property name="toolTip">
+       <string>List with saved connections</string>
+      </property>
+      <property name="statusTip">
+       <string>List with saved connections</string>
+      </property>
+      <property name="whatsThis">
+       <string>List with saved connections</string>
+      </property>
+      <property name="showDropIndicator" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="headerHidden">
+       <bool>true</bool>
+      </property>
+      <attribute name="headerVisible">
+       <bool>false</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string notr="true">1</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Close|QDialogButtonBox::Ok</set>
+     </property>
+     <property name="centerButtons">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>ctool</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>ctool</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
