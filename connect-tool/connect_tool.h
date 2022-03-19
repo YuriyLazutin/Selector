@@ -2,16 +2,48 @@
 #define CONNECTTOOL_H
 
 #include <QDialog>
+#include <QVBoxLayout>
+#include <QSplitter>
+#include <QTreeWidget>
+#include <QGroupBox>
+#include <QLabel>
+#include <QComboBox>
+#include <QLineEdit>
+#include <QSpacerItem>
+#include <QDialogButtonBox>
+//#include <QtCore/QVariant>
+#include <QApplication>
+//#include <QtWidgets/QDialog>
+//#include <QtWidgets/QHeaderView>
 
 class ConnectTool : public QDialog
 {
   Q_OBJECT
 
   private:
+    QVBoxLayout      Layout;
+    QSplitter          Splitter;
+    QTreeWidget          twLogonHist;
+
+    QGroupBox            GroupBox;
+    QVBoxLayout            VLayout_GroupBox;
+    QLabel                   lblSrvType;
+    QComboBox                cboxSrvType;
+    QLabel                   lblDatabase;
+    QComboBox                cboxDatabase;
+    QLabel                   lblUsername;
+    QLineEdit                leUsername;
+    QLabel                   lblPassword;
+    QLineEdit                lePassword;
+    QLabel                   lblConnAs;
+    QComboBox                cboxConnAs;
+    QSpacerItem*             pSpacer;
+    QDialogButtonBox   btnBox;
 
   public:
-    ConnectTool(QWidget *parent = nullptr);
+    explicit ConnectTool(QWidget *parent = nullptr);
     ~ConnectTool();
     void translateGUI(bool init = false);
+    void mapSS();
 };
 #endif // CONNECTTOOL_H
