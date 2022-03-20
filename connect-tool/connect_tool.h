@@ -5,12 +5,15 @@
 #include <QVBoxLayout>
 #include <QSplitter>
 #include <QTreeWidget>
+#include <QToolBar>
+#include <QAction>
 #include <QGroupBox>
 #include <QLabel>
 #include <QComboBox>
 #include <QLineEdit>
 #include <QSpacerItem>
 #include <QDialogButtonBox>
+#include <QPushButton>
 //#include <QtCore/QVariant>
 #include <QApplication>
 //#include <QtWidgets/QDialog>
@@ -25,6 +28,12 @@ class ConnectTool : public QDialog
   private:
     QVBoxLayout      Layout;
     QSplitter          Splitter;
+    QWidget              LeftWidget;
+    QVBoxLayout          VLayout_LeftWidget;
+    QToolBar             ToolBar;
+    QAction              act_add_cnnctn;
+    QAction              act_del_cnnctn;
+    QAction              act_add_grp;
     QTreeWidget          twLogonHist;
 
     QGroupBox            GroupBox;
@@ -41,6 +50,8 @@ class ConnectTool : public QDialog
     QComboBox                cboxConnAs;
     QSpacerItem*             pSpacer;
     QDialogButtonBox   btnBox;
+    QPushButton*       pSaveButton;
+    QPushButton*       pConnectButton;
 
     DBOracle*        pDB;
 
@@ -52,5 +63,9 @@ class ConnectTool : public QDialog
 
   public slots:
     void slotConnect();
+    void slotSaveConnection();
+    void slotAddConnection();
+    void slotDelConnection();
+    void slotAddConnectionGroup();
 };
 #endif // CONNECTTOOL_H

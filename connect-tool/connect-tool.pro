@@ -43,3 +43,6 @@ DISTFILES += \
 
 FORMS += \
     ctool.ui
+
+RESOURCES += \
+    icons.qrc

@@ -22,25 +22,54 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
     Splitter.setObjectName(QString::fromUtf8("connecttool_splitter"));
     Splitter.setOrientation(Qt::Horizontal);
     Splitter.setHandleWidth(5);
-    Splitter.addWidget(&twLogonHist);
+    Splitter.addWidget(&LeftWidget);
     Splitter.addWidget(&GroupBox);
     Splitter.setStretchFactor(1, 1.618);
 
     // Create a tree widget with logon history
+
+    // Add connection button
+    act_add_cnnctn.setObjectName(QString::fromUtf8("connecttool_act_add_cnnctn"));
+    act_add_cnnctn.setIcon(QPixmap(":/icons/insert_record.png"));
+
+    // Delete connection button
+    act_del_cnnctn.setObjectName(QString::fromUtf8("connecttool_act_del_cnnctn"));
+    act_del_cnnctn.setIcon(QPixmap(":/icons/delete_record.png"));
+
+    // Add folder button
+    act_add_grp.setObjectName(QString::fromUtf8("connecttool_act_add_grp"));
+    act_add_grp.setIcon(QPixmap(":/icons/open_file.png"));
+
+    ToolBar.setObjectName(QString::fromUtf8("connecttool_toolbar"));
+    ToolBar.setIconSize(QSize(24, 24));
+    ToolBar.addAction(&act_add_cnnctn);
+    ToolBar.addAction(&act_del_cnnctn);
+    ToolBar.addAction(&act_add_grp);
+
+    // Tree widget
     twLogonHist.setObjectName(QString::fromUtf8("connecttool_twlogonhist"));
     twLogonHist.setHeaderHidden(true);
+
+    //Layout setup
+    VLayout_LeftWidget.setObjectName(QString::fromUtf8("connecttool_leftwidgetlayout"));
+    VLayout_LeftWidget.setContentsMargins(5, 5, 0, 5);
+    VLayout_LeftWidget.setSpacing(5);
+    VLayout_LeftWidget.addWidget(&ToolBar);
+    //VLayout_LeftWidget.setAlignment(&ToolBar, Qt::AlignHCenter);
+    VLayout_LeftWidget.addWidget(&twLogonHist);
+    LeftWidget.setLayout(&VLayout_LeftWidget);
 
     // Create a group box with connect parameters
     GroupBox.setObjectName(QString::fromUtf8("connecttool_groupbox"));
     lblSrvType.setObjectName(QString::fromUtf8("connecttool_lblsrvtype"));
-    //lblSrvType.setVisible(false);
+    lblSrvType.setVisible(false);
     cboxSrvType.setObjectName(QString::fromUtf8("connecttool_cboxsrvtype"));
     lblSrvType.setBuddy(&cboxSrvType);
     //cboxSrvType.setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed));
     cboxSrvType.addItem(QString::fromUtf8("Oracle"));
     cboxSrvType.addItem(QString::fromUtf8("Postgre"));
     cboxSrvType.addItem(QString::fromUtf8("MySQL"));
-    //cboxSrvType.setVisible(false);
+    cboxSrvType.setVisible(false);
     lblDatabase.setObjectName(QString::fromUtf8("connecttool_lbldatabase"));
     cboxDatabase.setObjectName(QString::fromUtf8("connecttool_cboxdatabase"));
     lblDatabase.setBuddy(&cboxDatabase);
@@ -83,7 +112,11 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
 
     btnBox.setObjectName(QString::fromUtf8("connecttool_btnbox"));
     btnBox.setOrientation(Qt::Horizontal);
-    btnBox.setStandardButtons(QDialogButtonBox::Close|QDialogButtonBox::Ok);
+    pSaveButton = btnBox.addButton("Save", QDialogButtonBox::ActionRole);
+    btnBox.setStandardButtons(QDialogButtonBox::Cancel);
+    pConnectButton = btnBox.addButton("Connect", QDialogButtonBox::AcceptRole);
+    pConnectButton->setDefault(true);
+    pSaveButton->setVisible(false);
 
     translateGUI(true);
     mapSS();
@@ -104,8 +137,44 @@ void ConnectTool::translateGUI(bool init)
 
 
   // Tree widget with logon history
+
   // Toolbar
-  //toolBarMain.setWindowTitle(QCoreApplication::translate("Selector", "Main operations", "Tool bar name"));
+  act_add_cnnctn.setText(QCoreApplication::translate("ConnectTool", "Add connection", "Action title"));
+  #ifndef QT_NO_TOOLTIP
+  act_add_cnnctn.setToolTip(QCoreApplication::translate("ConnectTool", "Add new connection", "Tool Tip item"));
+  #endif // QT_NO_TOOLTIP
+  #ifndef QT_NO_STATUSTIP
+  act_add_cnnctn.setStatusTip(QCoreApplication::translate("ConnectTool", "Add new connection", "Status Tip item"));
+  #endif // QT_NO_STATUSTIP
+  #ifndef QT_NO_WHATSTHIS
+  act_add_cnnctn.setWhatsThis(QCoreApplication::translate("ConnectTool", "Add new connection", "Whats This item"));
+  #endif // QT_NO_WHATSTHIS
+
+  act_del_cnnctn.setText(QCoreApplication::translate("ConnectTool", "Delete connection", "Action title"));
+  #ifndef QT_NO_TOOLTIP
+  act_del_cnnctn.setToolTip(QCoreApplication::translate("ConnectTool", "Delete connection from list", "Tool Tip item"));
+  #endif // QT_NO_TOOLTIP
+  #ifndef QT_NO_STATUSTIP
+  act_del_cnnctn.setStatusTip(QCoreApplication::translate("ConnectTool", "Delete connection from list", "Status Tip item"));
+  #endif // QT_NO_STATUSTIP
+  #ifndef QT_NO_WHATSTHIS
+  act_del_cnnctn.setWhatsThis(QCoreApplication::translate("ConnectTool", "Delete connection from list", "Whats This item"));
+  #endif // QT_NO_WHATSTHIS
+
+  act_add_grp.setText(QCoreApplication::translate("ConnectTool", "Add group", "Action title"));
+  #ifndef QT_NO_TOOLTIP
+  act_add_grp.setToolTip(QCoreApplication::translate("ConnectTool", "Add new connection group", "Tool Tip item"));
+  #endif // QT_NO_TOOLTIP
+  #ifndef QT_NO_STATUSTIP
+  act_add_grp.setStatusTip(QCoreApplication::translate("ConnectTool", "Add new connection group", "Status Tip item"));
+  #endif // QT_NO_STATUSTIP
+  #ifndef QT_NO_WHATSTHIS
+  act_add_grp.setWhatsThis(QCoreApplication::translate("ConnectTool", "Add new connection group", "Whats This item"));
+  #endif // QT_NO_WHATSTHIS
+
+  ToolBar.setWindowTitle(QCoreApplication::translate("ConnectTool", "Connection history toolbar", "ToolBar title"));
+
+  twLogonHist.setHeaderLabel(QCoreApplication::translate("ConnectTool", "Connection history", "Tree header label"));
   #ifndef QT_NO_TOOLTIP
   twLogonHist.setToolTip(QCoreApplication::translate("ConnectTool", "List with saved connections", "Tool Tip item"));
   #endif // QT_NO_TOOLTIP
@@ -174,6 +243,42 @@ void ConnectTool::translateGUI(bool init)
   cboxConnAs.setWhatsThis(QCoreApplication::translate("ConnectTool", "Set the connection mode", "Whats This item"));
   #endif // QT_NO_WHATSTHIS
 
+  pSaveButton->setText(QCoreApplication::translate("ConnectTool", "Save", "Save connection button label"));
+  #ifndef QT_NO_TOOLTIP
+  pSaveButton->setToolTip(QCoreApplication::translate("ConnectTool", "Save connection parameters", "Tool Tip item"));
+  #endif // QT_NO_TOOLTIP
+  #ifndef QT_NO_STATUSTIP
+  pSaveButton->setStatusTip(QCoreApplication::translate("ConnectTool", "Save connection parameters", "Status Tip item"));
+  #endif // QT_NO_STATUSTIP
+  #ifndef QT_NO_WHATSTHIS
+  pSaveButton->setWhatsThis(QCoreApplication::translate("ConnectTool", "Save connection parameters", "Whats This item"));
+  #endif // QT_NO_WHATSTHIS
+
+  QPushButton* pCancelButton = btnBox.button(QDialogButtonBox::Cancel);
+
+  pCancelButton->setText(QCoreApplication::translate("ConnectTool", "Cancel", "Close connection tool without connection"));
+  #ifndef QT_NO_TOOLTIP
+  pCancelButton->setToolTip(QCoreApplication::translate("ConnectTool", "Close connection tool without connection", "Tool Tip item"));
+  #endif // QT_NO_TOOLTIP
+  #ifndef QT_NO_STATUSTIP
+  pCancelButton->setStatusTip(QCoreApplication::translate("ConnectTool", "Close connection tool without connection", "Status Tip item"));
+  #endif // QT_NO_STATUSTIP
+  #ifndef QT_NO_WHATSTHIS
+  pCancelButton->setWhatsThis(QCoreApplication::translate("ConnectTool", "Close connection tool without connection", "Whats This item"));
+  #endif // QT_NO_WHATSTHIS
+
+  pConnectButton->setText(QCoreApplication::translate("ConnectTool", "Connect", "Close connection tool and connect to database"));
+  #ifndef QT_NO_TOOLTIP
+  pConnectButton->setToolTip(QCoreApplication::translate("ConnectTool", "Close connection tool and connect to database", "Tool Tip item"));
+  #endif // QT_NO_TOOLTIP
+  #ifndef QT_NO_STATUSTIP
+  pConnectButton->setStatusTip(QCoreApplication::translate("ConnectTool", "Close connection tool and connect to database", "Status Tip item"));
+  #endif // QT_NO_STATUSTIP
+  #ifndef QT_NO_WHATSTHIS
+  pConnectButton->setWhatsThis(QCoreApplication::translate("ConnectTool", "Close connection tool and connect to database", "Whats This item"));
+  #endif // QT_NO_WHATSTHIS
+
+
   if (!init)
   {
   } // End of if (!init)
@@ -183,6 +288,10 @@ void ConnectTool::mapSS()
 {
   QObject::connect(&btnBox, SIGNAL(rejected()), SLOT(reject()));
   QObject::connect(&btnBox, SIGNAL(accepted()), SLOT(slotConnect()));
+  QObject::connect(pSaveButton, SIGNAL(clicked()), SLOT(slotSaveConnection()));
+  QObject::connect(&act_add_cnnctn, SIGNAL(triggered()), SLOT(slotAddConnection()));
+  QObject::connect(&act_del_cnnctn, SIGNAL(triggered()), SLOT(slotDelConnection()));
+  QObject::connect(&act_add_grp, SIGNAL(triggered()), SLOT(slotAddConnectionGroup()));
 
   QMetaObject::connectSlotsByName(this);
 }
@@ -195,4 +304,36 @@ void ConnectTool::slotConnect()
 
   pDB->Connect2Srv(leUsername.text(), lePassword.text(), cboxDatabase.currentText());
   accept();
+}
+
+void ConnectTool::slotSaveConnection()
+{
+  #ifndef QT_NO_DEBUG
+  qDebug() << "Save pressed!" << endl;
+  #endif
+  pSaveButton->setVisible(false);
+}
+
+void ConnectTool::slotAddConnection()
+{
+  #ifndef QT_NO_DEBUG
+  qDebug() << "Add connection pressed!" << endl;
+  #endif
+  lblSrvType.setVisible(true);
+  cboxSrvType.setVisible(true);
+  pSaveButton->setVisible(true);
+}
+
+void ConnectTool::slotDelConnection()
+{
+  #ifndef QT_NO_DEBUG
+  qDebug() << "Delete connection pressed!" << endl;
+  #endif
+}
+
+void ConnectTool::slotAddConnectionGroup()
+{
+  #ifndef QT_NO_DEBUG
+  qDebug() << "Add connection group pressed!" << endl;
+  #endif
 }
