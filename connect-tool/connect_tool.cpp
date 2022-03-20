@@ -35,6 +35,7 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
     lblSrvType.setObjectName(QString::fromUtf8("connecttool_lblsrvtype"));
     //lblSrvType.setVisible(false);
     cboxSrvType.setObjectName(QString::fromUtf8("connecttool_cboxsrvtype"));
+    lblSrvType.setBuddy(&cboxSrvType);
     //cboxSrvType.setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed));
     cboxSrvType.addItem(QString::fromUtf8("Oracle"));
     cboxSrvType.addItem(QString::fromUtf8("Postgre"));
@@ -42,17 +43,21 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
     //cboxSrvType.setVisible(false);
     lblDatabase.setObjectName(QString::fromUtf8("connecttool_lbldatabase"));
     cboxDatabase.setObjectName(QString::fromUtf8("connecttool_cboxdatabase"));
+    lblDatabase.setBuddy(&cboxDatabase);
     cboxDatabase.setEditable(true);
     lblUsername.setObjectName(QString::fromUtf8("connecttool_lblusername"));
     leUsername.setObjectName(QString::fromUtf8("connecttool_leusername"));
+    lblUsername.setBuddy(&leUsername);
     leUsername.setMaxLength(32);
     leUsername.setClearButtonEnabled(true);
     lblPassword.setObjectName(QString::fromUtf8("connecttool_lblpassword"));
     lePassword.setObjectName(QString::fromUtf8("connecttool_lepassword"));
+    lblPassword.setBuddy(&lePassword);
     lePassword.setEchoMode(QLineEdit::Password);
     lePassword.setClearButtonEnabled(true);
     lblConnAs.setObjectName(QString::fromUtf8("connecttool_lblconnas"));
     cboxConnAs.setObjectName(QString::fromUtf8("connecttool_cboxconnas"));
+    lblConnAs.setBuddy(&cboxConnAs);
     cboxConnAs.addItem(QString::fromUtf8("Normal"));
     cboxConnAs.addItem(QString::fromUtf8("SYSDBA"));
     cboxConnAs.addItem(QString::fromUtf8("SYSOPER"));
@@ -82,11 +87,14 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
 
     translateGUI(true);
     mapSS();
+
+    // Initialize database (remove it in inherited code. We will set up databale on upper level and use a pointer)
+    pDB = new DBOracle();
 }
 
 ConnectTool::~ConnectTool()
 {
-
+  delete pDB;
 }
 
 void ConnectTool::translateGUI(bool init)
@@ -174,7 +182,17 @@ void ConnectTool::translateGUI(bool init)
 void ConnectTool::mapSS()
 {
   QObject::connect(&btnBox, SIGNAL(rejected()), SLOT(reject()));
-  QObject::connect(&btnBox, SIGNAL(accepted()), SLOT(accept()));
+  QObject::connect(&btnBox, SIGNAL(accepted()), SLOT(slotConnect()));
 
   QMetaObject::connectSlotsByName(this);
+}
+
+void ConnectTool::slotConnect()
+{
+  #ifndef QT_NO_DEBUG
+  qDebug() << "Connect pressed!" << endl;
+  #endif
+
+  pDB->Connect2Srv(leUsername.text(), lePassword.text(), cboxDatabase.currentText());
+  accept();
 }

@@ -28,6 +28,13 @@ app/lib/libocci.so
 app/lib/libocci.so.11.1
 app/lib/libociei.so
 
+connect-tool/lib/libclntsh.so
+connect-tool/lib/libclntsh.so.11.1
+connect-tool/lib/libnnz11.so
+connect-tool/lib/libocci.so
+connect-tool/lib/libocci.so.11.1
+connect-tool/lib/libociei.so
+
 *.dylib
 *.dll
 

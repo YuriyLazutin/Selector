@@ -15,6 +15,8 @@
 #include <QApplication>
 //#include <QtWidgets/QDialog>
 //#include <QtWidgets/QHeaderView>
+#include <QDebug>
+#include "dboracle.h"
 
 class ConnectTool : public QDialog
 {
@@ -40,10 +42,15 @@ class ConnectTool : public QDialog
     QSpacerItem*             pSpacer;
     QDialogButtonBox   btnBox;
 
+    DBOracle*        pDB;
+
   public:
     explicit ConnectTool(QWidget *parent = nullptr);
     ~ConnectTool();
     void translateGUI(bool init = false);
     void mapSS();
+
+  public slots:
+    void slotConnect();
 };
 #endif // CONNECTTOOL_H
