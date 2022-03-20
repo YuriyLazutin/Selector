@@ -18,11 +18,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     connect_tool.cpp \
     ctool.cpp \
+    dboracle.cpp \
     main.cpp
 
 HEADERS += \
     connect_tool.h \
-    ctool.h
+    ctool.h \
+    dboracle.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
