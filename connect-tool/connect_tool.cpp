@@ -23,8 +23,11 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
     Splitter.setOrientation(Qt::Horizontal);
     Splitter.setHandleWidth(5);
     Splitter.addWidget(&LeftWidget);
+    Splitter.setStretchFactor(0, 1);
     Splitter.addWidget(&GroupBox);
     Splitter.setStretchFactor(1, 1.618);
+    Splitter.addWidget(&lblHelp);
+    Splitter.setStretchFactor(2, 1);
 
     // Create a tree widget with logon history
 
@@ -70,26 +73,31 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
     cboxSrvType.addItem(QString::fromUtf8("Postgre"));
     cboxSrvType.addItem(QString::fromUtf8("MySQL"));
     cboxSrvType.setVisible(false);
+    cboxSrvType.installEventFilter(this);
     lblDatabase.setObjectName(QString::fromUtf8("connecttool_lbldatabase"));
     cboxDatabase.setObjectName(QString::fromUtf8("connecttool_cboxdatabase"));
     lblDatabase.setBuddy(&cboxDatabase);
     cboxDatabase.setEditable(true);
+    cboxDatabase.installEventFilter(this);
     lblUsername.setObjectName(QString::fromUtf8("connecttool_lblusername"));
     leUsername.setObjectName(QString::fromUtf8("connecttool_leusername"));
     lblUsername.setBuddy(&leUsername);
     leUsername.setMaxLength(32);
     leUsername.setClearButtonEnabled(true);
+    leUsername.installEventFilter(this);
     lblPassword.setObjectName(QString::fromUtf8("connecttool_lblpassword"));
     lePassword.setObjectName(QString::fromUtf8("connecttool_lepassword"));
     lblPassword.setBuddy(&lePassword);
     lePassword.setEchoMode(QLineEdit::Password);
     lePassword.setClearButtonEnabled(true);
+    lePassword.installEventFilter(this);
     lblConnAs.setObjectName(QString::fromUtf8("connecttool_lblconnas"));
     cboxConnAs.setObjectName(QString::fromUtf8("connecttool_cboxconnas"));
     lblConnAs.setBuddy(&cboxConnAs);
     cboxConnAs.addItem(QString::fromUtf8("Normal"));
     cboxConnAs.addItem(QString::fromUtf8("SYSDBA"));
     cboxConnAs.addItem(QString::fromUtf8("SYSOPER"));
+    cboxConnAs.installEventFilter(this);
     pSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
     VLayout_GroupBox.setSpacing(5);
@@ -110,6 +118,8 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
 
     GroupBox.setLayout(&VLayout_GroupBox);
 
+    lblHelp.setMinimumSize(QSize(150, 400));
+
     btnBox.setObjectName(QString::fromUtf8("connecttool_btnbox"));
     btnBox.setOrientation(Qt::Horizontal);
     pSaveButton = btnBox.addButton("Save", QDialogButtonBox::ActionRole);
@@ -123,6 +133,7 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
 
     // Initialize database (remove it in inherited code. We will set up databale on upper level and use a pointer)
     pDB = new DBOracle();
+
 }
 
 ConnectTool::~ConnectTool()
@@ -337,4 +348,24 @@ void ConnectTool::slotAddConnectionGroup()
   #ifndef QT_NO_DEBUG
   qDebug() << "Add connection group pressed!" << endl;
   #endif
+}
+
+bool ConnectTool::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::FocusIn)
+    {
+      if(obj->objectName() == "connecttool_cboxsrvtype")
+        lblHelp.setText(QCoreApplication::translate("ConnectTool", "<B>Database type</B><br>Select one of supported database type.", "Help text for Server type field"));
+      else if(obj->objectName() == "connecttool_cboxdatabase")
+        lblHelp.setText(QCoreApplication::translate("ConnectTool", "<B>Connect mode:</B><br>Bla-bla-bla<br><B>Second text:</B><br>Bla-bla-bla", "Help text for Database field"));
+    }
+    else if (event->type() == QEvent::FocusOut)
+    {
+      if(obj->objectName() == "connecttool_cboxsrvtype")
+        lblHelp.setText("");
+      else if(obj->objectName() == "connecttool_cboxdatabase")
+        lblHelp.setText("");
+    }
+
+    return QObject::eventFilter(obj, event);
 }
