@@ -1,6 +1,7 @@
 #include "dboracle.h"
 #include <iostream>
 
+
 DBOracle::DBOracle()
 {
   env = Environment::createEnvironment (Environment::DEFAULT);
