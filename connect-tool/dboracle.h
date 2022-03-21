@@ -14,10 +14,6 @@
 #include <QDebug>
 #include <occi.h>
 
-
-using namespace oracle::occi;
-using namespace std;
-
 class DBOracle
 {
   public:
@@ -25,12 +21,13 @@ class DBOracle
     ~DBOracle();
 
     void Connect2Srv(QString user, QString passwd, QString db);
+    void SelectExample();
 
- private:
-    Environment  *env;
-    Connection   *conn;
-    Statement    *stmt;
-    ResultSet    *rs;
+  private:
+    oracle::occi::Environment  *env;
+    oracle::occi::Connection   *conn;
+    oracle::occi::Statement    *stmt;
+    oracle::occi::ResultSet    *rs;
 };
 
 #endif // DBORACLE_H

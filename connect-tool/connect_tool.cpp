@@ -303,6 +303,7 @@ void ConnectTool::slotConnect()
   #endif
 
   pDB->Connect2Srv(leUsername.text(), lePassword.text(), cboxDatabase.currentText());
+  pDB->SelectExample();
   accept();
 }
 
