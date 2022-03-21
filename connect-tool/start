@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export LD_LIBRARY_PATH="./lib"
+export TNS_ADMIN="/opt/tnsadmin"
+ldd connect-tool
+./connect-tool
+
