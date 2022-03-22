@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/delete_record.png</file>
         <file>icons/insert_record.png</file>
-        <file>icons/open_file.png</file>
+        <file>icons/add_group.png</file>
+        <file>icons/recycle_bin_full.png</file>
     </qresource>
 </RCC>

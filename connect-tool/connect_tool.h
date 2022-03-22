@@ -32,8 +32,8 @@ class ConnectTool : public QDialog
     QVBoxLayout          VLayout_LeftWidget;
     QToolBar             ToolBar;
     QAction              act_add_cnnctn;
-    QAction              act_del_cnnctn;
     QAction              act_add_grp;
+    QAction              act_del;
     QTreeWidget          twLogonHist;
 
     QGroupBox            GroupBox;
@@ -65,8 +65,8 @@ class ConnectTool : public QDialog
     void slotConnect();
     void slotSaveConnection();
     void slotAddConnection();
-    void slotDelConnection();
     void slotAddConnectionGroup();
+    void slotDel();
 
 };
 

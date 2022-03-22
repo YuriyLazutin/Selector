@@ -33,19 +33,19 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
     act_add_cnnctn.setObjectName(QString::fromUtf8("connecttool_act_add_cnnctn"));
     act_add_cnnctn.setIcon(QPixmap(":/icons/insert_record.png"));
 
-    // Delete connection button
-    act_del_cnnctn.setObjectName(QString::fromUtf8("connecttool_act_del_cnnctn"));
-    act_del_cnnctn.setIcon(QPixmap(":/icons/delete_record.png"));
-
-    // Add folder button
+    // Add group button
     act_add_grp.setObjectName(QString::fromUtf8("connecttool_act_add_grp"));
-    act_add_grp.setIcon(QPixmap(":/icons/open_file.png"));
+    act_add_grp.setIcon(QPixmap(":/icons/add_group.png"));
+
+    // Delete button
+    act_del.setObjectName(QString::fromUtf8("connecttool_act_del"));
+    act_del.setIcon(QPixmap(":/icons/recycle_bin_full.png"));
 
     ToolBar.setObjectName(QString::fromUtf8("connecttool_toolbar"));
     ToolBar.setIconSize(QSize(24, 24));
     ToolBar.addAction(&act_add_cnnctn);
-    ToolBar.addAction(&act_del_cnnctn);
     ToolBar.addAction(&act_add_grp);
+    ToolBar.addAction(&act_del);
 
     // Tree widget
     twLogonHist.setObjectName(QString::fromUtf8("connecttool_twlogonhist"));
@@ -152,15 +152,15 @@ void ConnectTool::translateGUI(bool init)
   act_add_cnnctn.setWhatsThis(QCoreApplication::translate("ConnectTool", "Add new connection", "Whats This item"));
   #endif // QT_NO_WHATSTHIS
 
-  act_del_cnnctn.setText(QCoreApplication::translate("ConnectTool", "Delete connection", "Action title"));
+  act_del.setText(QCoreApplication::translate("ConnectTool", "Delete connection or group", "Action title"));
   #ifndef QT_NO_TOOLTIP
-  act_del_cnnctn.setToolTip(QCoreApplication::translate("ConnectTool", "Delete connection from list", "Tool Tip item"));
+  act_del.setToolTip(QCoreApplication::translate("ConnectTool", "Delete connection or group from list", "Tool Tip item"));
   #endif // QT_NO_TOOLTIP
   #ifndef QT_NO_STATUSTIP
-  act_del_cnnctn.setStatusTip(QCoreApplication::translate("ConnectTool", "Delete connection from list", "Status Tip item"));
+  act_del.setStatusTip(QCoreApplication::translate("ConnectTool", "Delete connection or group from list", "Status Tip item"));
   #endif // QT_NO_STATUSTIP
   #ifndef QT_NO_WHATSTHIS
-  act_del_cnnctn.setWhatsThis(QCoreApplication::translate("ConnectTool", "Delete connection from list", "Whats This item"));
+  act_del.setWhatsThis(QCoreApplication::translate("ConnectTool", "Delete connection or group from list", "Whats This item"));
   #endif // QT_NO_WHATSTHIS
 
   act_add_grp.setText(QCoreApplication::translate("ConnectTool", "Add group", "Action title"));
@@ -310,7 +310,7 @@ void ConnectTool::mapSS()
   QObject::connect(&btnBox, SIGNAL(accepted()), SLOT(slotConnect()));
   QObject::connect(pSaveButton, SIGNAL(clicked()), SLOT(slotSaveConnection()));
   QObject::connect(&act_add_cnnctn, SIGNAL(triggered()), SLOT(slotAddConnection()));
-  QObject::connect(&act_del_cnnctn, SIGNAL(triggered()), SLOT(slotDelConnection()));
+  QObject::connect(&act_del, SIGNAL(triggered()), SLOT(slotDel()));
   QObject::connect(&act_add_grp, SIGNAL(triggered()), SLOT(slotAddConnectionGroup()));
 
   QMetaObject::connectSlotsByName(this);
@@ -349,16 +349,16 @@ void ConnectTool::slotAddConnection()
   pSaveButton->setVisible(true);
 }
 
-void ConnectTool::slotDelConnection()
-{
-  #ifndef QT_NO_DEBUG
-  qDebug() << "Delete connection pressed!" << endl;
-  #endif
-}
-
 void ConnectTool::slotAddConnectionGroup()
 {
   #ifndef QT_NO_DEBUG
   qDebug() << "Add connection group pressed!" << endl;
+  #endif
+}
+
+void ConnectTool::slotDel()
+{
+  #ifndef QT_NO_DEBUG
+  qDebug() << "Delete connection pressed!" << endl;
   #endif
 }
