@@ -30,5 +30,9 @@
         <file>icons/open_file.png</file>
         <file>icons/pkg_head.png</file>
         <file>icons/pkg_body.png</file>
+        <file>icons/add_group.png</file>
+        <file>icons/folder.png</file>
+        <file>icons/recycle_bin_empty.png</file>
+        <file>icons/recycle_bin_full.png</file>
     </qresource>
 </RCC>

@@ -56,157 +56,157 @@ Browser::Browser(QWidget* parent) : QWidget(parent)
   Tree.headerItem()->setHidden(true);
   QTreeWidgetItem* pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Resent objects", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Recycle bin", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/recycle_bin_empty.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Functions", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Procedures", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Packages", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Package bodies", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Types", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Type bodies", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Triggers", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Java sources", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Jobs", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Queues", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Queue tables", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Libraries", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Directories", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Tables", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Views", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Materialized views", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Sequences", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Users", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Profiles", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Roles", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Synonyms", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Database links", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Tablespaces", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
   pItem = new QTreeWidgetItem();
   pItem->setText(0, QCoreApplication::translate("Selector->Browser->Tree", "Clusters", "DB objects tree item"));
-  pItem->setIcon(0, QPixmap(":/icons/open_file.png"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
   Tree.addTopLevelItem(pItem);
 
