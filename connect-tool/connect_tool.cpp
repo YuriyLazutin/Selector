@@ -72,9 +72,9 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
     cboxSrvType.addItem(QString::fromUtf8("MySQL"));
     cboxSrvType.setVisible(false);
     lblDatabase.setObjectName(QString::fromUtf8("connecttool_lbldatabase"));
-    cboxDatabase.setObjectName(QString::fromUtf8("connecttool_cboxdatabase"));
-    lblDatabase.setBuddy(&cboxDatabase);
-    cboxDatabase.setEditable(true);
+    leDatabase.setObjectName(QString::fromUtf8("connecttool_ledatabase"));
+    lblDatabase.setBuddy(&leDatabase);
+    leDatabase.setReadOnly(true);
     lblUsername.setObjectName(QString::fromUtf8("connecttool_lblusername"));
     leUsername.setObjectName(QString::fromUtf8("connecttool_leusername"));
     lblUsername.setBuddy(&leUsername);
@@ -100,7 +100,7 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
     VLayout_GroupBox.addWidget(&lblSrvType);
     VLayout_GroupBox.addWidget(&cboxSrvType);
     VLayout_GroupBox.addWidget(&lblDatabase);
-    VLayout_GroupBox.addWidget(&cboxDatabase);
+    VLayout_GroupBox.addWidget(&leDatabase);
     VLayout_GroupBox.addWidget(&lblUsername);
     VLayout_GroupBox.addWidget(&leUsername);
     VLayout_GroupBox.addWidget(&lblPassword);
@@ -203,7 +203,7 @@ void ConnectTool::translateGUI(bool init)
 
   lblDatabase.setText(QCoreApplication::translate("ConnectTool", "Database:", "Database name, SID or service name"));
   #ifndef QT_NO_TOOLTIP
-  cboxDatabase.setToolTip(QCoreApplication::translate(
+  leDatabase.setToolTip(QCoreApplication::translate(
      "ConnectTool"
     ,"The Database parameter specify connect sting to database server and database itself.<br>"
      "Connect string can be specified in the following formats:<br>"
@@ -224,10 +224,10 @@ void ConnectTool::translateGUI(bool init)
     ,"Tool Tip item"));
   #endif // QT_NO_TOOLTIP
   #ifndef QT_NO_STATUSTIP
-  cboxDatabase.setStatusTip(QCoreApplication::translate("ConnectTool", "Allow you to select database, SID and so on", "Status Tip item"));
+  leDatabase.setStatusTip(QCoreApplication::translate("ConnectTool", "Allow you to select database, SID and so on", "Status Tip item"));
   #endif // QT_NO_STATUSTIP
   #ifndef QT_NO_WHATSTHIS
-  cboxDatabase.setWhatsThis(QCoreApplication::translate("ConnectTool", "Allow you to select database, SID and so on", "Whats This item"));
+  leDatabase.setWhatsThis(QCoreApplication::translate("ConnectTool", "Allow you to select database, SID and so on", "Whats This item"));
   #endif // QT_NO_WHATSTHIS
 
   lblUsername.setText(QCoreApplication::translate("ConnectTool", "Username:", "Autorization parameter will be used to connect with database"));
@@ -322,7 +322,7 @@ void ConnectTool::slotConnect()
   qDebug() << "Connect pressed!" << endl;
   #endif
 
-  pDB->Connect2Srv(leUsername.text(), lePassword.text(), cboxDatabase.currentText());
+  pDB->Connect2Srv(leUsername.text(), lePassword.text(), leDatabase.text());
   pDB->SelectExample();
   accept();
 }
@@ -332,6 +332,9 @@ void ConnectTool::slotSaveConnection()
   #ifndef QT_NO_DEBUG
   qDebug() << "Save pressed!" << endl;
   #endif
+  lblSrvType.setVisible(false);
+  cboxSrvType.setVisible(false);
+  leDatabase.setReadOnly(true);
   pSaveButton->setVisible(false);
 }
 
@@ -342,6 +345,7 @@ void ConnectTool::slotAddConnection()
   #endif
   lblSrvType.setVisible(true);
   cboxSrvType.setVisible(true);
+  leDatabase.setReadOnly(false);
   pSaveButton->setVisible(true);
 }
 

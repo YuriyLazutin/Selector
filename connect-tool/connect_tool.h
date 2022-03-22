@@ -41,7 +41,7 @@ class ConnectTool : public QDialog
     QLabel                   lblSrvType;
     QComboBox                cboxSrvType;
     QLabel                   lblDatabase;
-    QComboBox                cboxDatabase;
+    QLineEdit                leDatabase;
     QLabel                   lblUsername;
     QLineEdit                leUsername;
     QLabel                   lblPassword;
