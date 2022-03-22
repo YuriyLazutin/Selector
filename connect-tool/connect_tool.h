@@ -49,7 +49,6 @@ class ConnectTool : public QDialog
     QLabel                   lblConnAs;
     QComboBox                cboxConnAs;
     QSpacerItem*             pSpacer;
-    QLabel               lblHelp;
     QDialogButtonBox   btnBox;
     QPushButton*       pSaveButton;
     QPushButton*       pConnectButton;
@@ -68,9 +67,6 @@ class ConnectTool : public QDialog
     void slotAddConnection();
     void slotDelConnection();
     void slotAddConnectionGroup();
-
-  protected:
-    bool eventFilter(QObject *obj, QEvent *event) override;
 
 };
 

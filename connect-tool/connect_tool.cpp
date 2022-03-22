@@ -26,8 +26,6 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
     Splitter.setStretchFactor(0, 1);
     Splitter.addWidget(&GroupBox);
     Splitter.setStretchFactor(1, 1.618);
-    Splitter.addWidget(&lblHelp);
-    Splitter.setStretchFactor(2, 1);
 
     // Create a tree widget with logon history
 
@@ -73,31 +71,26 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
     cboxSrvType.addItem(QString::fromUtf8("Postgre"));
     cboxSrvType.addItem(QString::fromUtf8("MySQL"));
     cboxSrvType.setVisible(false);
-    cboxSrvType.installEventFilter(this);
     lblDatabase.setObjectName(QString::fromUtf8("connecttool_lbldatabase"));
     cboxDatabase.setObjectName(QString::fromUtf8("connecttool_cboxdatabase"));
     lblDatabase.setBuddy(&cboxDatabase);
     cboxDatabase.setEditable(true);
-    cboxDatabase.installEventFilter(this);
     lblUsername.setObjectName(QString::fromUtf8("connecttool_lblusername"));
     leUsername.setObjectName(QString::fromUtf8("connecttool_leusername"));
     lblUsername.setBuddy(&leUsername);
     leUsername.setMaxLength(32);
     leUsername.setClearButtonEnabled(true);
-    leUsername.installEventFilter(this);
     lblPassword.setObjectName(QString::fromUtf8("connecttool_lblpassword"));
     lePassword.setObjectName(QString::fromUtf8("connecttool_lepassword"));
     lblPassword.setBuddy(&lePassword);
     lePassword.setEchoMode(QLineEdit::Password);
     lePassword.setClearButtonEnabled(true);
-    lePassword.installEventFilter(this);
     lblConnAs.setObjectName(QString::fromUtf8("connecttool_lblconnas"));
     cboxConnAs.setObjectName(QString::fromUtf8("connecttool_cboxconnas"));
     lblConnAs.setBuddy(&cboxConnAs);
     cboxConnAs.addItem(QString::fromUtf8("Normal"));
     cboxConnAs.addItem(QString::fromUtf8("SYSDBA"));
     cboxConnAs.addItem(QString::fromUtf8("SYSOPER"));
-    cboxConnAs.installEventFilter(this);
     pSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
     VLayout_GroupBox.setSpacing(5);
@@ -117,8 +110,6 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
     VLayout_GroupBox.addItem(pSpacer);
 
     GroupBox.setLayout(&VLayout_GroupBox);
-
-    lblHelp.setMinimumSize(QSize(150, 400));
 
     btnBox.setObjectName(QString::fromUtf8("connecttool_btnbox"));
     btnBox.setOrientation(Qt::Horizontal);
@@ -212,7 +203,25 @@ void ConnectTool::translateGUI(bool init)
 
   lblDatabase.setText(QCoreApplication::translate("ConnectTool", "Database:", "Database name, SID or service name"));
   #ifndef QT_NO_TOOLTIP
-  cboxDatabase.setToolTip(QCoreApplication::translate("ConnectTool", "Allow you to select database, SID and so on", "Tool Tip item"));
+  cboxDatabase.setToolTip(QCoreApplication::translate(
+     "ConnectTool"
+    ,"The Database parameter specify connect sting to database server and database itself.<br>"
+     "Connect string can be specified in the following formats:<br>"
+     "<b>Host-based form:</b><br>"
+     "<i>//host:[port][/service_name]</i><br>"
+     "for example:<br>"
+     "<i>//myserver.net:1521/mydbase</i><br>"
+     "<b>TNS-based form (As an entry in the tnsnames.ora file):</b><br>"
+     "<i>service_name</i><br>"
+     "for example:<br>"
+     "<i>//myserver.net:1521/mydbase</i><br>"
+     "Environment variables TNS_ADMIN or ORACLE_HOME should be set. "
+     "In case of TNS_ADMIN is set the tnsnames.ora will be find in this path. "
+     "Overwise if ORACLE_HOME is set the tnsnames.ora will be find in $ORACLE_HOME/network/admin.<br>"
+     "<b>Oracle Net keyword-value pair form:</b><br>"
+     "for example:<br>"
+     "<i>(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=myserver.net)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=mydbase)))</i>"
+    ,"Tool Tip item"));
   #endif // QT_NO_TOOLTIP
   #ifndef QT_NO_STATUSTIP
   cboxDatabase.setStatusTip(QCoreApplication::translate("ConnectTool", "Allow you to select database, SID and so on", "Status Tip item"));
@@ -348,24 +357,4 @@ void ConnectTool::slotAddConnectionGroup()
   #ifndef QT_NO_DEBUG
   qDebug() << "Add connection group pressed!" << endl;
   #endif
-}
-
-bool ConnectTool::eventFilter(QObject *obj, QEvent *event)
-{
-    if (event->type() == QEvent::FocusIn)
-    {
-      if(obj->objectName() == "connecttool_cboxsrvtype")
-        lblHelp.setText(QCoreApplication::translate("ConnectTool", "<B>Database type</B><br>Select one of supported database type.", "Help text for Server type field"));
-      else if(obj->objectName() == "connecttool_cboxdatabase")
-        lblHelp.setText(QCoreApplication::translate("ConnectTool", "<B>Connect mode:</B><br>Bla-bla-bla<br><B>Second text:</B><br>Bla-bla-bla", "Help text for Database field"));
-    }
-    else if (event->type() == QEvent::FocusOut)
-    {
-      if(obj->objectName() == "connecttool_cboxsrvtype")
-        lblHelp.setText("");
-      else if(obj->objectName() == "connecttool_cboxdatabase")
-        lblHelp.setText("");
-    }
-
-    return QObject::eventFilter(obj, event);
 }
