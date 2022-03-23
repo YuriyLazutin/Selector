@@ -10,6 +10,8 @@ int main(int argc, char** argv)
 {
     program_name = argv[0];
     QApplication a(argc, argv);
+    a.setOrganizationName("Country Tech");
+    a.setApplicationName("Selector");
     ConnectTool w;
 
     int next_option;

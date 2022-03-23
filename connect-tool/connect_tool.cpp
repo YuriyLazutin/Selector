@@ -2,8 +2,10 @@
 
 ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
 {
+  setObjectName(QString::fromUtf8("ConnectTool"));
+  pSettings = new QSettings(this);
+  pSettings->beginGroup("Settings/ConnectTool");
 
-    setObjectName(QString::fromUtf8("ConnectTool"));
     setMinimumSize(QSize(400, 400));
     //resize(640, 480);
 
@@ -70,16 +72,19 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
     cboxSrvType.addItem(QString::fromUtf8("Oracle"));
     cboxSrvType.addItem(QString::fromUtf8("Postgre"));
     cboxSrvType.addItem(QString::fromUtf8("MySQL"));
+    cboxSrvType.setCurrentText(pSettings->value("Server Type", "Oracle").toString());
     cboxSrvType.setVisible(false);
     lblDatabase.setObjectName(QString::fromUtf8("connecttool_lbldatabase"));
     leDatabase.setObjectName(QString::fromUtf8("connecttool_ledatabase"));
     lblDatabase.setBuddy(&leDatabase);
+    leDatabase.setText(pSettings->value("Database", "").toString());
     leDatabase.setReadOnly(true);
     lblUsername.setObjectName(QString::fromUtf8("connecttool_lblusername"));
     leUsername.setObjectName(QString::fromUtf8("connecttool_leusername"));
     lblUsername.setBuddy(&leUsername);
     leUsername.setMaxLength(32);
     leUsername.setClearButtonEnabled(true);
+    leUsername.setText(pSettings->value("Username", "").toString());
     lblPassword.setObjectName(QString::fromUtf8("connecttool_lblpassword"));
     lePassword.setObjectName(QString::fromUtf8("connecttool_lepassword"));
     lblPassword.setBuddy(&lePassword);
@@ -91,6 +96,7 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
     cboxConnAs.addItem(QString::fromUtf8("Normal"));
     cboxConnAs.addItem(QString::fromUtf8("SYSDBA"));
     cboxConnAs.addItem(QString::fromUtf8("SYSOPER"));
+    cboxConnAs.setCurrentText(pSettings->value("Connect As", "Normal").toString());
     pSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
     VLayout_GroupBox.setSpacing(5);
@@ -129,7 +135,9 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
 
 ConnectTool::~ConnectTool()
 {
+  pSettings->endGroup();
   delete pDB;
+  delete pSettings;
 }
 
 void ConnectTool::translateGUI(bool init)
@@ -331,7 +339,16 @@ void ConnectTool::slotSaveConnection()
 {
   #ifndef QT_NO_DEBUG
   qDebug() << "Save pressed!" << endl;
+  qDebug() << "Organization Name: " + pSettings->organizationName() << endl;
+  qDebug() << "Application Name: " + pSettings->applicationName() << endl;
+  qDebug() << "Settings Group: " + pSettings->group() << endl;
   #endif
+
+  pSettings->setValue("Server Type", cboxSrvType.currentText());
+  pSettings->setValue("Database", leDatabase.text());
+  pSettings->setValue("Username", leUsername.text());
+  pSettings->setValue("Connect As", cboxConnAs.currentText());
+
   lblSrvType.setVisible(false);
   cboxSrvType.setVisible(false);
   leDatabase.setReadOnly(true);

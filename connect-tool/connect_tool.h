@@ -16,6 +16,7 @@
 #include <QPushButton>
 //#include <QtCore/QVariant>
 #include <QApplication>
+#include <QSettings>
 //#include <QtWidgets/QDialog>
 //#include <QtWidgets/QHeaderView>
 #include <QDebug>
@@ -54,6 +55,7 @@ class ConnectTool : public QDialog
     QPushButton*       pConnectButton;
 
     DBOracle*        pDB;
+    QSettings*       pSettings; // ~/.config/Country Tech/Selector.conf
 
   public:
     explicit ConnectTool(QWidget *parent = nullptr);
