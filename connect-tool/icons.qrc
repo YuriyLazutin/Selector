@@ -3,5 +3,6 @@
         <file>icons/insert_record.png</file>
         <file>icons/add_group.png</file>
         <file>icons/recycle_bin_full.png</file>
+        <file>icons/folder.png</file>
     </qresource>
 </RCC>

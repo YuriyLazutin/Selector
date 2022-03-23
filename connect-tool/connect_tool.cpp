@@ -360,6 +360,19 @@ void ConnectTool::slotAddConnection()
   #ifndef QT_NO_DEBUG
   qDebug() << "Add connection pressed!" << endl;
   #endif
+  QTreeWidgetItem* pCurrItem = twLogonHist.currentItem();
+  while (pCurrItem != nullptr && pCurrItem->type() != ITM_TYPE_GROUP)
+    pCurrItem = pCurrItem->parent();
+
+  QTreeWidgetItem* pItem = new QTreeWidgetItem(pCurrItem, ITM_TYPE_CONNECTION);
+  pItem->setText(0, QCoreApplication::translate("ConnectTool", "New connection", "Default new connection name in tree widget"));
+  //pItem->setIcon(0, QPixmap(":/icons/folder.png"));
+
+  if (pCurrItem == nullptr)
+    twLogonHist.addTopLevelItem(pItem);
+  else
+    pCurrItem->setExpanded(true);
+
   lblSrvType.setVisible(true);
   cboxSrvType.setVisible(true);
   leDatabase.setReadOnly(false);
@@ -371,6 +384,20 @@ void ConnectTool::slotAddConnectionGroup()
   #ifndef QT_NO_DEBUG
   qDebug() << "Add connection group pressed!" << endl;
   #endif
+
+  QTreeWidgetItem* pCurrItem = twLogonHist.currentItem();
+  while (pCurrItem != nullptr && pCurrItem->type() != ITM_TYPE_GROUP)
+    pCurrItem = pCurrItem->parent();
+
+  QTreeWidgetItem* pItem = new QTreeWidgetItem(pCurrItem, ITM_TYPE_GROUP);
+  pItem->setText(0, QCoreApplication::translate("ConnectTool", "New group", "Default new group name in tree widget"));
+  pItem->setIcon(0, QPixmap(":/icons/folder.png"));
+  pItem->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled | Qt::ItemIsEnabled);
+
+  if (pCurrItem == nullptr)
+    twLogonHist.addTopLevelItem(pItem);
+  else
+    pCurrItem->setExpanded(true);
 }
 
 void ConnectTool::slotDel()

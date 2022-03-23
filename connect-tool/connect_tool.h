@@ -22,6 +22,9 @@
 #include <QDebug>
 #include "dboracle.h"
 
+#define  ITM_TYPE_GROUP 0
+#define  ITM_TYPE_CONNECTION 1
+
 class ConnectTool : public QDialog
 {
   Q_OBJECT
