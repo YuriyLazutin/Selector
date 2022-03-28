@@ -1,6 +1,6 @@
 #include "connect_tool.h"
 
-ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
+ConnectTool::ConnectTool(QWidget* pParent) : QDialog(pParent)
 {
   setObjectName(QString::fromUtf8("ConnectTool"));
   pSettings = new QSettings(this);
@@ -31,15 +31,15 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
 
     // Create a tree widget with logon history
 
-    // Add connection button
+    // "Add connection" button
     act_add_cnnctn.setObjectName(QString::fromUtf8("connecttool_act_add_cnnctn"));
     act_add_cnnctn.setIcon(QPixmap(":/icons/insert_record.png"));
 
-    // Add group button
+    // "Add group" button
     act_add_grp.setObjectName(QString::fromUtf8("connecttool_act_add_grp"));
     act_add_grp.setIcon(QPixmap(":/icons/add_group.png"));
 
-    // Delete button
+    // "Delete" button
     act_del.setObjectName(QString::fromUtf8("connecttool_act_del"));
     act_del.setIcon(QPixmap(":/icons/recycle_bin_full.png"));
 
@@ -52,6 +52,7 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
     // Tree widget
     twLogonHist.setObjectName(QString::fromUtf8("connecttool_twlogonhist"));
     twLogonHist.setHeaderHidden(true);
+    LoadConnections();
 
     //Layout setup
     VLayout_LeftWidget.setObjectName(QString::fromUtf8("connecttool_leftwidgetlayout"));
@@ -78,7 +79,8 @@ ConnectTool::ConnectTool(QWidget *parent) : QDialog(parent)
     leDatabase.setObjectName(QString::fromUtf8("connecttool_ledatabase"));
     lblDatabase.setBuddy(&leDatabase);
     leDatabase.setText(pSettings->value("Database", "").toString());
-    leDatabase.setReadOnly(true);
+    leDatabase.setEnabled(false);
+//    leDatabase.setReadOnly(true);
     lblUsername.setObjectName(QString::fromUtf8("connecttool_lblusername"));
     leUsername.setObjectName(QString::fromUtf8("connecttool_leusername"));
     lblUsername.setBuddy(&leUsername);
@@ -213,7 +215,7 @@ void ConnectTool::translateGUI(bool init)
   #ifndef QT_NO_TOOLTIP
   leDatabase.setToolTip(QCoreApplication::translate(
      "ConnectTool"
-    ,"The Database parameter specify connect sting to database server and database itself.<br>"
+    ,"The Database parameter specify connect string to database server and database itself.<br>"
      "Connect string can be specified in the following formats:<br>"
      "<b>Host-based form:</b><br>"
      "<i>//host:[port][/service_name]</i><br>"
@@ -222,7 +224,7 @@ void ConnectTool::translateGUI(bool init)
      "<b>TNS-based form (As an entry in the tnsnames.ora file):</b><br>"
      "<i>service_name</i><br>"
      "for example:<br>"
-     "<i>//myserver.net:1521/mydbase</i><br>"
+     "<i>mydbase</i><br>"
      "Environment variables TNS_ADMIN or ORACLE_HOME should be set. "
      "In case of TNS_ADMIN is set the tnsnames.ora will be find in this path. "
      "Overwise if ORACLE_HOME is set the tnsnames.ora will be find in $ORACLE_HOME/network/admin.<br>"
@@ -318,8 +320,8 @@ void ConnectTool::mapSS()
   QObject::connect(&btnBox, SIGNAL(accepted()), SLOT(slotConnect()));
   QObject::connect(pSaveButton, SIGNAL(clicked()), SLOT(slotSaveConnection()));
   QObject::connect(&act_add_cnnctn, SIGNAL(triggered()), SLOT(slotAddConnection()));
-  QObject::connect(&act_del, SIGNAL(triggered()), SLOT(slotDel()));
   QObject::connect(&act_add_grp, SIGNAL(triggered()), SLOT(slotAddConnectionGroup()));
+  QObject::connect(&act_del, SIGNAL(triggered()), SLOT(slotDel()));
 
   QMetaObject::connectSlotsByName(this);
 }
@@ -330,9 +332,134 @@ void ConnectTool::slotConnect()
   qDebug() << "Connect pressed!" << endl;
   #endif
 
+  if (leDatabase.text().isEmpty() || leUsername.text().isEmpty() || lePassword.text().isEmpty())
+  {
+    QMessageBox::critical(
+       nullptr  // pParent
+      ,QCoreApplication::translate("ConnectTool", "Mandatory parameter missed!", "Message box title")
+      ,QCoreApplication::translate("ConnectTool", "This parameters mandatory and should be populated:<br><br>", "Message box text")
+       + (leDatabase.text().isEmpty() ? "&nbsp;&nbsp;<i>" + lblDatabase.text() + "</i><br>" : "")
+       + (leUsername.text().isEmpty() ? "&nbsp;&nbsp;<i>" + lblUsername.text() + "</i><br>" : "")
+       + (lePassword.text().isEmpty() ? "&nbsp;&nbsp;<i>" + lblPassword.text() + "</i><br>" : "")
+    );
+    return;
+  }
+
   pDB->Connect2Srv(leUsername.text(), lePassword.text(), leDatabase.text());
   pDB->SelectExample();
   accept();
+}
+
+void ConnectTool::LoadConnections()
+{
+  twLogonHist.clear();
+
+  int cnt, i, j, k;  // counters
+  QTreeWidgetItem* pItm;   // current tree item
+  bool bFound;
+  QString
+     ConnStr         // connection string from connection item itself
+    ,ConnStrUsr      // substring of connection string wich contains information about user and role
+    ,ConnStrDb       // substring of connection string wich contains information about database
+    ,ConnStrRole     // substring of connection string wich contains information about database
+    ;
+
+
+  // Load groups
+  cnt = pSettings->beginReadArray("Groups");
+  for (i = 0; i < cnt; i++)
+  {
+      pSettings->setArrayIndex(i);
+      QStringList GroupNames = pSettings->value("Group").toString().split(QLatin1Char('/'));
+      QTreeWidgetItem* pParentItem = twLogonHist.invisibleRootItem();
+
+      for (j = 0; j < GroupNames.size(); j++)
+      {
+        // Try to find existing group
+        bFound = false;
+        for (k = 0; k < pParentItem->childCount(); k++)
+        {
+          pItm = pParentItem->child(k);
+          if ( pItm->text(0) == GroupNames.at(j) && pItm->type() == ITM_TYPE_GROUP)
+          {
+            bFound = true;
+            break;
+          }
+        }
+
+        // If group was not found we must create it
+        if (!bFound)
+        {
+          pItm = new QTreeWidgetItem(pParentItem, ITM_TYPE_GROUP);
+          pItm->setText(0, GroupNames.at(j));
+          pItm->setIcon(0, QPixmap(":/icons/folder.png"));
+          pItm->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled | Qt::ItemIsEnabled);
+
+          /*
+          if (pParentItem == nullptr)
+            twLogonHist.addTopLevelItem(pItem);
+          else
+            pParentItem->setExpanded(true);
+          */
+        }
+
+        pParentItem = pItm;
+      }
+  }
+  pSettings->endArray();
+
+  // Load connections
+  cnt = pSettings->beginReadArray("Connections");
+  for (i = 0; i < cnt; i++)
+  {
+    pSettings->setArrayIndex(i);
+
+    QStringList GroupNames = pSettings->value("Group").toString().split(QLatin1Char('/'));
+    QTreeWidgetItem* pParentItem = twLogonHist.invisibleRootItem();
+
+    for (int j = 0; j < GroupNames.size(); j++)
+    {
+      // Try to find existing group
+      bFound = false;
+      for (int k = 0; k < pParentItem->childCount(); k++)
+      {
+        pItm = pParentItem->child(k);
+        if ( pItm->text(0) == GroupNames.at(j) && pItm->type() == ITM_TYPE_GROUP)
+        {
+          bFound = true;
+          break;
+        }
+      }
+      pParentItem = pItm;
+    }
+
+    // Create connection
+    pItm = new QTreeWidgetItem(pParentItem, ITM_TYPE_CONNECTION);
+
+    ConnStr.clear();
+    ConnStr.append(pSettings->value("Username").toString());
+    ConnStrRole = pSettings->value("Connect As", "Normal").toString();
+
+    if (ConnStrRole != "Normal")
+    {
+      ConnStrRole.prepend(" AS ");
+      ConnStr.append(ConnStrRole);
+    }
+
+    ConnStr.append("//");
+    ConnStr.append(pSettings->value("Database").toString());
+
+    pItm->setText(0, ConnStr);
+    //pItm->setIcon(0, QPixmap(":/icons/folder.png"));
+
+    /*
+    if (pParentItem == nullptr)
+      twLogonHist.addTopLevelItem(pItem);
+    else
+      pParentItem->setExpanded(true);
+    */
+  }
+  pSettings->endArray();
 }
 
 void ConnectTool::slotSaveConnection()
@@ -351,8 +478,99 @@ void ConnectTool::slotSaveConnection()
 
   lblSrvType.setVisible(false);
   cboxSrvType.setVisible(false);
-  leDatabase.setReadOnly(true);
+  leDatabase.setEnabled(false);
+//  leDatabase.setReadOnly(true);
   pSaveButton->setVisible(false);
+
+  // Save all groups and connections
+  QTreeWidgetItemIterator
+    gr(&twLogonHist, QTreeWidgetItemIterator::Editable)     // connection group items
+   ,it(&twLogonHist, QTreeWidgetItemIterator::NotEditable)  // connection itself items
+  ;
+  QTreeWidgetItem* pItm;   // current tree item
+  QString
+     GroupPath       // full path to group including it name
+    ,ConnStr         // connection string from connection item itself
+    ,ConnStrUsr        // substring of connection string wich contains information about user and role
+    ,ConnStrDb         // substring of connection string wich contains information about database
+  ;
+  unsigned int i;  // groups and connections counter
+
+  // Save groups
+  i = 0;
+  pSettings->beginWriteArray("Groups");
+  while (*gr)
+  {
+    pItm = *gr;
+
+    if (pItm->type() == ITM_TYPE_GROUP)
+    {
+      GroupPath.clear();
+
+      while (pItm)
+      {
+        GroupPath = GroupPath.isEmpty() ? pItm->text(0) : pItm->text(0) + "/" + GroupPath;
+        pItm = pItm->parent();
+      }
+
+      pSettings->setArrayIndex(++i);
+      pSettings->setValue("Group", GroupPath);
+      gr++;
+    }
+  }
+  pSettings->endArray();
+  pSettings->setValue("Connection groups cnt", i);
+
+  // Save connections
+  i = 0;
+  pSettings->beginWriteArray("Connections");
+  while (*it)
+  {
+    pItm = *it;
+
+    if (pItm->type() == ITM_TYPE_CONNECTION)
+    {
+      GroupPath.clear();
+      ConnStr = pItm->text(0);
+      pItm = pItm->parent();
+
+      while (pItm)
+      {
+        GroupPath = GroupPath.isEmpty() ? pItm->text(0) : pItm->text(0) + "/" + GroupPath;
+        pItm = pItm->parent();
+      }
+
+      pSettings->setArrayIndex(++i);
+      pSettings->setValue("Group", GroupPath);
+
+      ConnStrDb  = ConnStr.mid(ConnStr.indexOf("//") + 2);
+      pSettings->setValue("Database", ConnStrDb);
+
+      ConnStrUsr = ConnStr.mid(0, ConnStr.indexOf("//"));
+
+      bool bFound = false;
+      for (int j=0; j < cboxConnAs.count(); j++)
+      {
+        if (cboxConnAs.itemText(j) == "Normal")
+          continue;
+        else
+          if (ConnStrUsr.contains(" AS " + cboxConnAs.itemText(j)))
+          {
+            pSettings->setValue("Username", ConnStrUsr.left(ConnStrUsr.indexOf(" AS " + cboxConnAs.itemText(j))));
+            pSettings->setValue("Connect As", cboxConnAs.itemText(j));
+            bFound = true;
+          }
+      }
+
+      if (!bFound)
+        pSettings->setValue("User", ConnStrUsr);
+
+      it++;
+    }
+  }
+  pSettings->endArray();
+  pSettings->setValue("Connections cnt", i);
+
 }
 
 void ConnectTool::slotAddConnection()
@@ -360,22 +578,21 @@ void ConnectTool::slotAddConnection()
   #ifndef QT_NO_DEBUG
   qDebug() << "Add connection pressed!" << endl;
   #endif
-  QTreeWidgetItem* pCurrItem = twLogonHist.currentItem();
-  while (pCurrItem != nullptr && pCurrItem->type() != ITM_TYPE_GROUP)
-    pCurrItem = pCurrItem->parent();
 
-  QTreeWidgetItem* pItem = new QTreeWidgetItem(pCurrItem, ITM_TYPE_CONNECTION);
-  pItem->setText(0, QCoreApplication::translate("ConnectTool", "New connection", "Default new connection name in tree widget"));
+  QTreeWidgetItem* pParentItem = FindParentGroup(twLogonHist.currentItem());
+  QTreeWidgetItem* pItem = new QTreeWidgetItem(pParentItem, ITM_TYPE_CONNECTION);
+  pItem->setText(0, CreateConnectionName());
   //pItem->setIcon(0, QPixmap(":/icons/folder.png"));
 
-  if (pCurrItem == nullptr)
+  if (pParentItem == nullptr)
     twLogonHist.addTopLevelItem(pItem);
   else
-    pCurrItem->setExpanded(true);
+    pParentItem->setExpanded(true);
 
   lblSrvType.setVisible(true);
   cboxSrvType.setVisible(true);
-  leDatabase.setReadOnly(false);
+  leDatabase.setEnabled(true);
+//  leDatabase.setReadOnly(false);
   pSaveButton->setVisible(true);
 }
 
@@ -385,19 +602,16 @@ void ConnectTool::slotAddConnectionGroup()
   qDebug() << "Add connection group pressed!" << endl;
   #endif
 
-  QTreeWidgetItem* pCurrItem = twLogonHist.currentItem();
-  while (pCurrItem != nullptr && pCurrItem->type() != ITM_TYPE_GROUP)
-    pCurrItem = pCurrItem->parent();
-
-  QTreeWidgetItem* pItem = new QTreeWidgetItem(pCurrItem, ITM_TYPE_GROUP);
+  QTreeWidgetItem* pParentItem = FindParentGroup(twLogonHist.currentItem());
+  QTreeWidgetItem* pItem = new QTreeWidgetItem(pParentItem, ITM_TYPE_GROUP);
   pItem->setText(0, QCoreApplication::translate("ConnectTool", "New group", "Default new group name in tree widget"));
   pItem->setIcon(0, QPixmap(":/icons/folder.png"));
   pItem->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled | Qt::ItemIsEnabled);
 
-  if (pCurrItem == nullptr)
+  if (pParentItem == nullptr)
     twLogonHist.addTopLevelItem(pItem);
   else
-    pCurrItem->setExpanded(true);
+    pParentItem->setExpanded(true);
 }
 
 void ConnectTool::slotDel()
@@ -405,4 +619,32 @@ void ConnectTool::slotDel()
   #ifndef QT_NO_DEBUG
   qDebug() << "Delete connection pressed!" << endl;
   #endif
+
+  QTreeWidgetItem* pItem = twLogonHist.currentItem();
+  if (pItem)
+  {
+    delete pItem;
+    pSaveButton->setVisible(true);
+  }
+}
+
+QString ConnectTool::CreateConnectionName()
+{
+  if (cboxConnAs.currentText() == "Normal")
+    return leUsername.text() + "//" + leDatabase.text();
+
+  return leUsername.text() + " AS " + cboxConnAs.currentText() + "//" + leDatabase.text();
+}
+
+void ConnectTool::ParseConnectionName(const QString& srcStr, QString* pDatabase, QString* pUsername, QString* pRole)
+{
+
+}
+
+QTreeWidgetItem* ConnectTool::FindParentGroup(QTreeWidgetItem* pItm)
+{
+  QTreeWidgetItem* pParentItm = pItm;
+  while (pParentItm != nullptr && pParentItm->type() != ITM_TYPE_GROUP)
+    pParentItm = pParentItm->parent();
+  return pParentItm;
 }

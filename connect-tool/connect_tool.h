@@ -17,6 +17,7 @@
 //#include <QtCore/QVariant>
 #include <QApplication>
 #include <QSettings>
+#include <QMessageBox>
 //#include <QtWidgets/QDialog>
 //#include <QtWidgets/QHeaderView>
 #include <QDebug>
@@ -60,8 +61,12 @@ class ConnectTool : public QDialog
     DBOracle*        pDB;
     QSettings*       pSettings; // ~/.config/Country Tech/Selector.conf
 
+    QString          CreateConnectionName();
+    void             ParseConnectionName(const QString& srcStr, QString* pDatabase, QString* pUsername, QString* pRole);
+    QTreeWidgetItem* FindParentGroup(QTreeWidgetItem*);
+    void             LoadConnections();
   public:
-    explicit ConnectTool(QWidget *parent = nullptr);
+    explicit ConnectTool(QWidget* pParent = nullptr);
     ~ConnectTool();
     void translateGUI(bool init = false);
     void mapSS();
