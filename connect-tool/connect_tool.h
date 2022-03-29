@@ -51,8 +51,8 @@ class ConnectTool : public QDialog
     QLineEdit                leUsername;
     QLabel                   lblPassword;
     QLineEdit                lePassword;
-    QLabel                   lblConnAs;
-    QComboBox                cboxConnAs;
+    QLabel                   lblRole;
+    QComboBox                cboxRole;
     QSpacerItem*             pSpacer;
     QDialogButtonBox   btnBox;
     QPushButton*       pSaveButton;
@@ -77,7 +77,8 @@ class ConnectTool : public QDialog
     void slotAddConnection();
     void slotAddConnectionGroup();
     void slotDel();
-
+    void slotConnectionDataChanged();
+    void slotConnectionToggled(QTreeWidgetItem* pCurItm, QTreeWidgetItem* pPrevItm);
 };
 
 #endif // CONNECTTOOL_H
