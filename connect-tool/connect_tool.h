@@ -60,6 +60,7 @@ class ConnectTool : public QDialog
 
     DBOracle*        pDB;
     QSettings*       pSettings; // ~/.config/Country Tech/Selector.conf
+    bool             ConnectionToggledFirst;
 
     QString          CreateConnectionName();
     void             ParseConnectionName(const QString& srcStr, QString* pDatabase, QString* pUsername, QString* pRole);

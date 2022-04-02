@@ -68,7 +68,6 @@ ConnectTool::ConnectTool(QWidget* pParent) : QDialog(pParent)
   twLogonHist.setObjectName(QString::fromUtf8("connecttool_twlogonhist"));
   #endif
   twLogonHist.setHeaderHidden(true);
-  LoadConnections();
 
   //Layout setup
   #ifndef QT_NO_DEBUG
@@ -157,6 +156,8 @@ ConnectTool::ConnectTool(QWidget* pParent) : QDialog(pParent)
   pConnectButton->setDefault(true);
   pSaveButton->setVisible(false);
 
+  ConnectionToggledFirst = true;
+  LoadConnections();
   translateGUI(true);
   mapSS();
 
@@ -489,48 +490,51 @@ void ConnectTool::LoadConnections()
   for (i = 0; i < cnt; i++)
   {
     pSettings->setArrayIndex(i);
+    pParentItem = pRootItem;
 
     #ifndef QT_NO_DEBUG
     qDebug() << "Current group: " << pSettings->value("Group").toString() << endl;
     #endif
 
-    QStringList GroupNames = pSettings->value("Group").toString().split(QLatin1Char('/'));
-    pParentItem = pRootItem;
-
-    #ifndef QT_NO_DEBUG
-    qDebug() << "Loop for group tree." << endl;
-    #endif
-    for (j = 0; j < GroupNames.size(); j++)
+    if (!pSettings->value("Group").toString().isEmpty())
     {
-      #ifndef QT_NO_DEBUG
-      qDebug() << "Analyzing subgroup: " << GroupNames.at(j) << endl;
-      #endif
+      QStringList GroupNames = pSettings->value("Group").toString().split(QLatin1Char('/'));
 
-      // Try to find existing group
       #ifndef QT_NO_DEBUG
-      qDebug() << "Parent item has " << pParentItem->childCount() << " childs" << endl;
+      qDebug() << "Loop for group tree." << endl;
       #endif
-
-      for (k = 0; k < pParentItem->childCount(); k++)
+      for (j = 0; j < GroupNames.size(); j++)
       {
-        pItm = pParentItem->child(k);
-
         #ifndef QT_NO_DEBUG
-          qDebug() << "Current child item is: " << pItm->text(0) << endl;
-          qDebug() << "Item type is: ";
-          if (pItm->type() == ITM_TYPE_GROUP)
-            qDebug() << "ITM_TYPE_GROUP" << endl;
-          else if (pItm->type() == ITM_TYPE_CONNECTION)
-            qDebug() << "ITM_TYPE_CONNECTION" << endl;
+        qDebug() << "Analyzing subgroup: " << GroupNames.at(j) << endl;
         #endif
 
-        if ( pItm->text(0) == GroupNames.at(j) && pItm->type() == ITM_TYPE_GROUP)
-        {
-          pParentItem = pItm;
-          break;
-        }
-      }
+        // Try to find existing group
+        #ifndef QT_NO_DEBUG
+        qDebug() << "Parent item has " << pParentItem->childCount() << " childs" << endl;
+        #endif
 
+        for (k = 0; k < pParentItem->childCount(); k++)
+        {
+          pItm = pParentItem->child(k);
+
+          #ifndef QT_NO_DEBUG
+            qDebug() << "Current child item is: " << pItm->text(0) << endl;
+            qDebug() << "Item type is: ";
+            if (pItm->type() == ITM_TYPE_GROUP)
+              qDebug() << "ITM_TYPE_GROUP" << endl;
+            else if (pItm->type() == ITM_TYPE_CONNECTION)
+              qDebug() << "ITM_TYPE_CONNECTION" << endl;
+          #endif
+
+          if ( pItm->text(0) == GroupNames.at(j) && pItm->type() == ITM_TYPE_GROUP)
+          {
+            pParentItem = pItm;
+            break;
+          }
+        }
+
+      }
     }
 
     // Create connection
@@ -599,14 +603,14 @@ void ConnectTool::slotSaveConnection()
   {
     pItm = *gr;
 
-#ifndef QT_NO_DEBUG
-  qDebug() << "Current item is: " << pItm->text(0) << endl;
-  qDebug() << "Item type is: ";
-  if (pItm->type() == ITM_TYPE_GROUP)
-    qDebug() << "ITM_TYPE_GROUP" << endl;
-  else if (pItm->type() == ITM_TYPE_CONNECTION)
-    qDebug() << "ITM_TYPE_CONNECTION" << endl;
-#endif
+    #ifndef QT_NO_DEBUG
+      qDebug() << "Current item is: " << pItm->text(0) << endl;
+      qDebug() << "Item type is: ";
+      if (pItm->type() == ITM_TYPE_GROUP)
+        qDebug() << "ITM_TYPE_GROUP" << endl;
+      else if (pItm->type() == ITM_TYPE_CONNECTION)
+        qDebug() << "ITM_TYPE_CONNECTION" << endl;
+    #endif
 
     if (pItm->type() == ITM_TYPE_GROUP)
     {
@@ -621,7 +625,8 @@ void ConnectTool::slotSaveConnection()
         pItm = pItm->parent();
       }
 
-      pSettings->setArrayIndex(++i);
+      pSettings->setArrayIndex(i);
+      i++;
       pSettings->setValue("Group", GroupPath);
     }
     gr++;
@@ -635,14 +640,14 @@ void ConnectTool::slotSaveConnection()
   {
     pItm = *it;
 
-#ifndef QT_NO_DEBUG
-  qDebug() << "Current item is: " << pItm->text(0) << endl;
-  qDebug() << "Item type is: ";
-  if (pItm->type() == ITM_TYPE_GROUP)
-    qDebug() << "ITM_TYPE_GROUP" << endl;
-  else if (pItm->type() == ITM_TYPE_CONNECTION)
-    qDebug() << "ITM_TYPE_CONNECTION" << endl;
-#endif
+    #ifndef QT_NO_DEBUG
+      qDebug() << "Current item is: " << pItm->text(0) << endl;
+      qDebug() << "Item type is: ";
+      if (pItm->type() == ITM_TYPE_GROUP)
+        qDebug() << "ITM_TYPE_GROUP" << endl;
+      else if (pItm->type() == ITM_TYPE_CONNECTION)
+        qDebug() << "ITM_TYPE_CONNECTION" << endl;
+    #endif
 
     if (pItm->type() == ITM_TYPE_CONNECTION)
     {
@@ -659,7 +664,8 @@ void ConnectTool::slotSaveConnection()
         pItm = pItm->parent();
       }
 
-      pSettings->setArrayIndex(++i);
+      pSettings->setArrayIndex(i);
+      i++;
       pSettings->setValue("Group", GroupPath);
 
       ParseConnectionName(ConnStr, &ConnStrDb, &ConnStrUsr, &ConnStrRole);
@@ -689,7 +695,10 @@ void ConnectTool::slotAddConnection()
   if (pParentItem == nullptr)
     twLogonHist.addTopLevelItem(pItem);
   else
+  {
     pParentItem->setExpanded(true);
+    twLogonHist.setCurrentItem(pItem);
+  }
 
   lblSrvType.setVisible(true);
   cboxSrvType.setVisible(true);
@@ -714,6 +723,8 @@ void ConnectTool::slotAddConnectionGroup()
     twLogonHist.addTopLevelItem(pItem);
   else
     pParentItem->setExpanded(true);
+
+  pSaveButton->setVisible(true);
 }
 
 void ConnectTool::slotDel()
@@ -732,6 +743,9 @@ void ConnectTool::slotDel()
 
 QString ConnectTool::CreateConnectionName()
 {
+  if (leUsername.text().isEmpty() && leDatabase.text().isEmpty())
+    return "";
+
   if (cboxRole.currentText() == "Normal")
     return leUsername.text() + "//" + leDatabase.text();
 
@@ -740,6 +754,14 @@ QString ConnectTool::CreateConnectionName()
 
 void ConnectTool::ParseConnectionName(const QString& srcStr, QString* pDatabase, QString* pUsername, QString* pRole)
 {
+  if (srcStr.isEmpty())
+  {
+    *pDatabase = "";
+    *pUsername = "";
+    *pRole = "Normal";
+    return;
+  }
+
   *pDatabase = srcStr.mid(srcStr.indexOf("//") + 2);
   QString StrUsr = srcStr.mid(0, srcStr.indexOf("//"));
 
@@ -754,6 +776,7 @@ void ConnectTool::ParseConnectionName(const QString& srcStr, QString* pDatabase,
         *pUsername = StrUsr.left(StrUsr.indexOf(" AS " + cboxRole.itemText(j)));
         *pRole = cboxRole.itemText(j);
         bFound = true;
+        break;
       }
   }
 
@@ -790,6 +813,7 @@ void ConnectTool::slotConnectionToggled(QTreeWidgetItem* pCurItm, QTreeWidgetIte
 {
   #ifndef QT_NO_DEBUG
   qDebug() << "Connection Toggled" << endl;
+
   QString msg;
   msg.clear();
   if (pPrevItm == nullptr)
@@ -822,6 +846,12 @@ void ConnectTool::slotConnectionToggled(QTreeWidgetItem* pCurItm, QTreeWidgetIte
 
   qDebug() << msg << endl;
   #endif
+
+  if (ConnectionToggledFirst)
+  {
+    ConnectionToggledFirst = false;
+    return;
+  }
 
   if (pCurItm && pCurItm->type() == ITM_TYPE_CONNECTION)
   {
