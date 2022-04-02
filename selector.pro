@@ -3,4 +3,5 @@ TEMPLATE = subdirs
 SUBDIRS += \
     app \
     connect-tool \
-    about-tool
+    about-tool \
+    settings-tool
