@@ -4,5 +4,8 @@
         <file>icons/add_group.png</file>
         <file>icons/recycle_bin_full.png</file>
         <file>icons/folder.png</file>
+        <file>icons/db_mysql.png</file>
+        <file>icons/db_oracle.png</file>
+        <file>icons/db_postgre.png</file>
     </qresource>
 </RCC>

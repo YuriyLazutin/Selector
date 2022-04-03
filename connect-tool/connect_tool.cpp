@@ -417,6 +417,7 @@ void ConnectTool::LoadConnections()
 //    ,ConnStrUsr      // substring which contains information about user
 //    ,ConnStrDb       // substring which contains information about database
     ,ConnStrRole     // substring which contains information about role
+    ,ServerType
   ;
 
   // Load groups
@@ -566,7 +567,13 @@ void ConnectTool::LoadConnections()
     ConnStr.append(pSettings->value("Database").toString());
 
     pItm->setText(0, ConnStr);
-    //pItm->setIcon(0, QPixmap(":/icons/folder.png"));
+    ServerType = pSettings->value("Server Type", "Oracle").toString();
+    if (ServerType == "Oracle")
+      pItm->setIcon(0, QPixmap(":/icons/db_oracle.png"));
+    else if (ServerType == "Postgre")
+      pItm->setIcon(0, QPixmap(":/icons/db_postgre.png"));
+    else if (ServerType == "MySQL")
+      pItm->setIcon(0, QPixmap(":/icons/db_mysql.png"));
     pItm->setFlags(Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled);
 
     /*
@@ -686,7 +693,7 @@ void ConnectTool::slotSaveConnection()
       pSettings->setValue("Database", ConnStrDb);
       pSettings->setValue("Username", ConnStrUsr);
       pSettings->setValue("Connect As", ConnStrRole);
-
+      pSettings->setValue("Server Type", cboxSrvType.currentText());
     }
     it++;
   }
@@ -703,7 +710,13 @@ void ConnectTool::slotAddConnection()
   QTreeWidgetItem* pParentItem = FindParentGroup(twLogonHist.currentItem());
   QTreeWidgetItem* pItem = new QTreeWidgetItem(pParentItem, ITM_TYPE_CONNECTION);
   pItem->setText(0, CreateConnectionName());
-  //pItem->setIcon(0, QPixmap(":/icons/folder.png"));
+  QString ServerType = cboxSrvType.currentText();
+  if (ServerType == "Oracle")
+    pItem->setIcon(0, QPixmap(":/icons/db_oracle.png"));
+  else if (ServerType == "Postgre")
+    pItem->setIcon(0, QPixmap(":/icons/db_postgre.png"));
+  else if (ServerType == "MySQL")
+    pItem->setIcon(0, QPixmap(":/icons/db_mysql.png"));
   pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled);
 
   if (pParentItem == nullptr)
