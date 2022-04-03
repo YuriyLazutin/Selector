@@ -66,6 +66,10 @@ class ConnectTool : public QDialog
     void             ParseConnectionName(const QString& srcStr, QString* pDatabase, QString* pUsername, QString* pRole);
     QTreeWidgetItem* FindParentGroup(QTreeWidgetItem*);
     void             LoadConnections();
+
+  protected:
+      bool eventFilter(QObject* obj, QEvent* evnt) override;
+
   public:
     explicit ConnectTool(QWidget* pParent = nullptr);
     ~ConnectTool();
@@ -80,6 +84,7 @@ class ConnectTool : public QDialog
     void slotDel();
     void slotConnectionDataChanged();
     void slotConnectionToggled(QTreeWidgetItem* pCurItm, QTreeWidgetItem* pPrevItm);
+    void slotConnectionFieldsChanging(const QString& newText);
 };
 
 #endif // CONNECTTOOL_H

@@ -68,6 +68,10 @@ ConnectTool::ConnectTool(QWidget* pParent) : QDialog(pParent)
   twLogonHist.setObjectName(QString::fromUtf8("connecttool_twlogonhist"));
   #endif
   twLogonHist.setHeaderHidden(true);
+  twLogonHist.setDragEnabled(true);
+  twLogonHist.setAcceptDrops(true);
+  twLogonHist.setDropIndicatorShown(true);
+  twLogonHist.setDragDropMode(QAbstractItemView::InternalMove);
 
   //Layout setup
   #ifndef QT_NO_DEBUG
@@ -100,7 +104,7 @@ ConnectTool::ConnectTool(QWidget* pParent) : QDialog(pParent)
   #endif
   lblDatabase.setBuddy(&leDatabase);
   leDatabase.setText(pSettings->value("Database", "").toString());
-  leDatabase.setEnabled(false);
+  //leDatabase.setEnabled(false);
   //leDatabase.setReadOnly(true);
   #ifndef QT_NO_DEBUG
   lblUsername.setObjectName(QString::fromUtf8("connecttool_lblusername"));
@@ -158,8 +162,13 @@ ConnectTool::ConnectTool(QWidget* pParent) : QDialog(pParent)
 
   ConnectionToggledFirst = true;
   LoadConnections();
+
+  if (leDatabase.text().isEmpty() || leUsername.text().isEmpty() || lePassword.text().isEmpty())
+    pConnectButton->setEnabled(false);
+
   translateGUI(true);
   mapSS();
+  installEventFilter(this);
 
   // Initialize database (remove it in inherited code. We will set up databale on upper level and use a pointer)
   pDB = new DBOracle();
@@ -356,6 +365,9 @@ void ConnectTool::mapSS()
   QObject::connect(&leUsername, SIGNAL(editingFinished()), SLOT(slotConnectionDataChanged()));
   QObject::connect(&cboxRole, SIGNAL(currentTextChanged(const QString &)), SLOT(slotConnectionDataChanged()));
   QObject::connect(&twLogonHist, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)), SLOT(slotConnectionToggled(QTreeWidgetItem *, QTreeWidgetItem *)));
+  QObject::connect(&leDatabase, SIGNAL(textChanged(const QString&)), SLOT(slotConnectionFieldsChanging(const QString&)));
+  QObject::connect(&leUsername, SIGNAL(textChanged(const QString&)), SLOT(slotConnectionFieldsChanging(const QString&)));
+  QObject::connect(&lePassword, SIGNAL(textChanged(const QString&)), SLOT(slotConnectionFieldsChanging(const QString&)));
 
   QMetaObject::connectSlotsByName(this);
 }
@@ -555,6 +567,7 @@ void ConnectTool::LoadConnections()
 
     pItm->setText(0, ConnStr);
     //pItm->setIcon(0, QPixmap(":/icons/folder.png"));
+    pItm->setFlags(Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled);
 
     /*
     if (pParentItem == nullptr)
@@ -577,7 +590,7 @@ void ConnectTool::slotSaveConnection()
 
   lblSrvType.setVisible(false);
   cboxSrvType.setVisible(false);
-  leDatabase.setEnabled(false);
+  //leDatabase.setEnabled(false);
   //leDatabase.setReadOnly(true);
   pSaveButton->setVisible(false);
 
@@ -691,6 +704,7 @@ void ConnectTool::slotAddConnection()
   QTreeWidgetItem* pItem = new QTreeWidgetItem(pParentItem, ITM_TYPE_CONNECTION);
   pItem->setText(0, CreateConnectionName());
   //pItem->setIcon(0, QPixmap(":/icons/folder.png"));
+  pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled);
 
   if (pParentItem == nullptr)
     twLogonHist.addTopLevelItem(pItem);
@@ -702,7 +716,7 @@ void ConnectTool::slotAddConnection()
 
   lblSrvType.setVisible(true);
   cboxSrvType.setVisible(true);
-  leDatabase.setEnabled(true);
+  //leDatabase.setEnabled(true);
 //  leDatabase.setReadOnly(false);
   pSaveButton->setVisible(true);
 }
@@ -807,6 +821,11 @@ void ConnectTool::slotConnectionDataChanged()
     pItem->setText(0, CreateConnectionName());
     pSaveButton->setVisible(true);
   }
+
+  if (leDatabase.text().isEmpty() || leUsername.text().isEmpty() || lePassword.text().isEmpty())
+    pConnectButton->setEnabled(false);
+  else
+    pConnectButton->setEnabled(true);
 }
 
 void ConnectTool::slotConnectionToggled(QTreeWidgetItem* pCurItm, QTreeWidgetItem* pPrevItm)
@@ -861,4 +880,32 @@ void ConnectTool::slotConnectionToggled(QTreeWidgetItem* pCurItm, QTreeWidgetIte
     leUsername.setText(StrUsr);
     cboxRole.setCurrentText(StrRole);
   }
+
+  if (leDatabase.text().isEmpty() || leUsername.text().isEmpty() || lePassword.text().isEmpty())
+    pConnectButton->setEnabled(false);
+  else
+    pConnectButton->setEnabled(true);
+}
+
+void ConnectTool::slotConnectionFieldsChanging(const QString& newText)
+{
+  if (newText.isEmpty())
+    pConnectButton->setEnabled(false);
+  else if (!leDatabase.text().isEmpty() && !leUsername.text().isEmpty() && !lePassword.text().isEmpty())
+    pConnectButton->setEnabled(true);
+}
+
+bool ConnectTool::eventFilter(QObject* obj, QEvent* evnt)
+{
+  if (evnt->type() == QEvent::MouseButtonPress)
+  {
+    #ifndef QT_NO_DEBUG
+    qDebug() << "Dialog Clicked" << endl;
+    #endif
+    //twLogonHist.setCurrentItem(nullptr); // This is also works
+    twLogonHist.setCurrentItem(twLogonHist.invisibleRootItem());
+    return true;
+  }
+  else
+    return false;
 }
