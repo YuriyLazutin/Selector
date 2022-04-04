@@ -23,8 +23,8 @@
 #include <QDebug>
 #include "dboracle.h"
 
-#define  ITM_TYPE_GROUP 0
-#define  ITM_TYPE_CONNECTION 1
+#define  ITM_TYPE_GROUP 1000 // The minimum value for custom types. Values below UserType are reserved by Qt.
+#define  ITM_TYPE_CONNECTION 1001
 
 class ConnectTool : public QDialog
 {
@@ -82,6 +82,7 @@ class ConnectTool : public QDialog
     void slotAddConnection();
     void slotAddConnectionGroup();
     void slotDel();
+    void slotServerTypeChanged(const QString &);
     void slotConnectionDataChanged();
     void slotConnectionToggled(QTreeWidgetItem* pCurItm, QTreeWidgetItem* pPrevItm);
     void slotConnectionFieldsChanging(const QString& newText);

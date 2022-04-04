@@ -90,14 +90,14 @@ ConnectTool::ConnectTool(QWidget* pParent) : QDialog(pParent)
   lblSrvType.setObjectName(QString::fromUtf8("connecttool_lblsrvtype"));
   cboxSrvType.setObjectName(QString::fromUtf8("connecttool_cboxsrvtype"));
   #endif
-  lblSrvType.setVisible(false);
+  //lblSrvType.setVisible(false);
   lblSrvType.setBuddy(&cboxSrvType);
   //cboxSrvType.setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed));
   cboxSrvType.addItem(QString::fromUtf8("Oracle"));
   cboxSrvType.addItem(QString::fromUtf8("Postgre"));
   cboxSrvType.addItem(QString::fromUtf8("MySQL"));
   cboxSrvType.setCurrentText(pSettings->value("Server Type", "Oracle").toString());
-  cboxSrvType.setVisible(false);
+  //cboxSrvType.setVisible(false);
   #ifndef QT_NO_DEBUG
   lblDatabase.setObjectName(QString::fromUtf8("connecttool_lbldatabase"));
   leDatabase.setObjectName(QString::fromUtf8("connecttool_ledatabase"));
@@ -363,11 +363,12 @@ void ConnectTool::mapSS()
   QObject::connect(&act_del, SIGNAL(triggered()), SLOT(slotDel()));
   QObject::connect(&leDatabase, SIGNAL(editingFinished()), SLOT(slotConnectionDataChanged()));
   QObject::connect(&leUsername, SIGNAL(editingFinished()), SLOT(slotConnectionDataChanged()));
-  QObject::connect(&cboxRole, SIGNAL(currentTextChanged(const QString &)), SLOT(slotConnectionDataChanged()));
-  QObject::connect(&twLogonHist, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)), SLOT(slotConnectionToggled(QTreeWidgetItem *, QTreeWidgetItem *)));
+  QObject::connect(&cboxRole, SIGNAL(currentTextChanged(const QString&)), SLOT(slotConnectionDataChanged()));
+  QObject::connect(&twLogonHist, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), SLOT(slotConnectionToggled(QTreeWidgetItem*, QTreeWidgetItem*)));
   QObject::connect(&leDatabase, SIGNAL(textChanged(const QString&)), SLOT(slotConnectionFieldsChanging(const QString&)));
   QObject::connect(&leUsername, SIGNAL(textChanged(const QString&)), SLOT(slotConnectionFieldsChanging(const QString&)));
   QObject::connect(&lePassword, SIGNAL(textChanged(const QString&)), SLOT(slotConnectionFieldsChanging(const QString&)));
+  QObject::connect(&cboxSrvType, SIGNAL(currentTextChanged(const QString&)), SLOT(slotServerTypeChanged(const QString&)));
 
   QMetaObject::connectSlotsByName(this);
 }
@@ -574,6 +575,7 @@ void ConnectTool::LoadConnections()
       pItm->setIcon(0, QPixmap(":/icons/db_postgre.png"));
     else if (ServerType == "MySQL")
       pItm->setIcon(0, QPixmap(":/icons/db_mysql.png"));
+    pItm->setData(0, Qt::UserRole, ServerType);
     pItm->setFlags(Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled);
 
     /*
@@ -595,8 +597,8 @@ void ConnectTool::slotSaveConnection()
   qDebug() << "Settings Group: " + pSettings->group() << endl;
   #endif
 
-  lblSrvType.setVisible(false);
-  cboxSrvType.setVisible(false);
+  //lblSrvType.setVisible(false);
+  //cboxSrvType.setVisible(false);
   //leDatabase.setEnabled(false);
   //leDatabase.setReadOnly(true);
   pSaveButton->setVisible(false);
@@ -609,10 +611,10 @@ void ConnectTool::slotSaveConnection()
   QTreeWidgetItem* pItm;   // current tree item
   QString
      GroupPath       // full path to group including it name
-    ,ConnStr         // connection string from connection item itself
     ,ConnStrUsr        // substring of connection string which contains information about user
     ,ConnStrDb         // substring of connection string which contains information about database
     ,ConnStrRole       // substring of connection string which contains information about role
+    ,ServerType
   ;
   int i;  // groups and connections counter
 
@@ -671,10 +673,11 @@ void ConnectTool::slotSaveConnection()
 
     if (pItm->type() == ITM_TYPE_CONNECTION)
     {
-      GroupPath.clear();
-      ConnStr = pItm->text(0);
-      pItm = pItm->parent();
+      ServerType = pItm->data(0, Qt::UserRole).toString();
+      ParseConnectionName(pItm->text(0), &ConnStrDb, &ConnStrUsr, &ConnStrRole);
 
+      GroupPath.clear();
+      pItm = pItm->parent();
       while (pItm && pItm->type() == ITM_TYPE_GROUP)
       {
         if (GroupPath.isEmpty())
@@ -687,13 +690,10 @@ void ConnectTool::slotSaveConnection()
       pSettings->setArrayIndex(i);
       i++;
       pSettings->setValue("Group", GroupPath);
-
-      ParseConnectionName(ConnStr, &ConnStrDb, &ConnStrUsr, &ConnStrRole);
-
+      pSettings->setValue("Server Type", ServerType);
       pSettings->setValue("Database", ConnStrDb);
       pSettings->setValue("Username", ConnStrUsr);
       pSettings->setValue("Connect As", ConnStrRole);
-      pSettings->setValue("Server Type", cboxSrvType.currentText());
     }
     it++;
   }
@@ -717,18 +717,18 @@ void ConnectTool::slotAddConnection()
     pItem->setIcon(0, QPixmap(":/icons/db_postgre.png"));
   else if (ServerType == "MySQL")
     pItem->setIcon(0, QPixmap(":/icons/db_mysql.png"));
+  pItem->setData(0, Qt::UserRole, ServerType);
   pItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled);
 
   if (pParentItem == nullptr)
     twLogonHist.addTopLevelItem(pItem);
   else
-  {
     pParentItem->setExpanded(true);
-    twLogonHist.setCurrentItem(pItem);
-  }
 
-  lblSrvType.setVisible(true);
-  cboxSrvType.setVisible(true);
+  twLogonHist.setCurrentItem(pItem);
+
+  //lblSrvType.setVisible(true);
+  //cboxSrvType.setVisible(true);
   //leDatabase.setEnabled(true);
 //  leDatabase.setReadOnly(false);
   pSaveButton->setVisible(true);
@@ -751,6 +751,7 @@ void ConnectTool::slotAddConnectionGroup()
   else
     pParentItem->setExpanded(true);
 
+  twLogonHist.setCurrentItem(pItem);
   pSaveButton->setVisible(true);
 }
 
@@ -887,7 +888,11 @@ void ConnectTool::slotConnectionToggled(QTreeWidgetItem* pCurItm, QTreeWidgetIte
 
   if (pCurItm && pCurItm->type() == ITM_TYPE_CONNECTION)
   {
-    QString StrDb, StrUsr, StrRole;
+    QString ServerType, StrDb, StrUsr, StrRole;
+
+    ServerType = pCurItm->data(0, Qt::UserRole).toString();
+    cboxSrvType.setCurrentText(ServerType);
+
     ParseConnectionName(pCurItm->text(0), &StrDb, &StrUsr, &StrRole);
     leDatabase.setText(StrDb);
     leUsername.setText(StrUsr);
@@ -921,4 +926,19 @@ bool ConnectTool::eventFilter(QObject* obj, QEvent* evnt)
   }
   else
     return false;
+}
+
+void ConnectTool::slotServerTypeChanged(const QString& newSrvType)
+{
+  QTreeWidgetItem* pItem = twLogonHist.currentItem();
+  if (pItem && pItem->type() == ITM_TYPE_CONNECTION)
+  {
+    if (newSrvType == "Oracle")
+      pItem->setIcon(0, QPixmap(":/icons/db_oracle.png"));
+    else if (newSrvType == "Postgre")
+      pItem->setIcon(0, QPixmap(":/icons/db_postgre.png"));
+    else if (newSrvType == "MySQL")
+      pItem->setIcon(0, QPixmap(":/icons/db_mysql.png"));
+    pItem->setData(0, Qt::UserRole, newSrvType);
+  }
 }
